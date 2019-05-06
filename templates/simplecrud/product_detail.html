@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    prueba
+{% endblock title %}
+
+
+{% block page %}
+<div class="container mt-5">
+<div class="card text-left">
+
+  <div class="card-body" b4-car>
+    <h1>Contact Details</h1>
+    <p class="card-text">Name: {{object.location}}</p>
+    <p class="card-text">Email: {{object.quantity}}</p>
+    <p class="card-text">Address: {{object.price}}</p>
+    <p class="card-text">Phone: {{object.description}}</p>
+
+  </div>
+</div>
+  <div class="text-center">
+    <a name="back" id="" class="btn btn-primary col-2 mt-3 text-center" 
+                 href="{% url "app:index"  %}" role="button">
+      Back list
+    </a>
+  </div>
+</div>
+{% endblock page %}

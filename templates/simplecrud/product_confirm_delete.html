@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    prueba
+{% endblock title %}
+
+
+{% block page %}
+<div class="container text-center mt-5">
+<div class="card">
+
+    <div class="card-body">
+            <h1>Contact Delete?</h1>
+            <form  method="post">
+                    {% csrf_token %}
+                    Are you sure you want to delete this contact?
+                    <h1>Contact Details</h1>
+    <p class="card-text">Name: {{object.location}}</p>
+    <p class="card-text">Email: {{object.quantity}}</p>
+    <p class="card-text">Address: {{object.price}}</p>
+    <p class="card-text">Phone: {{object.description}}</p>
+
+                        <div class="card-footer text-muted">
+                                
+                            <button class="btn btn-danger col-2 mt-3 text-center" type="submit">Delete</button>
+                                        
+                            <a name="back" id="" class="btn btn-primary col-2 mt-3 text-center" href="{% url "app:index"  %}" role="button">Back list</a>
+                                
+
+                        </div>
+                    </div>
+                    
+                    </form>        
+    </div>
+</div>
+
+
+</div>
+{% endblock page %}
