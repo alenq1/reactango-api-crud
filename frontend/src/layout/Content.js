@@ -44,32 +44,17 @@ class Content extends Component {
 
   }
   
-  /* getLoc(){
-  queryservice.getLocations()
-    .then(locs => {
-    this.setState({ getdata: locs })
-    
-    
-    console.log(locs)
-  
-  })
-  .catch(err => { 
-      console.log(err)
-      this.setState({messg: err})
-
-  })
-} */
-  
-  
   async handleLogin(event){
+    
     const { username, password, message} = this.state
+    
     if(!(username && password)){
       const displaymsg = <Alert variant='danger'>Rellene los campos</Alert>
-       this.setState({ message: displaymsg })
-       console.log('inavlidoregresa')
+      this.setState({ message: displaymsg })
+       //console.log('inavlidoregresa')
        return;
     }
-    console.log('pasa ahora')
+    //console.log('pasa ahora')
     await axios({
       method: 'post',
       url: 'http://localhost:8000/api-token-auth/',
@@ -81,7 +66,7 @@ class Content extends Component {
     
       .then( result  => {
 
-        console.log(result, 'LOGIN EXITOSO RECIBE TOKEN')
+       // console.log(result, 'LOGIN EXITOSO RECIBE TOKEN')
         //this.setState({ logged: true})
         sessionStorage.setItem("tkaccess", result.data.access)
         sessionStorage.setItem("tkrefresh", result.data.refresh)
@@ -89,9 +74,9 @@ class Content extends Component {
         this.props.history.push("/list")
         })
         
-        .catch(error => {
-          console.log(error, 'LOOOIGn FALLIDO')
-          const displaymsg = <Alert variant='danger'>Login Fallido</Alert>
+      .catch(error => {
+        //  console.log(error, 'LOOOIGn FALLIDO')
+        const displaymsg = <Alert variant='danger'>Login Fallido</Alert>
           
           if(!error.response){
             const displaymsg = <Alert variant='danger'>{error.response}</Alert>  
@@ -140,9 +125,6 @@ class Content extends Component {
     console.log(username, password, 'vainas a pasar')
 */
 
-
-//////////////////}
-
   handleChange(event){
     let {name, value} = event.target
     this.setState({
@@ -152,38 +134,6 @@ class Content extends Component {
     //console.log(this.state)
 
   }
-
-/*
-  handleLogin(user, password){
-    queryservice.login()
-    console.log(e, 'EVENTO LOGIN PASADO A PARENT')
-    e.preventDefault()
-    //const {username} =
-    //const {password} = this.state
-    axios({
-      method: 'post',
-      url: 'http://localhost:8000/api-token-auth/',
-      data: {
-        'username': 'admin',
-        'password': 'passwd'
-      }
-
-      })
-    
-
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
 
   render() {
     const { validated, message } = this.state

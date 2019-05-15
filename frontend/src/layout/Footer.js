@@ -24,5 +24,4 @@ const footer = (props) => {
   )
 }
 
-
 export default footer

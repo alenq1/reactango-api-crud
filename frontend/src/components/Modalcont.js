@@ -21,13 +21,6 @@ const stylein = {
   color: 'whitesmoke',
 
 }
-
-
-
-
-
-
-
 export default class Modalcont extends Component {
   constructor(props) {
     super(props)
@@ -61,11 +54,8 @@ export default class Modalcont extends Component {
   }
 
 
-
-
-
   render() {
-    const ppp =''
+  
     const {modaltitle, handleCreate, handleUpdate, fields } = this.props
     const agrega = <Button variant="success" onClick={() => handleCreate(fields)}>{modaltitle}</Button>
     const modifica = <Button variant="success" onClick={() => handleUpdate(fields)}>{modaltitle}</Button>
@@ -86,7 +76,7 @@ export default class Modalcont extends Component {
           ></FormCU>
         </Modal.Body>
         <Modal.Footer style={style}>
-          {modaltitle === 'agrega' ? agrega : modifica}
+          {modaltitle === 'Create' ? agrega : modifica}
         <Button variant="info" onClick={() => this.props.handleHide()}>Back</Button>
         </Modal.Footer>
 
@@ -94,4 +84,3 @@ export default class Modalcont extends Component {
     )
   }
 }
-

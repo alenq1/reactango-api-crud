@@ -11,12 +11,12 @@ const footermsg = 'lopanInc'
 const page = 'Login'
 const style ={
 
-  
+  /* 
   width: '100%',
   height: '100%',
   padding: '100px',
   
-  
+   */
 
 }
 

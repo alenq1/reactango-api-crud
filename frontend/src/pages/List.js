@@ -62,7 +62,7 @@ export default class Login extends Component {
           //console.log(this.state.products, 'prduct state con axios')          
         })
         .catch(error => {
-          console.log(error, 'estructura del error')
+        //  console.log(error, 'estructura del error')
           this.setState({ error: error });
         })
   }
@@ -76,10 +76,10 @@ export default class Login extends Component {
       this.setState({ 
         fields: {},
         show: true,
-        modaltitle: 'Add New'
+        modaltitle: 'Create'
       
       })
-    console.log(data, 'DATA DEL FORM limpio')
+    //console.log(data, 'DATA DEL FORM limpio')
 
     }
     
@@ -99,29 +99,26 @@ export default class Login extends Component {
   
   async handleCreate(data){
 
-    
+    //console.log(data, 'DATA DEL FORM para AGREG')
     await queryservice.createProduct(data)
     .then( result => {
       //console.log(result, 'result con axios')
       this.setState({
-      ////////////  list: result.data
+      
       message: 'CREADO CORRECTO',
       show: false
       })
-      //console.log(this.state.products, 'prduct state con axios')
-      
+      //console.log(this.state.products, 'prduct state con axios')      
     })
     .catch(error => {
-      console.log(error, 'estructura del error')
+      //console.log(error, 'estructura del error')
       this.setState({ error: error });
     })
-    
-
   }
 
   async handleUpdate(data){
 
-    console.log(data, 'DATA DEL FORM para modif')
+    //console.log(data, 'DATA DEL FORM para modif')
     await queryservice.updateProduct(data)
     .then( result => {
       //console.log(result, 'result con axios')
@@ -135,7 +132,7 @@ export default class Login extends Component {
       
     })
     .catch(error => {
-      console.log(error, 'estructura del error')
+      //console.log(error, 'estructura del error')
       this.setState({ error: error });
     })
     
@@ -152,7 +149,7 @@ export default class Login extends Component {
       this.setState({
         fields: actualfield
       })
-      console.log(this.state.fields, 'CAMBIOS DE FIELDS moddificados')
+      //console.log(this.state.fields, 'CAMBIOS DE FIELDS moddificados')
 
     }
   
@@ -162,11 +159,11 @@ export default class Login extends Component {
     const { list } = this.state;
     await queryservice.deleteProduct(pk)
     .then( result => {
-          console.log(result, 'result con axios')
+        //  console.log(result, 'result con axios')
           this.setState({
             list: list.filter(product=> product.id !== pk)
           })
-          console.log(this.state.list, 'prduct state con axios')
+       //   console.log(this.state.list, 'prduct state con axios')
           
         })
         .catch( error => {

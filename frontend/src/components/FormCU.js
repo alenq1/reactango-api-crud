@@ -1,28 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Col, InputGroup, Button } from 'react-bootstrap';
 
-class FormCU extends React.Component {
-constructor(props) {
-    super(props);
-
-    this.state = { 
-      
-      validated: false,
-      updfields: {},
-      formfields: {
-        id: '',
-        name: '',
-        location: '',
-        price: 0,
-        quantity: 0,
-        description: ''
-        
-      }
-    }
-    
- }
-  
-  render() {
+const FormCU = (props) => {
     
     const { validated } = 'false';
     
@@ -41,8 +20,8 @@ constructor(props) {
               required
               type="text"
               placeholder="First name"
-              defaultValue={this.props.fields.name}
-              onChange={this.props.handleChange}
+              defaultValue={props.fields.name}
+              onChange={props.handleChange}
             />
             
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -52,12 +31,12 @@ constructor(props) {
             <Form.Label>Location</Form.Label>
             <Form.Control as="select"
             name="location"
-            onChange={this.props.handleChange}
+            onChange={props.handleChange}
             required
             >
               <option disabled>Choose...</option>
 
-              {this.props.locations.map(loc =>
+              {props.locations.map(loc =>
                 <option key={loc.id} value={loc.name}>{loc.name}</option>
                 
                 )}
@@ -75,8 +54,8 @@ constructor(props) {
             name="price"
             type="number" 
             placeholder="Price" required 
-            defaultValue={this.props.fields.price}
-            onChange={this.props.handleChange}
+            defaultValue={props.fields.price}
+            onChange={props.handleChange}
 
             />
             <Form.Control.Feedback type="invalid">
@@ -91,8 +70,8 @@ constructor(props) {
             type="number" 
             placeholder="Quantity"
             required
-            defaultValue={this.props.fields.quantity}
-            onChange={this.props.handleChange}
+            defaultValue={props.fields.quantity}
+            onChange={props.handleChange}
             />
             <Form.Control.Feedback type="invalid">
               Please provide a valid state.
@@ -108,8 +87,8 @@ constructor(props) {
             type="textarea" 
             placeholder="Description" 
             required 
-            defaultValue={this.props.fields.description}
-            onChange={this.props.handleChange}
+            defaultValue={props.fields.description}
+            onChange={props.handleChange}
             />
             <Form.Control.Feedback type="invalid">
               Please provide a valid zip.
@@ -119,7 +98,7 @@ constructor(props) {
         
       </Form>
     );
-  }
+  
 }
 
 export { FormCU };

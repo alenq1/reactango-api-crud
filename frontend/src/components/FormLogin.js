@@ -2,9 +2,6 @@ import React from 'react'
 import { Form, Col, InputGroup, Button } from 'react-bootstrap';
 
 
-
-
-
 const FormLogin = (props) => {
   return (
     <div>
@@ -46,6 +43,7 @@ const FormLogin = (props) => {
   className="col text-center">
     Submit
   </Button>
+
 </Form>
     </div>
   )

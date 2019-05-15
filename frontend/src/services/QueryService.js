@@ -132,13 +132,14 @@ export default class QueryService{
     }
     async createProduct(product){
         const url = `${API_URL}${item}/`;
-        console.log(product, 'ESTE ES EL DATO QUE sE MANDa A SERVER')
+        console.log(product, 'ESTE ES EL DATO QUE sE MANDa A agregarrrr  SERVER')
         return await axios
         .post(url,product)
         
     }
     async updateProduct(product){
         const url = `${API_URL}${item}/${product.id}/`;
+        console.log(product, 'ESTE ES EL DATO QUE sE MANDa A modificarrrr  SERVER')
         return await axios
         .put(url,product)
 
