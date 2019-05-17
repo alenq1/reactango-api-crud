@@ -34,10 +34,33 @@ const Header = (props) => {
         <Dropdown.Divider />
         
         <Dropdown.Item onSelect={function (){
-          props.history.push("/")
-          sessionStorage.removeItem('tkaccess')
-          sessionStorage.removeItem('tkrefresh')
-          sessionStorage.removeItem('user')
+          
+          props.alerts.fire({
+            title: 'Are you sure?',
+            text: "Want logout??",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Log out!'
+          }).then((result) => {
+            if (result.value) {
+              props.alerts.fire(
+                'LoggedOut!',
+                'Your exited from the app.',
+                'info',
+                sessionStorage.removeItem('tkaccess'),
+                sessionStorage.removeItem('tkrefresh'),
+                sessionStorage.removeItem('user'),
+                props.history.push("/")
+              )
+            }
+          })
+          
+          
+          
+          
+          
         }}> Logout
         
         </Dropdown.Item>
@@ -46,7 +69,13 @@ const Header = (props) => {
                
         : 
         
-        <Button onClick={(e) => props.history.push("/login")}>
+        <Button onClick={(e) => 
+          
+
+          
+          props.history.push("/login")
+        
+        }>
           login
         </Button>
       }

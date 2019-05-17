@@ -39,11 +39,11 @@ export default class Modalcont extends Component {
     queryservice.getLocations()
   
       .then( result => {
-          console.log(result, 'result con axios')
+         // console.log(result, 'result con axios')
           this.setState({
             locations: result.data
           })
-          console.log(this.state.locations, 'Locations state con axios')
+          //console.log(this.state.locations, 'Locations state con axios')
           
         })
         .catch( error  => {

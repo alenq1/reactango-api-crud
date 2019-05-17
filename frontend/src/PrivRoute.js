@@ -8,7 +8,7 @@ const PrivRoute = ({
 }) => {
     const isAuth = sessionStorage.getItem('tkaccess')
     const isRefresh = sessionStorage.getItem('tkrefresh')
-    console.log(isAuth, 'is authhhhhhhh')
+    //console.log(isAuth, 'is authhhhhhhh')
     return (
         <Route
             {...rest}

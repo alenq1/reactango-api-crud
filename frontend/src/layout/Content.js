@@ -49,7 +49,7 @@ class Content extends Component {
     const { username, password, message} = this.state
     
     if(!(username && password)){
-      const displaymsg = <Alert variant='danger'>Rellene los campos</Alert>
+      const displaymsg = <Alert variant='warning'>Rellene los campos</Alert>
       this.setState({ message: displaymsg })
        //console.log('inavlidoregresa')
        return;
@@ -76,7 +76,7 @@ class Content extends Component {
         
       .catch(error => {
         //  console.log(error, 'LOOOIGn FALLIDO')
-        const displaymsg = <Alert variant='danger'>Login Fallido</Alert>
+        const displaymsg = <Alert variant='danger'>Login Failed</Alert>
           
           if(!error.response){
             const displaymsg = <Alert variant='danger'>{error.response}</Alert>  

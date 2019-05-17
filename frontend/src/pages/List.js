@@ -3,11 +3,13 @@ import  Header  from '../layout/Header'
 import  Content  from '../layout/Content';
 import  Footer  from '../layout/Footer'
 import { Redirect, withRouter } from 'react-router-dom'
-import { Modal, Alert, Button, Row } from  'react-bootstrap';
+import { Modal, Alert, Button, Row, Fade } from  'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons';
 import  { fab }from '@fortawesome/free-brands-svg-icons';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import Tables from '../components/Tables';
 import Modalcont from '../components/Modalcont'
 import QueryService from '../services/QueryService';
@@ -16,6 +18,7 @@ const queryservice = new QueryService()
 const nameapp = 'Header'
 const footermsg = 'Footer'
 const page = 'List'
+const MySwal = withReactContent(Swal)
 
 const style = { 
    
@@ -105,15 +108,26 @@ export default class Login extends Component {
       //console.log(result, 'result con axios')
       this.setState({
       
-      message: 'CREADO CORRECTO',
+      message: <Alert className="mt-4" dismissible variant="info">Creado {data.name}</Alert>,
       show: false
       })
+      MySwal.fire(
+        'Create Sucessfull!',
+        'OK',
+        'success'
+      )
       //console.log(this.state.products, 'prduct state con axios')      
     })
     .catch(error => {
       //console.log(error, 'estructura del error')
       this.setState({ error: error });
+      MySwal.fire(
+        'Error!',
+        error.message,
+        'error'
+      )
     })
+
   }
 
   async handleUpdate(data){
@@ -125,15 +139,33 @@ export default class Login extends Component {
       this.setState({
        ////// list: result.data
        fields: {},
-       message: 'MODIFICADO CORRECTO',
+       message: 
+       
+       
+       <Alert className="mt-4" dismissible variant="info">
+       
+       Modified {data.name}
+       
+       </Alert>,
+
        show: false
       })
+      MySwal.fire(
+        'Modified SucessFully!',
+        'OK',
+        'success'
+      )
       //console.log(this.state.products, 'prduct state con axios')
       
     })
     .catch(error => {
       //console.log(error, 'estructura del error')
       this.setState({ error: error });
+      MySwal.fire(
+        'Error!',
+        error.message,
+        'error'
+      )
     })
     
 
@@ -157,18 +189,50 @@ export default class Login extends Component {
   async handleDelete(pk){
 
     const { list } = this.state;
-    await queryservice.deleteProduct(pk)
-    .then( result => {
+
+    MySwal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(async(result) => {
+      if (result.value) {
+        
+        await queryservice.deleteProduct(pk)
+        .then( result => {
         //  console.log(result, 'result con axios')
           this.setState({
             list: list.filter(product=> product.id !== pk)
           })
+          MySwal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
        //   console.log(this.state.list, 'prduct state con axios')
           
         })
         .catch( error => {
+
+          MySwal.fire(
+            'Error!',
+            error.message,
+            'error'
+          )
+
           this.setState({ error: error.message });
         })
+        
+        
+      }
+    }) 
+    
+
+
+    
   }
   
 
@@ -184,7 +248,7 @@ export default class Login extends Component {
   render() {
     return (
       <>
-      <Header brand={nameapp}/>
+      <Header brand={nameapp} alerts={MySwal}/>
       <Row className="justify-content-center mt-4">
       <h1>Product List </h1>
         <Button  
@@ -192,7 +256,9 @@ export default class Login extends Component {
         Add New
         </Button>
       </Row>
+      
       {this.state.message}
+      
       <Modalcont
       show={this.state.show}
       modaltitle={this.state.modaltitle}
@@ -201,6 +267,7 @@ export default class Login extends Component {
       handleCreate={this.handleCreate}
       handleChange={this.handleChange}
       fields={this.state.fields}
+      alerts={MySwal}
       />
 
      
@@ -210,6 +277,7 @@ export default class Login extends Component {
       handleUpdate={this.handleUpdate}
       handleDelete={this.handleDelete}
       handleData={this.handleData}
+      alerts={MySwal}
       >
       
       </Tables>

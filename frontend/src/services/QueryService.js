@@ -6,14 +6,14 @@ const item = 'product'
 let tkaccess = sessionStorage.getItem('tkaccess')
 let tkrefresh = sessionStorage.getItem('tkrefresh')
 
-console.log(tkaccess, 'token de acceso a mandar')
+//console.log(tkaccess, 'token de acceso a mandar')
 
 axios.interceptors.response.use(function (response) {
     return response;
   }, function (error) {
     const originalRequest = error.config;
     if (!error.response){
-      console.log(error, 'ERROR  de Serrvidor REspuesta')  
+      //console.log(error)  
       return Promise.reject(error)      
     }
     if (error.response.status === 401 && sessionStorage.getItem('tkrefresh')) {
@@ -52,12 +52,12 @@ axios.interceptors.response.use(function (response) {
       return Promise.reject(error)
     }
     if (error.response.status === 400){
-      console.log(error, 'ERROR 400 Mal request')  
+      //console.log(error, 'ERROR 400 Mal request')  
       return Promise.reject(error)
     } 
 
-    console.log(tkrefresh, tkaccess, 'tokens DEVUELTOS EN ULTIMA PARTE')
-    console.log(error, 'ERROR DE PARA DEVOLVER')
+    //console.log(tkrefresh, tkaccess, 'tokens DEVUELTOS EN ULTIMA PARTE')
+    //console.log(error, 'ERROR DE PARA DEVOLVER')
     sessionStorage.setItem("tkaccess", '')
     sessionStorage.setItem("tkrefresh", '')
     return Promise.reject(error)
@@ -132,14 +132,14 @@ export default class QueryService{
     }
     async createProduct(product){
         const url = `${API_URL}${item}/`;
-        console.log(product, 'ESTE ES EL DATO QUE sE MANDa A agregarrrr  SERVER')
+        //console.log(product, 'ESTE ES EL DATO QUE sE MANDa A agregarrrr  SERVER')
         return await axios
         .post(url,product)
         
     }
     async updateProduct(product){
         const url = `${API_URL}${item}/${product.id}/`;
-        console.log(product, 'ESTE ES EL DATO QUE sE MANDa A modificarrrr  SERVER')
+        //console.log(product, 'ESTE ES EL DATO QUE sE MANDa A modificarrrr  SERVER')
         return await axios
         .put(url,product)
 
@@ -173,71 +173,3 @@ export default class QueryService{
     }
 
 }
-
-
-/* 
-axios.interceptors.response.use(function (response) {
-    return response;
-  }, function (error) {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && Boolean(getRefreshToken())) {
-      // Hace la solicitud de refresco de tokens
-      return refresh.get('/api/v1/auth', {headers: {'Authorization': 'Bearer ' + getRefreshToken()}})
-        .then((responseData) => {
-          // actualiza la información de OAuth
-          setTokens(responseData.data.access_token, responseData.data.refresh_token);
-          axios.defaults.headers.common['Authorization'] = 'Bearer ' + getToken();
-          originalRequest.headers['Authorization'] = 'Bearer ' + getToken();
-          // re-intenta la solicitud original
-          return axios(originalRequest);
-        }).catch((error) => {
-          setTokens("", "");
-          myhistory.replace("/login");
-        });
-    }
-    return Promise.reject(error);
-  }); 
-  
-  
-  
-  export const isAuth = () => {
-  return window.localStorage.getItem("token") && window.localStorage.getItem("refresh_token");
-};
-
-export const getToken = () => {
-  return isAuth() ? window.localStorage.getItem("token") : "";
-};
-
-export const getRefreshToken = () => {
-  return isAuth() ? window.localStorage.getItem("refresh_token") : "";
-};
-
-export const setTokens = (token, refresh) => {
-  window.localStorage.setItem("token", token);
-  window.localStorage.setItem("refresh_token", refresh);
-};
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  */
-
-
-
-
-
-  
