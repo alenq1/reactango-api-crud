@@ -2,14 +2,15 @@ from django.shortcuts import render, HttpResponse
 from django.views.generic import ListView, DetailView 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Product, Client, Location
-from .serializers import ProductSerializer, LocationSerializer, ClientSerializer
+from .serializers import ProductSerializer, LocationSerializer, ClientSerializer, CreateUserSerializer, UserSerializer
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
+from rest_framework.generics import GenericAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.authentication import SessionAuthentication 
 from rest_framework_simplejwt import authentication as jwtauth
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -50,6 +51,22 @@ class ProductDelete(LoginRequiredMixin, DeleteView):
 
 
 ## API VIEWS
+
+
+class RegistrationAPI(GenericAPIView):
+    serializer_class = CreateUserSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response({
+            "user": UserSerializer(user, context=self.get_serializer_context()).data
+        })
+
+
+
+
 
 class ProductViewset(ModelViewSet):
     

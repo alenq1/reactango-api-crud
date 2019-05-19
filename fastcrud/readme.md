@@ -45,3 +45,5 @@ Cinco
 
 Seis
 - Cambios esteticos de bootstrap con tablas, botones y enlazado entre paginas
+- Creado serializer y vista para creacion de usuario para registro, se uso un hibrido de model y personalizado en entrada de datos 
+- En el front se creo una tab en formulario para registro de user(mejorar)

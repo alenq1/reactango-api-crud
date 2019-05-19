@@ -3,7 +3,7 @@ import { Table, Button } from 'react-bootstrap'
 
 const Tables = (props) => {
   return (
-    <Table className="table  table-striped text-center">
+    <Table className="table-borderless table-hover table-striped text-center">
         <thead>
         
             <tr>

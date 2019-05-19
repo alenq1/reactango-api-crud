@@ -9,11 +9,11 @@ const FormCU = (props) => {
       
       <Form
         noValidate
-        validated={validated}
+        validated = {validated}
       >
       
         <Form.Row>
-          <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Group as={Col} md="10" controlId="validationCustom01">
             <Form.Label>First name</Form.Label>
             <Form.Control
               name="name"
@@ -26,8 +26,10 @@ const FormCU = (props) => {
             
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
+          </Form.Row>
 
-          <Form.Group as={Col} md="4" controlId="validationCustom02">
+          <Form.Row>
+          <Form.Group as={Col} md="10" controlId="validationCustom02">
             <Form.Label>Location</Form.Label>
             <Form.Control as="select"
             name="location"
@@ -48,7 +50,7 @@ const FormCU = (props) => {
           
         </Form.Row>
         <Form.Row>
-          <Form.Group as={Col} md="6" controlId="validationCustom03">
+          <Form.Group as={Col} md="5" controlId="validationCustom03">
             <Form.Label>Price</Form.Label>
             <Form.Control 
             name="price"
@@ -63,7 +65,7 @@ const FormCU = (props) => {
             </Form.Control.Feedback>
           </Form.Group>
           
-          <Form.Group as={Col} md="3" controlId="validationCustom04">
+          <Form.Group as={Col} md="5" controlId="validationCustom04">
             <Form.Label>Quantity</Form.Label>
             <Form.Control 
             name="quantity"
@@ -80,7 +82,7 @@ const FormCU = (props) => {
         </Form.Row>  
         <Form.Row>
 
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
+          <Form.Group as={Col} md="10" controlId="validationCustom05">
             <Form.Label>Description</Form.Label>
             <Form.Control 
             name="description"

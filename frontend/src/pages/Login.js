@@ -20,8 +20,8 @@ const style ={
 
 }
 
-export default class Login extends Component {
-  render() {
+const Login = (props) => {
+  
     return (
       <>
         <Container style={style}>
@@ -31,5 +31,6 @@ export default class Login extends Component {
         <Footer message={footermsg}/>
       </>
     )
-  }
+  
 }
+export default Login

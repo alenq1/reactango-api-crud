@@ -1,5 +1,28 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from . import models
+
+
+
+class CreateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        if len(validated_data['username']) < 4 or len(validated_data['password']) < 4:
+            
+            raise serializers.ValidationError('User or Pass must more Than 4 characters')
+        user = User.objects.create_user(validated_data['username'],
+                                        None,
+                                        validated_data['password'])
+        return user
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
 
 
 

@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf.urls import url
 from django.views.generic import TemplateView
 from fastcrud.api import router
+from simplecrud.views import RegistrationAPI
 from rest_framework_simplejwt.views import (
 
     TokenObtainPairView,
@@ -33,5 +34,6 @@ urlpatterns = [
     #path('app0', include(('app0.urls', 'app0'), namespace='app0')),
     path('api/v1/', include(router.urls)),
     path('api-token-auth/', TokenObtainPairView.as_view(), name='api_token_auth'),
-    path('api-token-refresh/', TokenRefreshView.as_view(), name='api_token_refresh')
+    path('api-token-refresh/', TokenRefreshView.as_view(), name='api_token_refresh'),
+    path('api-register/', RegistrationAPI.as_view(), name="api-user-register")
 ]

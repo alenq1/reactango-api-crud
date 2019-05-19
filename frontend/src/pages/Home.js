@@ -26,19 +26,20 @@ const footerstyle = {
 
 
 
-export default class Home extends Component {
-  render() {
+const Home = (props) => {
+  
     return (
         <>
-      <Header brand={nameapp} alerts={MySwal}></Header>
+      <Header brand={nameapp} alerts={MySwal}/>
         
         <CarouselHome/>
         <Link to="/login">
             <Button>TEST</Button>
         </Link>      
         
-      <Footer message={footermsg}></Footer>
-      </>   
+      <Footer message={footermsg}/>
+      </>
     )
-  }
+  
 }
+export default Home

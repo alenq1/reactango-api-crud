@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Col, InputGroup, Button } from 'react-bootstrap';
 
 
-const FormLogin = (props) => {
+const FormRegister = (props) => {
   return (
     <div>
       <Form 
@@ -39,13 +39,13 @@ const FormLogin = (props) => {
   
   <Button 
   variant="primary" 
-  onClick={props.handleLogin} 
+  onClick={props.handleRegister} 
   className="col text-center">
-    Login
+    Register
   </Button>
 
 </Form>
     </div>
   )
 }
-export default FormLogin
+export default FormRegister

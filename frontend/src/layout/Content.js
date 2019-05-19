@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import FormLogin from '../components/FormLogin';
+import FormRegister from '../components/FormRegister';
 import { Redirect, withRouter } from 'react-router-dom'
-import { Card, Alert } from  'react-bootstrap';
+import { Card, Alert, Tab, Tabs } from  'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons';
 import  { fab }from '@fortawesome/free-brands-svg-icons';
 import QueryService from '../services/QueryService';
 import axios from 'axios';
+
 
 
 const queryservice = new QueryService();
@@ -36,11 +38,13 @@ class Content extends Component {
        validated: false,
        username: '',
        password: '',
-       message: ''
+       message: '',
+       tab: 'login'
 
     }
     this.handleLogin = this.handleLogin.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleRegister = this.handleRegister.bind(this)
 
   }
   
@@ -109,6 +113,75 @@ class Content extends Component {
       
     }
 
+    ///////////////
+
+    async handleRegister(event){
+    
+      const { username, password, message} = this.state
+      
+      if(!(username && password)){
+        const displaymsg = <Alert variant='warning'>Rellene los campos</Alert>
+        this.setState({ message: displaymsg })
+         //console.log('inavlidoregresa')
+         return;
+      }
+
+
+      //console.log('pasa ahora')
+      await axios({
+        method: 'post',
+        url: 'http://localhost:8000/api-register/',
+        data: {
+          'username': username,
+          'password': password
+        }
+        })
+      
+        .then( result  => {
+  
+          console.log(result, 'REGISTRO SUCESS')
+          //this.setState({ logged: true})
+          const displaymsg = <Alert variant='success'>Register Success!!</Alert>
+          this.setState({ message: displaymsg })
+          
+          })
+          
+        .catch(error => {
+            console.log(error, error.request.response, 'REGISTE FALLIDO')
+          const displaymsg = <Alert variant='danger'>{error.request.response}</Alert>
+            
+            if(!error.response){
+              const displaymsg = <Alert variant='danger'>{error.response}</Alert>  
+            }
+            else if (error.request){
+              const displaymsg = <Alert variant='danger'>{error.request.response}</Alert>  
+            }
+            this.props.history.push("/login")
+              
+            this.setState({ message: displaymsg })
+          });
+  
+  
+      
+  
+      //event.preventDefault();  
+      /* fetch('http://localhost:8000/api-token-auth/')
+      .then(resp => 
+        console.log(resp, 'RESPONSE GET')
+        )
+      .catch(error =>
+        console.log(error, 'ERRRO GET')
+        )
+   */
+        
+        //queryservice.login(this.state.username, this.state.password)      
+        
+        //event.stopPropagation();
+        //this.setState({ validated: true });
+        
+      }
+
+
 /* 
 
     console.log(event, 'pasado evento')
@@ -138,7 +211,9 @@ class Content extends Component {
   render() {
     const { validated, message } = this.state
     return (
+      
         <div className="row border-info text-center justify-content-sm-center">
+         
         <Card bg="dark" text="white" style={style} className="justify-content ">
             <Card.Header>
             <FontAwesomeIcon icon={['fab', 'apple']}  />
@@ -147,6 +222,14 @@ class Content extends Component {
             </Card.Header>
             <Card.Body>
                 <Card.Title></Card.Title>
+                <Tabs
+                    id="controlled-tab-example"
+                    activeKey={this.state.tab}
+                    onSelect={tab => this.setState({ tab })}
+                >
+                <Tab eventKey="login" title="login">
+          
+        
                   <FormLogin
                   validated={validated}
                   name={'username'}
@@ -156,8 +239,22 @@ class Content extends Component {
                   handleChange={this.handleChange}
                   handleLogin={this.handleLogin}
                   />
+                  </Tab>
+                  <Tab eventKey="register" title="register">  
+                  <FormRegister
+                  validated={validated}
+                  name={'username'}
+                  username={this.state.username}
+                  password={this.state.password}
+                  namepassword={'password'}
+                  handleChange={this.handleChange}
+                  handleRegister={this.handleRegister}
+                  />
+                  </Tab>
+                  </Tabs>
             </Card.Body>
         </Card>
+        
         </div>
     
     )
