@@ -15,14 +15,14 @@ const style = {
 
 }
 
-export default function CarouselHome() {
+const CarouselHome = () => {
   return (
 <header>
 <Carousel>
   <Carousel.Item  style={style}>
     <img
       className="d-block w-100"
-      src="https://source.unsplash.com/O7fzqFEfLlo/1920x1080"
+      src={require('../layout/img/site/black-and-white-electronics-notebook-257937.jpg')}
       alt="First slide"
     />
     <Carousel.Caption>
@@ -33,7 +33,7 @@ export default function CarouselHome() {
   <Carousel.Item style={style}>
     <img
       className="d-block w-100"
-      src="https://source.unsplash.com/RCAhiGJsUUE/1920x1080"
+      src={require('../layout/img/site/code-coder-coding-270348.jpg')}
       alt="Third slide"
     />
 
@@ -45,7 +45,7 @@ export default function CarouselHome() {
   <Carousel.Item  style={style}>
     <img
       className="d-block w-100"
-      src="https://source.unsplash.com/wfh8dDlNFOk/1920x1080"
+      src={require('../layout/img/site/charts-data-document-669613.jpg')}
       alt="Third slide"
     />
 
@@ -54,8 +54,21 @@ export default function CarouselHome() {
       <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
     </Carousel.Caption>
   </Carousel.Item>
+  <Carousel.Item  style={style}>
+    <img
+      className="d-block w-100"
+      src={require('../layout/img/site/codes-coding-communication-360591.jpg')}
+      alt="Fourth slide"
+    />
+
+    <Carousel.Caption>
+      <h3>Fourth slide label</h3>
+      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+    </Carousel.Caption>
+  </Carousel.Item>
 </Carousel>
 </header>
 
 )
 }
+export default CarouselHome;

@@ -32,10 +32,11 @@ const Home = (props) => {
         <>
       <Header brand={nameapp} alerts={MySwal}/>
         
-        <CarouselHome/>
+        <CarouselHome>
         <Link to="/login">
             <Button>TEST</Button>
         </Link>      
+        </CarouselHome>
         
       <Footer message={footermsg}/>
       </>

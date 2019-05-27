@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import  {FormCU} from './FormCU'
+import {Info} from './Info'
 import QueryService from '../services/QueryService'
 
 
@@ -28,7 +29,10 @@ export default class Modalcont extends Component {
     this.state = {
       locations: [],
       fields: [],
-      error: ''
+      error: '',
+      lat: 20.0001,
+      long: 20.0001,
+      zoom: 15
 
        
     }
@@ -67,13 +71,22 @@ export default class Modalcont extends Component {
         <Modal.Title>{this.props.modaltitle}</Modal.Title>
       </Modal.Header>
         <Modal.Body style={stylein}>
+          {modaltitle ==='Detail' ?
+        
+          <Info fields={this.props.fields}
+                lat={this.state.lat}
+                long={this.state.long}
+                zoom={this.state.zoom}
+          />
+          :
           <FormCU
           locations={this.state.locations}
           fields={this.props.fields}
           handleChange={this.props.handleChange}
           
-
-          ></FormCU>
+          />
+        
+        }
         </Modal.Body>
         <Modal.Footer style={style}>
           {modaltitle === 'Create' ? agrega : modifica}

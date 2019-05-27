@@ -69,13 +69,12 @@ const Header = (props) => {
                
         : 
         
-        <Button onClick={(e) => 
-          
-
+        <Button onClick={(e) =>           
           
           props.history.push("/login")
         
         }>
+          
           login
         </Button>
       }

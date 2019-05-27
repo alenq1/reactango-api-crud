@@ -18,7 +18,7 @@ def call(N=10):
         list = full_name.split()
         first = list[0]
         second = list[1]
-        ads = obj.address()
+        ads = ((obj.address()).split('\n')[1]).split(',')
         manage_rd = obj.company()
         person = obj.name()
         prod_nam = obj.company()
@@ -27,7 +27,7 @@ def call(N=10):
         m1 = obj.random_number(digits=2)
         m2 = obj.random_number(digits=2)
         m3 = obj.random_number(digits=2)
-        locat_obj = Location.objects.get_or_create(name=manage_rd, manager=full_name, total_supply=m1)[0]
+        locat_obj = Location.objects.get_or_create(name=ads[0], manager=full_name, total_supply=m1)[0]
         prod_obj = Product.objects.get_or_create(name=prod_nam, location=locat_obj, quantity=m2, price=m3, description=text)[0]
         client_obj = Client.objects.get_or_create(name=person, prod_own=prod_obj, email=testemail)[0]
         num+=1

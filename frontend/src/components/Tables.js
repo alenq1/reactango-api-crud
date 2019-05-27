@@ -18,10 +18,18 @@ const Tables = (props) => {
             
         </thead>
         <tbody>
-          {props.list.map(product =>
+          {  props.list.length  === 0 ?
+
+            <tr >
+              <td>There is no Products yet</td>
+            </tr>  
+            
+            :
+            
+            props.list.map(product =>
             
             <tr key={product.id}>
-              <td>{product.name}</td>
+              <td onClick={() => props.handleOnClick(product)}>{product.name}</td>
               <td>{product.quantity}</td>
               <td>{product.price}</td>
               <td>{product.description}</td>            

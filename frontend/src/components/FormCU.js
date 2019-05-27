@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Col, InputGroup, Button } from 'react-bootstrap';
+import  MyUploader  from '../components/MyUploader';
 
 const FormCU = (props) => {
     
@@ -37,7 +38,7 @@ const FormCU = (props) => {
             required
             >
               <option disabled>Choose...</option>
-
+              <option selected>{props.fields.location}</option>
               {props.locations.map(loc =>
                 <option key={loc.id} value={loc.name}>{loc.name}</option>
                 
@@ -80,6 +81,7 @@ const FormCU = (props) => {
             </Form.Control.Feedback>
           </Form.Group>
         </Form.Row>  
+        
         <Form.Row>
 
           <Form.Group as={Col} md="10" controlId="validationCustom05">
@@ -96,6 +98,12 @@ const FormCU = (props) => {
               Please provide a valid zip.
             </Form.Control.Feedback>
           </Form.Group>
+        </Form.Row>
+
+        <Form.Row>
+        <Form.Label>Image</Form.Label>
+
+          <MyUploader/>
         </Form.Row>
         
       </Form>

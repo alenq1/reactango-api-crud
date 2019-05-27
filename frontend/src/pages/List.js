@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import  Header  from '../layout/Header'
 import  Content  from '../layout/Content';
 import  Footer  from '../layout/Footer'
-import { Redirect, withRouter } from 'react-router-dom'
+import { Redirect, withRouter, Link } from 'react-router-dom'
 import { Modal, Alert, Button, Row, Fade } from  'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -13,6 +13,7 @@ import withReactContent from 'sweetalert2-react-content'
 import Tables from '../components/Tables';
 import Modalcont from '../components/Modalcont'
 import QueryService from '../services/QueryService';
+//import Spinner from '../components/Spinner';
 
 const queryservice = new QueryService()
 const nameapp = 'Header'
@@ -45,7 +46,8 @@ export default class Login extends Component {
        show: false,
        error: '',
        message: '',
-       modaltitle: ''
+       modaltitle: '',
+       loading: false
     }
     this.handleHide = this.handleHide.bind(this)
     this.handleData = this.handleData.bind(this)
@@ -53,22 +55,34 @@ export default class Login extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleCreate = this.handleCreate.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
+    this.handleOnClick = this.handleOnClick.bind(this)
     
   }
   
   async componentDidMount() {
-      
+
+    const {loading} = this.state
+    this.setState({loading: true})
+
     await queryservice.getProducts()
     .then( result => {
           //console.log(result, 'result con axios')
-          this.setState({list: result.data})
+          this.setState({list: result.data,
+                         loading: false })
           //console.log(this.state.products, 'prduct state con axios')          
         })
         .catch(error => {
         //  console.log(error, 'estructura del error')
-          this.setState({ error: error });
+          this.setState({ error: error,
+                          loading: false });
         })
-  }
+
+  //      this.setState({loading: false});
+    
+    
+}
+
+
 
   handleData(data){
 
@@ -229,10 +243,7 @@ export default class Login extends Component {
         
       }
     }) 
-    
-
-
-    
+        
   }
   
 
@@ -244,11 +255,35 @@ export default class Login extends Component {
     })
   }
 
+  handleOnClick(data){
+
+    this.setState({ 
+      show: true,
+      fields: data,
+      modaltitle: 'Detail'
+    
+    })
+
+  } 
+
 
   render() {
     return (
       <>
       <Header brand={nameapp} alerts={MySwal}/>
+      <ol className="breadcrumb">
+            <li className="breadcrumb-item">
+            <Link to="/dashboard">
+              <a href="">Dashboard</a>
+              </Link>  
+              </li>
+              <li className="breadcrumb-item">
+              <Link to="/list">
+              <a href="">List</a>
+              </Link>  
+              </li>
+            <li className="breadcrumb-item active">Overview</li>
+          </ol>
       <Row className="justify-content-center mt-4">
       <h1>Product List </h1>
         <Button  
@@ -266,6 +301,7 @@ export default class Login extends Component {
       handleUpdate={this.handleUpdate}
       handleCreate={this.handleCreate}
       handleChange={this.handleChange}
+      handleOnClick={this.handleOnClick}
       fields={this.state.fields}
       alerts={MySwal}
       />
@@ -276,8 +312,10 @@ export default class Login extends Component {
       style={style}
       handleUpdate={this.handleUpdate}
       handleDelete={this.handleDelete}
+      handleOnClick={this.handleOnClick}
       handleData={this.handleData}
       alerts={MySwal}
+      loading={this.state.loading}
       >
       
       </Tables>

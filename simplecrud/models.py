@@ -26,6 +26,7 @@ class Common(models.Model):
 
 class Product(Common):
     uuid = models.UUIDField(unique=True, editable=False, default=generateUUID)
+    images = models.ImageField(upload_to='media', blank=True)
     location = models.ForeignKey('Location', on_delete=models.CASCADE, verbose_name='localization', related_name='LOCASION')
     quantity = models.PositiveIntegerField(
                                     verbose_name='quantityy', help_text="insert quntity",
@@ -65,7 +66,7 @@ class Location(Common):
                                     default=0)
 
     def __str__(self):
-        return f" Name:  {self.name} Manager : {self.manager} Supply: {self.total_supply}"
+        return f" Name:  {self.name}"
 
     
 class Client(Common):
@@ -75,4 +76,4 @@ class Client(Common):
     email = models.EmailField(max_length=255, null=True, default=None)
 
     def __str__(self):
-        return f" Name:  {self.name} Producto : {self.prod_own} Mail: {self.email}"
+        return f" Name:  {self.name}"

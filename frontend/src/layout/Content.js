@@ -13,6 +13,9 @@ import axios from 'axios';
 
 
 const queryservice = new QueryService();
+const loginurl = 'http://localhost:8000/api-token-auth/'
+const registerurl = 'http://localhost:8000/api-register/'
+
 
 library.add(far, fab)
 
@@ -61,7 +64,7 @@ class Content extends Component {
     //console.log('pasa ahora')
     await axios({
       method: 'post',
-      url: 'http://localhost:8000/api-token-auth/',
+      url: loginurl,
       data: {
         'username': username,
         'password': password
@@ -75,29 +78,33 @@ class Content extends Component {
         sessionStorage.setItem("tkaccess", result.data.access)
         sessionStorage.setItem("tkrefresh", result.data.refresh)
         sessionStorage.setItem("user", username)
-        this.props.history.push("/list")
+        this.props.history.push("/dashboard")
         })
         
       .catch(error => {
-        //  console.log(error, 'LOOOIGn FALLIDO')
-        const displaymsg = <Alert variant='danger'>Login Failed</Alert>
-          
-          if(!error.response){
-            const displaymsg = <Alert variant='danger'>{error.response}</Alert>  
-          }
-          else if (error.request){
-            const displaymsg = <Alert variant='danger'>{error.request}</Alert>  
-          }
-          this.props.history.push("/login")
-            
-          this.setState({ message: displaymsg })
-        });
-
+        //console.log(error, error.request.response, 'Login Error')
+            let  displaymsg;
+            if(error.response){
+              //console.log(error, error.request.response, 'error respuesta')
+              displaymsg = <Alert variant='danger'>Login Failed</Alert>  
+            }
+            else if (error.request){
+              //console.log(error, error.request.response, 'error peticion')
+              displaymsg = <Alert variant='danger'>{error.message}</Alert>  
+            }
+            else{
+              //console.log(error, error.request.response, 'error otros')
+              displaymsg = <Alert variant='danger'>{error.message}</Alert>  
+            }
+            this.props.history.push("/login")
+              
+            this.setState({ message: displaymsg })
+          });
 
     
 
     //event.preventDefault();  
-    /* fetch('http://localhost:8000/api-token-auth/')
+    /* fetch('http://192.168.0.2:8000/api-token-auth/')
     .then(resp => 
       console.log(resp, 'RESPONSE GET')
       )
@@ -130,7 +137,7 @@ class Content extends Component {
       //console.log('pasa ahora')
       await axios({
         method: 'post',
-        url: 'http://localhost:8000/api-register/',
+        url: registerurl,
         data: {
           'username': username,
           'password': password
@@ -139,7 +146,7 @@ class Content extends Component {
       
         .then( result  => {
   
-          console.log(result, 'REGISTRO SUCESS')
+          //console.log(result, 'REGISTRO SUCCESS')
           //this.setState({ logged: true})
           const displaymsg = <Alert variant='success'>Register Success!!</Alert>
           this.setState({ message: displaymsg })
@@ -147,56 +154,27 @@ class Content extends Component {
           })
           
         .catch(error => {
-            console.log(error, error.request.response, 'REGISTE FALLIDO')
-          const displaymsg = <Alert variant='danger'>{error.request.response}</Alert>
-            
-            if(!error.response){
-              const displaymsg = <Alert variant='danger'>{error.response}</Alert>  
+            //console.log(error, error.request.response, 'Register Failed')
+            let  displaymsg;
+            if(error.response){
+              //console.log(error, error.request.response, 'error respuesta')
+              displaymsg = <Alert variant='danger'>{error.message}</Alert>  
             }
             else if (error.request){
-              const displaymsg = <Alert variant='danger'>{error.request.response}</Alert>  
+              //console.log(error, error.request.response, 'error peticion')
+              displaymsg = <Alert variant='danger'>{error.message}</Alert>  
+            }
+            else{
+              //console.log(error, error.request.response, 'error otros')
+              displaymsg = <Alert variant='danger'>{error.message}</Alert>  
             }
             this.props.history.push("/login")
               
             this.setState({ message: displaymsg })
           });
-  
-  
-      
-  
-      //event.preventDefault();  
-      /* fetch('http://localhost:8000/api-token-auth/')
-      .then(resp => 
-        console.log(resp, 'RESPONSE GET')
-        )
-      .catch(error =>
-        console.log(error, 'ERRRO GET')
-        )
-   */
-        
-        //queryservice.login(this.state.username, this.state.password)      
-        
-        //event.stopPropagation();
-        //this.setState({ validated: true });
         
       }
 
-
-/* 
-
-    console.log(event, 'pasado evento')
-    console.log(this.state.username, this.state.password, 'user y password')
-    
- */
-    //queryservice.login(this.state.username, this.state.password)
-    //this.getLoc()
-
-
-
-    /*
-    const { username, password } = this.state
-    console.log(username, password, 'vainas a pasar')
-*/
 
   handleChange(event){
     let {name, value} = event.target
