@@ -103,7 +103,12 @@ const FormCU = (props) => {
         <Form.Row>
         <Form.Label>Image</Form.Label>
 
-          <MyUploader/>
+          <MyUploader
+          images={props.images}
+          getUploadParams={props.getUploadParams}
+          handleChangeStatus={props.handleChangeStatus}
+          handleSubmitImg={props.handleSubmitImg}
+          />
         </Form.Row>
         
       </Form>

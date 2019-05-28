@@ -32,10 +32,15 @@ export default class Modalcont extends Component {
       error: '',
       lat: 20.0001,
       long: 20.0001,
-      zoom: 15
+      zoom: 15,
+      images: []
 
        
     }
+    //this.getUploadParams = this.getUploadParams.bind(this)
+    this.handleChangeStatus = this.handleChangeStatus.bind(this)
+    this.handleSubmitImg = this.handleSubmitImg.bind(this)
+
 
   }
   
@@ -58,11 +63,27 @@ export default class Modalcont extends Component {
   }
 
 
+    //getUploadParams = ({ meta }) => { return { url: uploadapi } }
+    
+    // called every time a file's `status` changes
+    handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) 
+      this.setState({ images: [meta, file] })
+      console.log(this.state.images, 'IMAGENES METIDAS')
+    
+    }
+    
+    // receives array of files that are done uploading when submit button is clicked
+    handleSubmitImg = (files, allFiles) => {
+      console.log(files.map(f => f.meta))
+      allFiles.forEach(f => f.remove())
+    }
+
+
   render() {
   
     const {modaltitle, handleCreate, handleUpdate, fields } = this.props
-    const agrega = <Button variant="success" onClick={() => handleCreate(fields)}>{modaltitle}</Button>
-    const modifica = <Button variant="success" onClick={() => handleUpdate(fields)}>{modaltitle}</Button>
+    const agrega = <Button variant="success" onClick={() => handleCreate(fields, this.state.images)}>{modaltitle}</Button>
+    const modifica = <Button variant="success" onClick={() => handleUpdate(fields, this.state.images)}>{modaltitle}</Button>
       
     
     return (
@@ -83,6 +104,10 @@ export default class Modalcont extends Component {
           locations={this.state.locations}
           fields={this.props.fields}
           handleChange={this.props.handleChange}
+          images={this.state.images}
+          getUploadParams={this.getUploadParams}
+          handleChangeStatus={this.handleChangeStatus}
+          handleSubmitImg={this.handleSubmitImg}
           
           />
         

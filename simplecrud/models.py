@@ -26,7 +26,7 @@ class Common(models.Model):
 
 class Product(Common):
     uuid = models.UUIDField(unique=True, editable=False, default=generateUUID)
-    images = models.ImageField(upload_to='media', blank=True)
+    images = models.ImageField(upload_to='media', blank=True, null=True, default=None, )
     location = models.ForeignKey('Location', on_delete=models.CASCADE, verbose_name='localization', related_name='LOCASION')
     quantity = models.PositiveIntegerField(
                                     verbose_name='quantityy', help_text="insert quntity",

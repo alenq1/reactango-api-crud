@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from rest_framework.generics import GenericAPIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.authentication import SessionAuthentication 
 from rest_framework_simplejwt import authentication as jwtauth
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
@@ -69,6 +70,8 @@ class RegistrationAPI(GenericAPIView):
 
 
 class ProductViewset(ModelViewSet):
+    parser_classes = (MultiPartParser, FormParser)
+
     
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

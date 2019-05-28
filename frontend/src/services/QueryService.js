@@ -15,22 +15,22 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
   const originalRequest = error.config;
   if (!error.response) {
-    console.log(error, 'ERROR PRIAMRIO AL PRINCIPIO')
+    //console.log(error, 'ERROR PRIAMRIO AL PRINCIPIO')
     return Promise.reject(error)
   }
   if (error.response.status === 401 && sessionStorage.getItem('tkrefresh')) {
     // Hace la solicitud de refresco de tokens
     originalRequest._retry = true;
-    console.log(error.response.data, 'tipo de  error 401')
-    console.log(tkrefresh, tkaccess, 'tokens despues de 401')
+    //console.log(error.response.data, 'tipo de  error 401')
+    //console.log(tkrefresh, tkaccess, 'tokens despues de 401')
     return axios.post(retokenurl, {
         "refresh": sessionStorage.getItem('tkrefresh')
       })
       .then((responseData) => {
         // actualiza la información de OAuth
         //////////////setTokens(responseData.data.access_token, responseData.data.refresh_token);
-        console.log(tkrefresh, tkaccess, 'tokens EN SUPUESTO EXITO')
-        console.log(responseData.data, 'respuest a consulta de refresh')
+        //console.log(tkrefresh, tkaccess, 'tokens EN SUPUESTO EXITO')
+        //console.log(responseData.data, 'respuest a consulta de refresh')
         sessionStorage.setItem('tkaccess', responseData.data.access)
         //sessionStorage.tkaccess = responseData.data.access                  
         //originalRequest.headers['Authorization'] = 'Bearer ' + sessionStorage.tkaccess;
@@ -39,8 +39,8 @@ axios.interceptors.response.use(function (response) {
         // re-intenta la solicitud original
         return axios(originalRequest);
       }).catch((error) => {
-        console.log(tkrefresh, tkaccess, 'tokens CON NUEVO ERROR PARA SER BORRADOS')
-        console.log(error.response, 'ERROR DE NUEVO EN PETICION')
+        //console.log(tkrefresh, tkaccess, 'tokens CON NUEVO ERROR PARA SER BORRADOS')
+        //console.log(error.response, 'ERROR DE NUEVO EN PETICION')
         sessionStorage.removeItem("tkaccess")
         sessionStorage.removeItem("tkrefresh")
         sessionStorage.removeItem("user")
@@ -50,11 +50,11 @@ axios.interceptors.response.use(function (response) {
       });
   }
   if (error.response.status === 500) {
-    console.log(error, 'ERROR 500 de Serrvidor')
+    //console.log(error, 'ERROR 500 de Serrvidor')
     return Promise.reject(error)
   }
   if (error.response.status === 404) {
-    console.log(error, 'ERROR 404 No se encontro')
+    //console.log(error, 'ERROR 404 No se encontro')
     return Promise.reject(error)
   }
   if (error.response.status === 400) {
@@ -62,8 +62,8 @@ axios.interceptors.response.use(function (response) {
     return Promise.reject(error)
   }
 
-  console.log(tkrefresh, tkaccess, 'tokens DEVUELTOS EN ULTIMA PARTE')
-  console.log(error, 'ERROR DE PARA DEVOLVER')
+  //console.log(tkrefresh, tkaccess, 'tokens DEVUELTOS EN ULTIMA PARTE')
+  //console.log(error, 'ERROR DE PARA DEVOLVER')
   sessionStorage.removeItem("tkaccess")
   sessionStorage.removeItem("tkrefresh")
   sessionStorage.removeItem("user")
@@ -82,7 +82,7 @@ export default class QueryService {
     timeout: 5000,
     headers: {
       //'Authorization': "JWT_TOKEN",
-      'Authorization': `Bearer ${tkaccess}`,
+      'Authorization': `Bearer ${sessionStorage.getItem('tkaccess')}`,
       'Content-Type': 'application/json'
     }
   })
@@ -140,9 +140,15 @@ export default class QueryService {
   }
   async createProduct(product) {
     const url = `${apiurl}${item}/`;
-    //console.log(product, 'ESTE ES EL DATO QUE sE MANDa A agregarrrr  SERVER')
+    console.log(product, 'ASI ME LLEGO')
     return await axios
-      .post(url, product)
+      .post(url, product, {
+      headers: {
+        'content-type': 'multipart/form-data'
+        }
+      
+      
+      })
 
   }
   async updateProduct(product) {

@@ -33,7 +33,7 @@ const Info = (props) => {
 
       })
       }
-      console.log('It got rendered')
+      //console.log('It got rendered')
       fetchData();
     },
     // add empty array avoid infinite loop
@@ -87,8 +87,6 @@ const Info = (props) => {
         </tr>
 
     </Table>
-      
-      
       
     );
   

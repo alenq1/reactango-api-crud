@@ -114,10 +114,20 @@ export default class Login extends Component {
   }
   
   
-  async handleCreate(data){
+  async handleCreate(data, images){
 
-    //console.log(data, 'DATA DEL FORM para AGREG')
-    await queryservice.createProduct(data)
+    console.log(data, 'DATA DEL FORM para AGREG')
+    console.log(images, 'DATA DE IMAGENS para AGREG')
+    const fieldsData = new FormData()
+    fieldsData.append('name', data.name)
+    
+    fieldsData.append('location', data.name)
+    fieldsData.append('price', data.name)
+    fieldsData.append('quantity', data.name)
+    fieldsData.append('description', data.name)
+    fieldsData.append('images', images[1], images[1].name)
+    console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
+    await queryservice.createProduct(fieldsData)
     .then( result => {
       //console.log(result, 'result con axios')
       this.setState({
@@ -144,9 +154,11 @@ export default class Login extends Component {
 
   }
 
-  async handleUpdate(data){
+  async handleUpdate(data, images){
 
-    //console.log(data, 'DATA DEL FORM para modif')
+    console.log(data, 'DATA DEL FORM para modif')
+    console.log(images, 'DATA DE IMAGENS para MODIF')
+    data['images'] = images[1]
     await queryservice.updateProduct(data)
     .then( result => {
       //console.log(result, 'result con axios')
