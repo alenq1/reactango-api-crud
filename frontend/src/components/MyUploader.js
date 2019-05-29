@@ -1,5 +1,4 @@
-
-import React, { Component } from 'react'
+import React from 'react'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 const uploadapi = 'http://localhost:8000/api/v1/product/'

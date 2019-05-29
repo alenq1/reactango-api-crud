@@ -10,7 +10,7 @@ const stylea ={
 
 const Header = (props) => {
   
-  const user =sessionStorage.getItem('user')
+  const user = sessionStorage.getItem('user')
   return (
     
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">

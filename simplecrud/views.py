@@ -12,6 +12,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework_simplejwt import authentication as jwtauth
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
+from rest_framework import status
 
 # Create your views here.
 
@@ -75,14 +76,37 @@ class ProductViewset(ModelViewSet):
     
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    #authentication_classes = ( AllowAny,)
-    #permission_classes = (AllowAny,)
+    #authentication_classes = (jwtauth.JWTAuthentication, SessionAuthentication)
+    #permission_classes = (IsAuthenticated,)
 
-#    def create(self, request): # Here is the new update comes <<<<
-#        post_data = request.data
-#        print(request.data, "ESTA es la data enviada")
+
+    def create(self, request): # Here is the new update comes <<<<
+        post_data = request.data
+        #print(request.data, "ESTA es la data enviada")
         # do something with post data
-#        return HttpResponse(post_data, "return data")
+        #return HttpResponse(post_data, "return data")
+
+        product_serializer = ProductSerializer(data=request.data)
+        if product_serializer.is_valid():
+            product_serializer.save()
+            return Response(product_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+        #    print('error', product_serializer.errors)
+            return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def update(self, request, *args, **kwargs):
+        
+        #partial = True
+        instance = self.get_object()
+
+        #print(request.data, "ESTA es la data enviada para MODIFFFF")
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        
+        
+        self.perform_update(serializer)
+        return Response(serializer.data)
+
 
 class LocationViewset(ModelViewSet):
     

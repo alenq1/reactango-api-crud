@@ -47,3 +47,5 @@ Seis
 - Cambios esteticos de bootstrap con tablas, botones y enlazado entre paginas
 - Creado serializer y vista para creacion de usuario para registro, se uso un hibrido de model y personalizado en entrada de datos 
 - En el front se creo una tab en formulario para registro de user(mejorar)
+- modificacion de viewsets de product para aceptar mutiparser, y ,multipart  formdata, al agregar o modificar registro con imagen 
+- agregado de sttings para ruta de MEDIA para upload de imagenes, y agregado en url los pattern  apra rutas de MEDIA

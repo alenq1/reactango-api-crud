@@ -12,7 +12,7 @@ import axios from 'axios';
 
 
 
-const queryservice = new QueryService();
+//const queryservice = new QueryService();
 const loginurl = 'http://localhost:8000/api-token-auth/'
 const registerurl = 'http://localhost:8000/api-register/'
 
@@ -100,27 +100,9 @@ class Content extends Component {
               
             this.setState({ message: displaymsg })
           });
-
-    
-
-    //event.preventDefault();  
-    /* fetch('http://192.168.0.2:8000/api-token-auth/')
-    .then(resp => 
-      console.log(resp, 'RESPONSE GET')
-      )
-    .catch(error =>
-      console.log(error, 'ERRRO GET')
-      )
- */
-      
-      //queryservice.login(this.state.username, this.state.password)      
-      
-      //event.stopPropagation();
-      //this.setState({ validated: true });
       
     }
 
-    ///////////////
 
     async handleRegister(event){
     

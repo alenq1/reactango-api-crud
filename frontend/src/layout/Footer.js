@@ -16,9 +16,9 @@ const style={
 const footer = (props) => {
   return (
 
-      <Row  className="py-4 bg-dark text-center">
+      <div  className="py-4 bg-dark text-center">
       {props.message}
-      </Row>
+      </div>
     
   
   )

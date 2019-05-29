@@ -67,8 +67,9 @@ axios.interceptors.response.use(function (response) {
   sessionStorage.removeItem("tkaccess")
   sessionStorage.removeItem("tkrefresh")
   sessionStorage.removeItem("user")
-  return Promise.reject(error)
   hist.push("/login")
+  return Promise.reject(error)
+  
 
 })
 
@@ -95,7 +96,7 @@ export default class QueryService {
       url: url,
       headers: {
         //'Authorization': "JWT_TOKEN",
-        'Authorization': `Bearer ${tkaccess}`,
+        'Authorization': `Bearer ${sessionStorage.getItem('tkaccess')}`,
         'Content-Type': 'application/json'
       }
     })
@@ -113,7 +114,7 @@ export default class QueryService {
       url: url,
       headers: {
         //'Authorization': "JWT_TOKEN",
-        'Authorization': `Bearer ${tkaccess}`,
+        'Authorization': `Bearer ${sessionStorage.getItem('tkaccess')}`,
         'Content-Type': 'application/json'
       }
     })
@@ -140,22 +141,31 @@ export default class QueryService {
   }
   async createProduct(product) {
     const url = `${apiurl}${item}/`;
-    console.log(product, 'ASI ME LLEGO')
+    console.log(product.get('name'), 'ASI ME LLEGO el NAME')
+    
     return await axios
       .post(url, product, {
       headers: {
-        'content-type': 'multipart/form-data'
+        'Content-type': 'multipart/form-data'
         }
       
       
       })
 
   }
-  async updateProduct(product) {
-    const url = `${apiurl}${item}/${product.id}/`;
-    //console.log(product, 'ESTE ES EL DATO QUE sE MANDa A modificarrrr  SERVER')
+  async updateProduct(product, id) {
+    const url = `${apiurl}${item}/${id}/`;
+    console.log(product, 'ESTE ES EL DATO QUE sE MANDa A modificarrrr  SERVER')
+    console.log(id, 'NUMERO DE ID')
+    //console.log(product.get('name'), 'ASI ME LLEGO el NAME')
     return await axios
-      .put(url, product)
+      .put(url, product, {
+        headers: {
+          'Content-type': 'multipart/form-data'
+          }
+        
+        
+        })
 
   }
 

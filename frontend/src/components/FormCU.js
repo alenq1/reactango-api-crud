@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Form, Col, InputGroup, Button } from 'react-bootstrap';
 import  MyUploader  from '../components/MyUploader';
 

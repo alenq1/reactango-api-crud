@@ -7,6 +7,7 @@ const Tables = (props) => {
         <thead>
         
             <tr>
+              <th>Preview</th>
               <th>Name</th>
               <th>Quantity</th>
               <th>Price</th>              
@@ -29,6 +30,11 @@ const Tables = (props) => {
             props.list.map(product =>
             
             <tr key={product.id}>
+              <td><img
+      src={product.images}
+      width='45'
+      height='30'
+      /></td>
               <td onClick={() => props.handleOnClick(product)}>{product.name}</td>
               <td>{product.quantity}</td>
               <td>{product.price}</td>

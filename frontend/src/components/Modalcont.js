@@ -17,7 +17,7 @@ const style = {
 
 const stylein = {
 
-  background: '-webkit-linear-gradient(to right, #0b8793, #360033)',  /* Chrome 10-25, Safari 5.1-6 */
+  //background: '-webkit-linear-gradient(to right, #0b8793, #360033)',  /* Chrome 10-25, Safari 5.1-6 */
   background: 'linear-gradient(to right, #0b8793, #360033)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: 'whitesmoke',
 
@@ -30,8 +30,8 @@ export default class Modalcont extends Component {
       locations: [],
       fields: [],
       error: '',
-      lat: 20.0001,
-      long: 20.0001,
+      lat: 17.01924,
+      long: -25.06789,
       zoom: 15,
       images: []
 
@@ -66,7 +66,7 @@ export default class Modalcont extends Component {
     //getUploadParams = ({ meta }) => { return { url: uploadapi } }
     
     // called every time a file's `status` changes
-    handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) 
+    handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file)      
       this.setState({ images: [meta, file] })
       console.log(this.state.images, 'IMAGENES METIDAS')
     

@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Col, InputGroup, Button, Table } from 'react-bootstrap';
 import Maps from './Maps';
 import axios from 'axios'

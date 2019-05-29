@@ -8,8 +8,8 @@ const style = {
     height: '65vh',
     minHeight: '350px',
     background: 'no-repeat center center scroll',
-    webkitBackgroundSize: 'cover',
-    mozBackgroundSize: 'cover',
+    WebkitBackgroundSize: 'cover',
+    MozBackgroundSize: 'cover',
     obackgroundSize: 'cover',
     backgroundSize: 'cover',
 

@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 from fastcrud.api import router
 from simplecrud.views import RegistrationAPI
 from rest_framework_simplejwt.views import (
@@ -37,3 +39,6 @@ urlpatterns = [
     path('api-token-refresh/', TokenRefreshView.as_view(), name='api_token_refresh'),
     path('api-register/', RegistrationAPI.as_view(), name="api-user-register")
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

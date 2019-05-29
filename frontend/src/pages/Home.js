@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import  Header  from '../layout/Header'
 import  Footer  from '../layout/Footer'
 import  CarouselHome  from '../components/CarouselHome';

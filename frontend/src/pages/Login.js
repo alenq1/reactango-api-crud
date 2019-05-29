@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import  Header  from '../layout/Header'
 import  Content  from '../layout/Content';
 import  Footer  from '../layout/Footer'
@@ -6,8 +6,8 @@ import FormLogin from '../components/FormLogin';
 import { Container } from 'react-bootstrap';
 
 
-const nameapp = 'loPan'
-const footermsg = 'lopanInc'
+const nameapp = 'nameapp'
+const footermsg = 'footer'
 const page = 'Login'
 const style ={
 
@@ -17,6 +17,7 @@ const style ={
   padding: '100px',
   
    */
+  margin: '100'
 
 }
 

@@ -6,6 +6,7 @@ import List from './pages/List'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
+import Test from './pages/Test';
 import PrivRoute from './PrivRoute'
 
 
@@ -30,6 +31,7 @@ export default class Routes extends Component {
            <Route exact path="/" component={Home} />
            <PrivRoute exact path="/dashboard" component={Dashboard} />
            <PrivRoute exact path="/list" component={List} />
+           <PrivRoute exact path="/test" component={Test} />
         </Switch>
     </Router>
       

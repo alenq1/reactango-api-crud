@@ -14,6 +14,7 @@ import Tables from '../components/Tables';
 import Modalcont from '../components/Modalcont'
 import ReactEcharts from 'echarts-for-react';
 import QueryService from '../services/QueryService';
+import Test from "./Test";
 //import Spinner from '../components/Spinner';
 
 const queryservice = new QueryService()
@@ -286,19 +287,7 @@ export default class Dashboard extends Component {
     
     const { list, average } = this.state
     console.log(list, list.length,'ESTA ES LA LISTA')
-    const options =  {
-      xAxis: {
-        type: 'category',
-        data: [list.length] 
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [{
-        data: [this.findAvg(list)] ,
-        type: 'line'
-    }]
-    };
+    
 
     return (
 
@@ -307,7 +296,7 @@ export default class Dashboard extends Component {
       
       <div id="content-wrapper">
 
-        <div className="container-fluid">
+        <div className="container-fluid mt-2">
 
         
           <ol className="breadcrumb">
@@ -406,36 +395,22 @@ export default class Dashboard extends Component {
               <i className="fas fa-chart-area"></i>
               Graficos de Actividad </div>
             <div className="card-body">
-              <canvas id="myAreaChart" width="100%" height="30"></canvas>
-                  
-              <div className="row">
-              <div className="col-sm3">
               
-              <div id="main5" style={{width: '1000%', height:'400px'}}>
-              <ReactEcharts
-  option={options}
-  notMerge={true}
-  lazyUpdate={true}
-  theme={"theme_name"}
-   />
-
-              </div>
-  
-              </div>    
-              <div className="col-sm3">
-              <div id="main2" style={{width: '500px', height:'400px'}}></div>
-              </div>
-              <div className="col-sm3">
-              <div id="main3" style={{width: '500px', height:'400px'}}></div>
-              </div>
-              <div className="col-sm3">
-                      <div id="main4" style={{width: '500px', height:'400px'}}></div>
-                      </div>
-              <div className="col-sm3">
-                      <div id="main" style={{width: '500px', height:'400px'}}></div>
-                      </div>
+                  
+              <div >
+              
+              <Test/>   
+              
                       
               </div>
+
+              <div >
+              
+              <Test/>   
+              
+                      
+              </div>
+              
             </div>
             <div className="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
           </div>
@@ -447,7 +422,7 @@ export default class Dashboard extends Component {
               Ronda de multiply</div>
             <div className="card-body">
               <div className="table-responsive">
-                <table className="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                   
                     <thead className="thead-inverse thead-dark">
                       <tr>

@@ -116,16 +116,20 @@ export default class Login extends Component {
   
   async handleCreate(data, images){
 
+    
     console.log(data, 'DATA DEL FORM para AGREG')
     console.log(images, 'DATA DE IMAGENS para AGREG')
-    const fieldsData = new FormData()
+    let fieldsData = new FormData()
     fieldsData.append('name', data.name)
     
-    fieldsData.append('location', data.name)
-    fieldsData.append('price', data.name)
-    fieldsData.append('quantity', data.name)
-    fieldsData.append('description', data.name)
+    fieldsData.append('location', data.location)
+    fieldsData.append('price', data.price)
+    fieldsData.append('quantity', data.quantity)
+    fieldsData.append('description', data.description)
+    if(images[1] !== undefined){
+    fieldsData.set('images', '')
     fieldsData.append('images', images[1], images[1].name)
+    }
     console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
     await queryservice.createProduct(fieldsData)
     .then( result => {
@@ -140,7 +144,8 @@ export default class Login extends Component {
         'OK',
         'success'
       )
-      //console.log(this.state.products, 'prduct state con axios')      
+      //console.log(this.state.products, 'prduct state con axios')
+      //fieldsData.reset()      
     })
     .catch(error => {
       //console.log(error, 'estructura del error')
@@ -156,10 +161,24 @@ export default class Login extends Component {
 
   async handleUpdate(data, images){
 
+
     console.log(data, 'DATA DEL FORM para modif')
-    console.log(images, 'DATA DE IMAGENS para MODIF')
-    data['images'] = images[1]
-    await queryservice.updateProduct(data)
+    console.log(images[1], 'DATA DE IMAGENS UNO para MODIF')
+    let fieldsData = new FormData()
+    fieldsData.append('name', data.name)
+    
+    fieldsData.append('location', data.location)
+    fieldsData.append('price', data.price)
+    fieldsData.append('quantity', data.quantity)
+    fieldsData.append('description', data.description)
+    if(images[1] !== undefined){
+      fieldsData.set('images', '')  
+    fieldsData.append('images', images[1], images[1].name)
+    }
+    console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
+    console.log(fieldsData.get('images'), 'ESTE ES FIELDS IMAGES COVERTIDO')
+    console.log(data.id, 'ESTE ES ID PARA URL')
+    await queryservice.updateProduct(fieldsData, data.id)
     .then( result => {
       //console.log(result, 'result con axios')
       this.setState({
@@ -283,6 +302,8 @@ export default class Login extends Component {
     return (
       <>
       <Header brand={nameapp} alerts={MySwal}/>
+      <div id="content-wrapper">
+        <div className="container-fluid mt-2" >
       <ol className="breadcrumb">
             <li className="breadcrumb-item">
             <Link to="/dashboard">
@@ -331,6 +352,8 @@ export default class Login extends Component {
       >
       
       </Tables>
+      </div>
+      </div>
       <Footer message={footermsg}/>
       </>
     )
