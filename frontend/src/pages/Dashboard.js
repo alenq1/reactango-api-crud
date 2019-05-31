@@ -3,7 +3,7 @@ import  Header  from '../layout/Header'
 import  Content  from '../layout/Content';
 import  Footer  from '../layout/Footer'
 import { Redirect, withRouter, Link } from 'react-router-dom'
-import { Modal, Alert, Button, Row, Fade } from  'react-bootstrap';
+import { Modal, Alert, Button, Row, Fade, Spinner } from  'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons';
@@ -14,7 +14,7 @@ import Tables from '../components/Tables';
 import Modalcont from '../components/Modalcont'
 import ReactEcharts from 'echarts-for-react';
 import QueryService from '../services/QueryService';
-import Test from "./Test";
+import LineChart from "../components/LineChart";
 //import Spinner from '../components/Spinner';
 
 const queryservice = new QueryService()
@@ -46,6 +46,8 @@ export default class Dashboard extends Component {
        list: [],
        fields: {},
        average: 0,
+       totQuanty: 0,
+       hotLocation: undefined,
        show: false,
        error: '',
        message: '',
@@ -65,6 +67,7 @@ export default class Dashboard extends Component {
   
   async componentDidMount() {
 
+    
     await queryservice.getProducts()
     .then( result => {
           //console.log(result, 'result con axios')
@@ -77,7 +80,8 @@ export default class Dashboard extends Component {
         })
 
   //      this.setState({loading: false});
-    
+        const {list} = this.state
+        this.findAvg(list)
     
 }
 
@@ -90,7 +94,10 @@ export default class Dashboard extends Component {
       this.setState({ 
         fields: {},
         show: true,
-        modaltitle: 'Create'
+        modaltitle: 'Create',
+        chartdata: [],
+        chartfield: []
+
       
       })
     //console.log(data, 'DATA DEL FORM limpio')
@@ -267,25 +274,44 @@ export default class Dashboard extends Component {
   }
   
   findAvg(arr){
-
+  
     //let value;
     //console.log(arr, 'ARREGLO dENTRADA PARa PRoMEDIO')
     let acum = 0;
+    let quanty = 0;
+    let most = []
     for (let value of arr) {
       acum += value['price']
+      quanty += value['quantity']
+      most.push(value['location'])
     //  console.log(value['price'], 'valores para promediar' )
     //  console.log(acum, 'acumulado' )
   }
   let  prom = (acum / this.state.list.length).toFixed(2)
+
+  
+  let counts = most.reduce((a, c) => {
+    a[c] = (a[c] || 0) + 1;
+    return a;
+  }, {});
+  let maxCount = Math.max(...Object.values(counts));
+  let mostFrequent = Object.keys(counts).filter(k => counts[k] === maxCount);
+  
+  console.log(mostFrequent, 'MAS FREQUENTE');
+
+
   //console.log(prom, 'promedio')
-  return prom
+  this.setState({average: prom,
+                 totQuanty: quanty,
+                 hotLocation: mostFrequent
+                })
  
 
   }
 
   render() {
     
-    const { list, average } = this.state
+    const { list, average, totQuanty, hotLocation } = this.state
     console.log(list, list.length,'ESTA ES LA LISTA')
     
 
@@ -320,7 +346,15 @@ export default class Dashboard extends Component {
                     <i className="fas fa-fw fa-dollar-sign"></i>
                   </div>
                   
-                  <h1 className="display-4" id="vesusd">{list.length}</h1>
+                  <h1 className="display-4" id="vesusd">{list.length === 0 ? 
+                  <>
+                  <Spinner animation="grow" variant="light" role="status" />
+                  <Spinner animation="grow" variant="light" role="status" />
+                  <Spinner animation="grow" variant="light" role="status" />
+                  </>
+                  :
+                  list.length
+                }</h1>
                 <p className="lead">Total Products</p>
                 </div>
                 <a className="card-footer text-white clearfix small z-1" href="#">
@@ -338,7 +372,15 @@ export default class Dashboard extends Component {
                       <i className="fab fa-btc"></i>
                   </div>
                     <div className="row">
-                  <h1 id="btccusd" className="display-4 mr-2">{this.findAvg(list)}</h1>
+                  <h1 id="btccusd" className="display-4 mr-2">{!average ? 
+                  <>
+                  <Spinner animation="grow" variant="light" role="status" />
+                  <Spinner animation="grow" variant="light" role="status" />
+                  <Spinner animation="grow" variant="light" role="status" />
+                  </>
+                  :
+                  average
+                }</h1>
                   <h1><i id="arrow" className="fas fa-arrow-right    "></i></h1>
                     </div>
                     <p className="lead">Average Price</p>
@@ -352,13 +394,21 @@ export default class Dashboard extends Component {
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 mb-3">
-              <div className="card text-white bg-danger o-hidden h-100">
+              <div className="card text-white bg-info o-hidden h-100">
                 <div className="card-body">
                   <div className="card-body-icon">
                     <i className="fas fa-fw fa-exclamation-circle"></i>
                   </div>
-                  <h1 className="display-4">45%</h1>
-                        <p className="lead">Acierto</p>
+                  <h1 className="display-4">{!totQuanty ? 
+                  <>
+                  <Spinner animation="grow" variant="light" role="status" />
+                  <Spinner animation="grow" variant="light" role="status" />
+                  <Spinner animation="grow" variant="light" role="status" />
+                  </>
+                  :
+                  totQuanty
+                }</h1>
+                        <p className="lead">Total Quantity</p>
                 </div>
                 <a className="card-footer text-white clearfix small z-1" href="#">
                   <span className="float-left">View Details</span>
@@ -369,15 +419,23 @@ export default class Dashboard extends Component {
               </div>
             </div>
             <div className="col-xl-3 col-sm-6 mb-3">
-              <div className="card text-white bg-info o-hidden h-100">
+              <div className="card text-white bg-danger o-hidden h-100">
                 <div className="card-body">
                   <div className="card-body-icon">
                     <i className="fas fa-fw fa-wallet"></i>
                   </div>
-                  <h2 className="display-6">0.00004000</h2>
+                  <h1 className="display-6">{!hotLocation ? 
+                  <>
+                  <Spinner animation="grow" variant="light" role="status" />
+                  <Spinner animation="grow" variant="light" role="status" />
+                  <Spinner animation="grow" variant="light" role="status" />
+                  </>
+                  :
+                  hotLocation
+                }</h1>
                             <p className="lead"></p>
                             <p className="lead"></p>
-                            <p className="lead">Saldo BTC</p>
+                            <p className="lead">Hot Location</p>
                 </div>
                 <a className="card-footer text-white clearfix small z-1" href="#">
                   <span className="float-left">View Details</span>
@@ -399,14 +457,32 @@ export default class Dashboard extends Component {
                   
               <div >
               
-              <Test/>   
+              <LineChart
+              textchart={'Test Graph'}
+              typechart={'bar'}
+              xdata={list.map(datarr =>
+                datarr.location
+                )}
+              ydata={list.map(datarr =>
+                datarr.quantity
+                )}
+                />
               
                       
               </div>
 
               <div >
               
-              <Test/>   
+              <LineChart
+              textchart={'Graph Two'}
+              typechart={'line'}
+              xdata={list.map(datarr =>
+                datarr.name
+                )}
+              ydata={list.map(datarr =>
+                datarr.price
+                )}
+              />   
               
                       
               </div>

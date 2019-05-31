@@ -23,10 +23,12 @@ const title = 'Login'
 const style = { 
         
     padding: '10px',
-    margin: '10px 0',
+    margin: '80px 0',
     background: 'black',
     height: '50%',
-    width: '50%'
+    width: '50%',
+    maxWidth: '350px',
+    
    
     
         }
@@ -181,8 +183,8 @@ class Content extends Component {
                 {message}
             </Card.Header>
             <Card.Body>
-                <Card.Title></Card.Title>
-                <Tabs
+                
+                <Tabs style={{margin: '10px'}}
                     id="controlled-tab-example"
                     activeKey={this.state.tab}
                     onSelect={tab => this.setState({ tab })}

@@ -5,7 +5,7 @@ import { Form, Col, InputGroup, Button } from 'react-bootstrap';
 
 const FormLogin = (props) => {
   return (
-    <div>
+    
       <Form 
         validated={props.validated}
         style ={props.style}
@@ -46,7 +46,7 @@ const FormLogin = (props) => {
         </Button>
 
       </Form>
-    </div>
+    
   )
 }
 export default FormLogin

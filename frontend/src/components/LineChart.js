@@ -1,24 +1,24 @@
 import React from 'react'
 import ReactEcharts from 'echarts-for-react';
 
-const Test = () => {
+const LineChart = (props) => {
 
     const options = {
         title: {
-            text: 'ECharts with React'
+            text: props.textchart
         },
         grid: {
           show: false
         },
         tooltip: {},
         xAxis: {
-            data: ["1990","1991","1992","1993","1994","1995"]
+            data: props.xdata
         },
         yAxis: {},
         series: [{
             name: 'Test',
-            type: 'line',
-            data: [5, 20, 36, 10, 10, 20]
+            type: props.typechart,
+            data: props.ydata
         }]
     };
 
@@ -35,4 +35,4 @@ const Test = () => {
     )
 }
 
-export default Test
+export default LineChart
