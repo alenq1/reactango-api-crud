@@ -1,9 +1,11 @@
 import React from 'react'
 import { Nav, Navbar, Button, DropdownButton, Dropdown } from 'react-bootstrap'
-import { Redirect, withRouter } from 'react-router-dom'
+import { Redirect, withRouter, Link } from 'react-router-dom'
 
 
 const stylea ={
+
+  position: 'sticky',
 
 }
 
@@ -13,10 +15,12 @@ const Header = (props) => {
   const user = sessionStorage.getItem('user')
   return (
     
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg"  variant="dark" className="mr-3 ml-3">
     <Navbar.Brand href="#home">{props.brand}</Navbar.Brand>
     <Nav className="mr-auto">
-      <Nav.Link href="#home">Home</Nav.Link>
+      <Link to="/">
+      <Nav.Link href="/">Home</Nav.Link>
+      </Link>
       
     </Nav>
     <Nav>

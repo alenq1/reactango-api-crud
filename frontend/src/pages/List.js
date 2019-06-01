@@ -13,6 +13,7 @@ import withReactContent from 'sweetalert2-react-content'
 import Tables from '../components/Tables';
 import Modalcont from '../components/Modalcont'
 import QueryService from '../services/QueryService';
+import SideBar from '../components/SideBar';
 //import Spinner from '../components/Spinner';
 
 const queryservice = new QueryService()
@@ -303,7 +304,8 @@ export default class Login extends Component {
       <>
       <Header brand={nameapp} alerts={MySwal}/>
       <div id="content-wrapper">
-        <div className="container-fluid mt-2" >
+        <SideBar/>
+        <div className="container-fluid mt-2" style={{paddingLeft: '80px'}}>
       <ol className="breadcrumb">
             <li className="breadcrumb-item">
             <Link to="/dashboard">

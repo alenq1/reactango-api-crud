@@ -17,7 +17,8 @@ const style = {
 
 const CarouselHome = () => {
   return (
-<header>
+
+<div className="m-3">
 <Carousel>
   <Carousel.Item  style={style}>
     <img
@@ -67,7 +68,7 @@ const CarouselHome = () => {
     </Carousel.Caption>
   </Carousel.Item>
 </Carousel>
-</header>
+</div>
 
 )
 }

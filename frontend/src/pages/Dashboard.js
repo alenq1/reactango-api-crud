@@ -15,6 +15,7 @@ import Modalcont from '../components/Modalcont'
 import ReactEcharts from 'echarts-for-react';
 import QueryService from '../services/QueryService';
 import LineChart from "../components/LineChart";
+import SideBar from '../components/SideBar';
 //import Spinner from '../components/Spinner';
 
 const queryservice = new QueryService()
@@ -52,6 +53,7 @@ export default class Dashboard extends Component {
        error: '',
        message: '',
        modaltitle: '',
+       sidebar: false,
        loading: false
     }
     this.handleHide = this.handleHide.bind(this)
@@ -62,6 +64,7 @@ export default class Dashboard extends Component {
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleOnClick = this.handleOnClick.bind(this)
     this.findAvg = this.findAvg.bind(this)
+    this.handleSideBarToggle = this.handleSideBarToggle.bind(this)
     
   }
   
@@ -262,6 +265,16 @@ export default class Dashboard extends Component {
     })
   }
 
+  handleSideBarToggle(){
+    /* this.setState({ 
+        
+    
+    }) */
+
+  }
+
+
+
   handleOnClick(data){
 
     this.setState({ 
@@ -318,11 +331,18 @@ export default class Dashboard extends Component {
     return (
 
       <>
+      <div id="wrapper">
+      
       <Header brand={nameapp} alerts={MySwal}/>
       
       <div id="content-wrapper">
-
-        <div className="container-fluid mt-2">
+      <SideBar onClick={this.handleSideBarToggle()}/>
+        <div className="container-fluid mt-2" style={
+          this.state.sidebar ?
+          {paddingLeft: '240px'}
+          :
+          {paddingLeft: '80px'}
+          }>
 
         
           <ol className="breadcrumb">
@@ -335,10 +355,12 @@ export default class Dashboard extends Component {
               </Link>  
               </li>
             <li className="breadcrumb-item active">Overview</li>
+            
           </ol>
 
-        
+          
           <div className="row">
+          
             <div className="col-xl-3 col-sm-6 mb-3">
               <div className="card text-white bg-success o-hidden h-100">
                 <div className="card-body">
@@ -528,24 +550,16 @@ export default class Dashboard extends Component {
 
         </div>
         
-        <footer className="sticky-footer">
-          <div className="container my-auto">
-            <div className="copyright text-center my-auto">
-              <span>Copyright © Your Website 2018</span>
-            </div>
-          </div>
-        </footer>
-
+        
       </div>
+
       
 
     
     
 
     
-    <a className="scroll-to-top rounded" href="#page-top">
-      <i className="fas fa-angle-up"></i>
-    </a>
+      </div>
       <Footer message={footermsg}/>
       </>
     )

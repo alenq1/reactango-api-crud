@@ -85,7 +85,7 @@ const Tables = (props) => {
               <td>{product.description}
               </td>            
               <td>
-              <Button className="mr-2" variant="warning" onClick={() => props.handleData(product)}>edit</Button>
+              <Button className="mr-2 " variant="warning" onClick={() => props.handleData(product)}>edit</Button>
               <Button variant="danger" onClick={() => 
                 
                 props.handleDelete(product.id)}>

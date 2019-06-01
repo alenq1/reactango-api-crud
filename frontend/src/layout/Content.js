@@ -26,7 +26,7 @@ const style = {
     margin: '80px 0',
     background: 'black',
     height: '50%',
-    width: '50%',
+    width: '100%',
     maxWidth: '350px',
     
    
