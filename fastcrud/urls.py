@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls import url
 from django.views.generic import TemplateView
 from django.conf import settings
@@ -31,13 +31,14 @@ urlpatterns = [
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name="home.html"), name="home"),
+    #path('', TemplateView.as_view(template_name="home.html"), name="home"),
     path('app/', include(('simplecrud.urls', 'simplecrud'), namespace='app')),
     #path('app0', include(('app0.urls', 'app0'), namespace='app0')),
     path('api/v1/', include(router.urls)),
     path('api-token-auth/', TokenObtainPairView.as_view(), name='api_token_auth'),
     path('api-token-refresh/', TokenRefreshView.as_view(), name='api_token_refresh'),
-    path('api-register/', RegistrationAPI.as_view(), name="api-user-register")
+    path('api-register/', RegistrationAPI.as_view(), name="api-user-register"),
+    re_path('.*', TemplateView.as_view(template_name="home.html"), name="home")
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
