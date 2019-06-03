@@ -32,8 +32,8 @@ ALLOWED_HOSTS = ['reactango-api-crud.herokuapp.com']
 
 INSTALLED_APPS = [
     ##plugin admin gui 
-    'jet.dashboard',
-    'jet',
+    #'jet.dashboard',
+    #'jet',
     ##django defaults
     'django.contrib.admin',
     'django.contrib.auth',
