@@ -15,8 +15,16 @@ const Header = (props) => {
   const user = sessionStorage.getItem('user')
   return (
     
-    <Navbar collapseOnSelect expand="lg"  variant="dark" className="mr-3 ml-3">
-    <Navbar.Brand href="#home">{props.brand}</Navbar.Brand>
+    <Navbar style={{paddingLeft: '50px'}} collapseOnSelect expand="lg"  variant="dark" className="mr-3 ml-3">
+    <Navbar.Brand  href="#home">
+    <img
+        src={require('./img/site/HatchfulExport-All(1)/logo_transparent.png')}
+        width="35"
+        height="35"
+        
+        alt="React Bootstrap logo"
+      />
+    </Navbar.Brand>
     <Nav className="mr-auto">
       <Link to="/">
       <Nav.Link href="/">Home</Nav.Link>

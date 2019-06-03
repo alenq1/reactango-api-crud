@@ -5,6 +5,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import List from './pages/List'
 import Login from './pages/Login'
 import Home from './pages/Home'
+import Locations from './pages/Locations'
 import Dashboard from './pages/Dashboard'
 //import Test from './pages/Test';
 import PrivRoute from './PrivRoute'
@@ -31,6 +32,7 @@ export default class Routes extends Component {
            <Route exact path="/" component={Home} />
            <PrivRoute exact path="/dashboard" component={Dashboard} />
            <PrivRoute exact path="/list" component={List} />
+           <PrivRoute exact path="/locations" component={Locations} />
            
         </Switch>
     </Router>

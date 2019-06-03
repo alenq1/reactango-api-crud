@@ -3,7 +3,7 @@ import  Header  from '../layout/Header'
 import  Content  from '../layout/Content';
 import  Footer  from '../layout/Footer'
 import { Redirect, withRouter, Link } from 'react-router-dom'
-import { Modal, Alert, Button, Row, Fade } from  'react-bootstrap';
+import { Modal, Alert, Button, Row, Fade, Spinner } from  'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons';
@@ -78,7 +78,7 @@ export default class Login extends Component {
                           loading: false });
         })
 
-  //      this.setState({loading: false});
+        this.setState({loading: false});
     
     
 }
@@ -341,7 +341,25 @@ export default class Login extends Component {
       alerts={MySwal}
       />
 
-     
+      {this.state.loading ? 
+
+      <div style={{textAlign: 'center',
+                    margin: 'auto',
+                    padding: '200px'
+
+                    }}>
+        
+        <Spinner animation="grow" variant="light" role="status" />
+        <Spinner animation="grow" variant="light" role="status" />
+        <Spinner animation="grow" variant="light" role="status" />
+        
+      </div>
+
+
+
+      :
+      
+
       <Tables
       list={this.state.list}
       style={style}
@@ -354,6 +372,8 @@ export default class Login extends Component {
       >
       
       </Tables>
+       }
+      
       </div>
       </div>
       <Footer message={footermsg}/>

@@ -43,44 +43,56 @@ const Home = (props) => {
           { /* IMPORTANT CLASS DEFINITION FOR FIT PAGE -------> CONTAINER FLUID */}
 
   
-  <h1 class="my-6">Page Heading
-    <small>Secondary Text</small>
+  <h1 class="my-6">Top Features
+    <small></small>
   </h1>
 
   <div class="row">
-    <div class="col-lg-4 col-sm-6 mb-4">
+    <div class="col-lg-3 col-sm-6 mb-3">
       <div class="card h-100">
         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""/></a>
         <div class="card-body">
           <h4 class="card-title">
-            <a href="#">Project One</a>
+            <a href="#">React app </a>
           </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+          <p class="card-text">SPA made in react as Front-End, Using libaries like, axios, react-boostrap, leaflet, echart,setc </p>
         </div>
       </div>
     </div>
-    <div class="col-lg-4 col-sm-6 mb-4">
+    <div class="col-lg-3 col-sm-6 mb-3">
       <div class="card h-100">
         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""/></a>
         <div class="card-body">
           <h4 class="card-title">
-            <a href="#">Project Two</a>
+            <a href="#">Django Rest Framework</a>
           </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+          <p class="card-text">DRF as backend API with modelviewsets, serializers, routes.</p>
         </div>
       </div>
     </div>
-    <div class="col-lg-4 col-sm-6 mb-4">
+    <div class="col-lg-3 col-sm-6 mb-3">
       <div class="card h-100">
         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""/></a>
         <div class="card-body">
           <h4 class="card-title">
-            <a href="#">Project Three</a>
+            <a href="#">Docker </a>
           </h4>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis mollitia recusandae vero vel quam!</p>
+          <p class="card-text">For deploying both enviroments, and fast start</p>
         </div>
       </div>
     </div>
+    <div class="col-lg-3 col-sm-6 mb-3">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""/></a>
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">Other </a>
+          </h4>
+          <p class="card-text">For deploying both enviroments, and fast start</p>
+        </div>
+      </div>
+    </div>
+    
     
   </div>
   
@@ -91,8 +103,8 @@ const Home = (props) => {
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">Login/Register actions. <span class="text-muted">Using JWT.</span></h2>
+        <p class="lead">Using JWT on the backend with access token, and refresh token for enforcing security</p>
       </div>
       <div class="col-md-5">
       <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" 
@@ -109,8 +121,8 @@ const Home = (props) => {
 
     <div class="row featurette">
       <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">Dashboard and Graphics <span class="text-muted">And visual stuffs</span></h2>
+        <p class="lead">Using bootstrap and other libaries for User Interface more friendly</p>
       </div>
       <div class="col-md-5 order-md-1">
         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" 
@@ -127,8 +139,8 @@ const Home = (props) => {
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">Crud Operations <span class="text-muted">All in one app</span></h2>
+        <p class="lead">Allow the most common actions for data manipulation (CRUD) in only onepage</p>
       </div>
       <div class="col-md-5">
       <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" 

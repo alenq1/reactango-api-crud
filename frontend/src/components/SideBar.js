@@ -1,6 +1,9 @@
 import React from 'react'
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav'
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
+import { withRouter } from 'react-router'
+import { IoIosSpeedometer, IoMdPricetags, IoMdPin } from 'react-icons/io'
+
 // Be sure to include styles at some point, probably during your bootstraping
 
 
@@ -9,10 +12,14 @@ const SideBar = (props) => {
     return (
         <SideNav
     onSelect={(selected) => {
+
         // Add your code here
-        alert(selected)
+        props.history.push(`/${selected}`)
+
     }}
     onToggle={(expanded) => {
+        let toggled = true
+        
 
     }}    
     style={{
@@ -23,7 +30,7 @@ const SideBar = (props) => {
             minwidth: '0',
             zIndex: '1',
             left: '0',
-            backgroundColor: '#111',
+            background: 'linear-gradient(to right, #0b8793, #360033)',
             overflowX: 'hidden',
             transition: '0.5s',
             
@@ -31,36 +38,50 @@ const SideBar = (props) => {
     }}
 >           
     <SideNav.Toggle />
-    <SideNav.Nav defaultSelected="home">
-        <NavItem eventKey="home">
+    
+    <SideNav.Nav defaultSelected="dashboard">
+    
+        <NavItem eventKey="dashboard">
             <NavIcon>
-                <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
+                <IoIosSpeedometer size='2em'/>
             </NavIcon>
             <NavText>
-                Home
+                Dashboard
             </NavText>
         </NavItem>
-        <NavItem eventKey="charts">
+
+
+        <NavItem eventKey="product">
             <NavIcon>
-                <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
+            <IoMdPricetags size='2em'/>
             </NavIcon>
             <NavText>
-                Charts
+                Products
             </NavText>
-            <NavItem eventKey="charts/linechart">
+            <NavItem eventKey="list">
                 <NavText>
-                    Line Chart
+                    Product List
                 </NavText>
             </NavItem>
-            <NavItem eventKey="charts/barchart">
+            <NavItem eventKey="other">
                 <NavText>
-                    Bar Chart
+                    Other
                 </NavText>
             </NavItem>
         </NavItem>
+
+        <NavItem eventKey="locations">
+            <NavIcon>
+                <IoMdPin size='2em'/>
+            </NavIcon>
+            <NavText>
+                Locations
+            </NavText>
+        </NavItem>
+
     </SideNav.Nav>
 </SideNav>
     )
 
 }
-export default SideBar
+export default withRouter(SideBar)

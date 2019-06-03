@@ -5,7 +5,7 @@ import { Carousel } from 'react-bootstrap';
 const style = {
 
   
-    height: '65vh',
+    height: '80vh',
     minHeight: '350px',
     background: 'no-repeat center center scroll',
     WebkitBackgroundSize: 'cover',

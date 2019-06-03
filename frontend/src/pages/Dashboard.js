@@ -302,7 +302,7 @@ export default class Dashboard extends Component {
   }
   let  prom = (acum / this.state.list.length).toFixed(2)
 
-  
+  // formula for most frequent value .---->
   let counts = most.reduce((a, c) => {
     a[c] = (a[c] || 0) + 1;
     return a;
@@ -310,7 +310,7 @@ export default class Dashboard extends Component {
   let maxCount = Math.max(...Object.values(counts));
   let mostFrequent = Object.keys(counts).filter(k => counts[k] === maxCount);
   
-  console.log(mostFrequent, 'MAS FREQUENTE');
+  //console.log(mostFrequent, 'MAS FREQUENTE');
 
 
   //console.log(prom, 'promedio')
