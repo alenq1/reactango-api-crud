@@ -28,8 +28,8 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    #url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    #url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
     #path('', TemplateView.as_view(template_name="home.html"), name="home"),
     path('app/', include(('simplecrud.urls', 'simplecrud'), namespace='app')),
