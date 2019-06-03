@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { createBrowserHistory } from 'history';
-const apiurl = 'http://localhost:8000/api/v1/';
-const logurl = 'http://localhost:8000/api-token-auth/'
-const retokenurl = 'http://localhost:8000/api-token-refresh/'
+const apiurl = 'https://localhost:8000/api/v1/';
+const logurl = 'https://localhost:8000/api-token-auth/'
+const retokenurl = 'https://localhost:8000/api-token-refresh/'
 const hist = createBrowserHistory();
 const item = 'product'
 let tkaccess = sessionStorage.getItem('tkaccess')
@@ -173,7 +173,7 @@ export default class QueryService {
     console.log(user, passwd, 'PASA LOGIN DATOS')
     return await axios({
         method: 'get',
-        url: 'http://192.168.0.2:8000/api-token-auth/',
+        url: 'https://localhost:8000/api-token-auth/',
         data: {
           'username': user,
           'password': passwd
