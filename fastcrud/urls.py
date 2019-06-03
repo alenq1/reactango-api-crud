@@ -38,7 +38,7 @@ urlpatterns = [
     path('api-token-auth/', TokenObtainPairView.as_view(), name='api_token_auth'),
     path('api-token-refresh/', TokenRefreshView.as_view(), name='api_token_refresh'),
     path('api-register/', RegistrationAPI.as_view(), name="api-user-register"),
-    re_path('.*', TemplateView.as_view(template_name="home.html"), name="home")
+    re_path('.*', TemplateView.as_view(template_name="index.html"), name="home")
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
