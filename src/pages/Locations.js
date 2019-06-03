@@ -99,7 +99,7 @@ const Locations = (props) => {
            <Card key={locations.id} style={{flex: 1}}>
            
            <Card.Body className="h-100  ">
-           <Card.Img variant="top" src={'https://localhost:8000/media/media/no-image-available-icon-6.jpg'} />
+           <Card.Img variant="top" src={'media/media/no-image-available-icon-6.jpg'} />
              <Card.Title>{locations.name}</Card.Title>
              <Card.Text>
              

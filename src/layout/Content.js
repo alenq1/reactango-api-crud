@@ -13,8 +13,8 @@ import axios from 'axios';
 
 
 //const queryservice = new QueryService();
-const loginurl = 'https://localhost:8000/api-token-auth/'
-const registerurl = 'https://localhost:8000/api-register/'
+const loginurl = 'api-token-auth/'
+const registerurl = 'api-register/'
 
 
 library.add(far, fab)
