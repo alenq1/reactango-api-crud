@@ -25,7 +25,7 @@ SECRET_KEY = '@6u#klanr!$ui1-@ngnc35d)b0j+wkwr-!($legprr*+bvkkv^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.2', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['reactango-api-crud.herokuapp.com']
 
 
 # Application definition
@@ -144,6 +144,8 @@ LOGIN_REDIRECT_URL =  '/'
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 ###DRF SETTINGS
