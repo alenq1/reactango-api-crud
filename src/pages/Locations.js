@@ -58,19 +58,15 @@ const Locations = (props) => {
         <div className="container-fluid mt-2" style={{paddingLeft: '80px'}}>
       <ol className="breadcrumb">
             <li className="breadcrumb-item">
-            <Link to="/dashboard">
-              <a href="">Dashboard</a>
-              </Link>  
+            
+              <a href="">Location</a>
+            
               </li>
-              <li className="breadcrumb-item">
-              <Link to="/list">
-              <a href="">List</a>
-              </Link>  
-              </li>
-            <li className="breadcrumb-item active">Overview</li>
+            
+            <li className="breadcrumb-item active">List</li>
           </ol>
           <Row className="justify-content-center m-4">
-      <h1>Location List </h1>
+      <h1> </h1>
         <Button  
         onClick='' variant="success" className="ml-4">
         Add New
@@ -99,7 +95,7 @@ const Locations = (props) => {
            <Card key={locations.id} style={{flex: 1}}>
            
            <Card.Body className="h-100  ">
-           <Card.Img variant="top" src={'media/media/no-image-available-icon-6.jpg'} />
+           <Card.Img variant="top" src={'static/media/no-image-available-icon-6.jpg'} />
              <Card.Title>{locations.name}</Card.Title>
              <Card.Text>
              

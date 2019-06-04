@@ -349,11 +349,6 @@ export default class Dashboard extends Component {
             <li className="breadcrumb-item">
               <a href="#">Dashboard</a>
               </li>
-              <li className="breadcrumb-item">
-              <Link to="/list">
-              <a href="">List</a>
-              </Link>  
-              </li>
             <li className="breadcrumb-item active">Overview</li>
             
           </ol>

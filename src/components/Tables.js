@@ -3,7 +3,7 @@ import { Table, Button, OverlayTrigger, Spinner } from 'react-bootstrap'
 
 const Tables = (props) => {
 
-  const defaultImage = 'media/media/no-image-available-icon-6.jpg'
+  const defaultImage = 'static/media/no-image-available-icon-6.jpg'
 
   const renderTooltip = (images, name) => (
     <div

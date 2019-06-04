@@ -308,19 +308,15 @@ export default class Login extends Component {
         <div className="container-fluid mt-2" style={{paddingLeft: '80px'}}>
       <ol className="breadcrumb">
             <li className="breadcrumb-item">
-            <Link to="/dashboard">
-              <a href="">Dashboard</a>
-              </Link>  
+            
+              <a href="">Products</a>
+            
               </li>
-              <li className="breadcrumb-item">
-              <Link to="/list">
-              <a href="">List</a>
-              </Link>  
-              </li>
-            <li className="breadcrumb-item active">Overview</li>
+            
+            <li className="breadcrumb-item active">List</li>
           </ol>
       <Row className="justify-content-center mt-4">
-      <h1>Product List </h1>
+      <h1></h1>
         <Button  
         onClick={() => this.handleData()} variant="success" className="ml-4">
         Add New

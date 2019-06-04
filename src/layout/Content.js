@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import FormLogin from '../components/FormLogin';
 import FormRegister from '../components/FormRegister';
 import { Redirect, withRouter } from 'react-router-dom'
-import { Card, Alert, Tab, Tabs } from  'react-bootstrap';
+import { Card, Alert, Tab, Tabs, CardImg, Nav, Row } from  'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons';
@@ -28,6 +28,7 @@ const style = {
     height: '50%',
     width: '100%',
     maxWidth: '350px',
+    border: '0'
     
    
     
@@ -175,23 +176,49 @@ class Content extends Component {
     return (
       
         <div className="row border-info text-center justify-content-sm-center">
+         <Card bg="transparent" text="white" style={style} className="justify-content">
          
+           <Card.Body>
+         <CardImg variant="top"
+        src={require('./img/site/logo_transparent.png')}
+        width="250"
+        height="300"
+        
+        alt="React Bootstrap logo"
+      />
+      </Card.Body>
+      
+         </Card>
         <Card bg="dark" text="white" style={style} className="justify-content ">
             <Card.Header>
-            <FontAwesomeIcon icon={['fab', 'apple']}  />
-                {title}
+           
+                
                 {message}
             </Card.Header>
             <Card.Body>
-                
-                <Tabs style={{margin: '10px'}}
-                    id="controlled-tab-example"
+                <Tab.Container id="controlled-tab-example"
                     activeKey={this.state.tab}
-                    onSelect={tab => this.setState({ tab })}
-                >
-                <Tab eventKey="login" title="login">
-          
-        
+                    onSelect={tab => this.setState({ tab })}>
+                 <Row style={{margin: '5px',
+                              
+                              color: 'white',
+                              
+                              backgroundColor: 'blue',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              cursor: 'pointer',
+                              transition: 'background 0.3s'
+                }}>
+                <Nav.Item style={{width: '50%'}}>
+                <Nav.Link eventKey="login" title="Login" active="true">Login</Nav.Link>
+                </Nav.Item>
+                <Nav.Item style={{width: '50%'}}>
+                <Nav.Link eventKey="register" title="Register" >Register</Nav.Link>
+                </Nav.Item>
+                </Row>
+                  <Tab.Content>
+                    <Tab.Pane eventKey="login">
                   <FormLogin
                   validated={validated}
                   name={'username'}
@@ -201,8 +228,9 @@ class Content extends Component {
                   handleChange={this.handleChange}
                   handleLogin={this.handleLogin}
                   />
-                  </Tab>
-                  <Tab eventKey="register" title="register">  
+                  </Tab.Pane>
+                  
+                  <Tab.Pane eventKey="register">
                   <FormRegister
                   validated={validated}
                   name={'username'}
@@ -212,8 +240,10 @@ class Content extends Component {
                   handleChange={this.handleChange}
                   handleRegister={this.handleRegister}
                   />
-                  </Tab>
-                  </Tabs>
+                  </Tab.Pane>
+                  </Tab.Content>
+                  
+                  </Tab.Container>
             </Card.Body>
         </Card>
         

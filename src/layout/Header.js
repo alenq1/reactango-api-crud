@@ -1,6 +1,7 @@
 import React from 'react'
 import { Nav, Navbar, Button, DropdownButton, Dropdown } from 'react-bootstrap'
 import { Redirect, withRouter, Link } from 'react-router-dom'
+import { IoMdPerson } from 'react-icons/io'
 
 
 const stylea ={
@@ -18,7 +19,7 @@ const Header = (props) => {
     <Navbar style={{paddingLeft: '50px'}} collapseOnSelect expand="lg"  variant="dark" className="mr-3 ml-3">
     <Navbar.Brand  href="#home">
     <img
-        src={require('./img/site/HatchfulExport-All(1)/logo_transparent.png')}
+        src={require('./img/site/logo_transparent.png')}
         width="35"
         height="35"
         
@@ -38,6 +39,7 @@ const Header = (props) => {
         
         <DropdownButton alignRight
         title={user}
+        
         id="dropdown-menu-align-right">
 
         <Dropdown.Item eventKey="1">Action</Dropdown.Item>
