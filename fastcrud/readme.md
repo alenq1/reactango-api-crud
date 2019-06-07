@@ -49,3 +49,8 @@ Seis
 - En el front se creo una tab en formulario para registro de user(mejorar)
 - modificacion de viewsets de product para aceptar mutiparser, y ,multipart  formdata, al agregar o modificar registro con imagen 
 - agregado de sttings para ruta de MEDIA para upload de imagenes, y agregado en url los pattern  apra rutas de MEDIA
+
+
+Siete
+- Agregado de campo rating en location para reputacion, agregado de validacion de campo de minimo y maximo valor
+- 

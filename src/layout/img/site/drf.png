@@ -1,0 +1,13 @@
+Aviso: HTTP no permite comodines.
+--2019-06-04 19:49:50--  https://miro.medium.com/max/722/1*MQ-Lf8tmtfa-pumN2Sh0cw.png
+Resolviendo miro.medium.com (miro.medium.com)... 104.16.119.145, 104.16.120.145, 104.16.121.145, ...
+Conectando con miro.medium.com (miro.medium.com)[104.16.119.145]:443... conectado.
+Petición HTTP enviada, esperando respuesta... 200 OK
+Longitud: 58075 (57K) [image/png]
+Guardando como: “1*MQ-Lf8tmtfa-pumN2Sh0cw.png”
+
+     0K .......... .......... .......... .......... .......... 88%  304K 0s
+    50K ......                                                100%  950K=0,2s
+
+2019-06-04 19:49:52 (331 KB/s) - “1*MQ-Lf8tmtfa-pumN2Sh0cw.png” guardado [58075/58075]
+

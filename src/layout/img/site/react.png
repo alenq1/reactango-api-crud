@@ -1,0 +1,11 @@
+--2019-06-04 19:47:21--  https://s3-us-west-2.amazonaws.com/devcodepro/media/blog/como-funciona-reactjs.png
+Resolviendo s3-us-west-2.amazonaws.com (s3-us-west-2.amazonaws.com)... 52.218.193.104
+Conectando con s3-us-west-2.amazonaws.com (s3-us-west-2.amazonaws.com)[52.218.193.104]:443... conectado.
+Petición HTTP enviada, esperando respuesta... 200 OK
+Longitud: 44942 (44K) [image/png]
+Guardando como: “como-funciona-reactjs.png”
+
+     0K .......... .......... .......... .......... ...       100% 77,1K=0,6s
+
+2019-06-04 19:47:28 (77,1 KB/s) - “como-funciona-reactjs.png” guardado [44942/44942]
+

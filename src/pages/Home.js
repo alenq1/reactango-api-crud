@@ -50,7 +50,7 @@ const Home = (props) => {
   <div class="row">
     <div class="col-lg-3 col-sm-6 mb-3">
       <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""/></a>
+        <a href="#"><img class="card-img-top" src={require('../layout/img/site/react.png')} alt=""/></a>
         <div class="card-body">
           <h4 class="card-title">
             <a href="#">React app </a>
@@ -61,7 +61,7 @@ const Home = (props) => {
     </div>
     <div class="col-lg-3 col-sm-6 mb-3">
       <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""/></a>
+        <a href="#"><img class="card-img-top" src={require('../layout/img/site/drf.png')} alt=""/></a>
         <div class="card-body">
           <h4 class="card-title">
             <a href="#">Django Rest Framework</a>
@@ -72,7 +72,7 @@ const Home = (props) => {
     </div>
     <div class="col-lg-3 col-sm-6 mb-3">
       <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""/></a>
+        <a href="#"><img class="card-img-top" src={require('../layout/img/site/docker.png')} alt=""/></a>
         <div class="card-body">
           <h4 class="card-title">
             <a href="#">Docker </a>

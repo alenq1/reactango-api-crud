@@ -3,9 +3,10 @@ import { Table, Button, OverlayTrigger, Spinner } from 'react-bootstrap'
 
 const Tables = (props) => {
 
-  const defaultImage = 'static/media/no-image-available-icon-6.jpg'
+  const defaultImage = require('../layout/img/site/no-image-available-icon-6.jpg')
 
   const renderTooltip = (images, name) => (
+    
     <div
       
       style={{
@@ -24,8 +25,9 @@ const Tables = (props) => {
           width='360'
           height='240'
       />
+      {console.log(images, 'RUTA DEIMAGENM')}
       {name}
-    
+        {images}
     </div>
   );
   
@@ -33,7 +35,7 @@ const Tables = (props) => {
   
   
   return (
-    <Table className="table-borderless table-hover table-striped text-center">
+    <Table className="table-borderless table-hover table-striped text-center" style={props.style}>
         <thead>
         
             <tr>

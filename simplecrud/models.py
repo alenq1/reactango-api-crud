@@ -1,6 +1,7 @@
 from django.db import models
 from uuid import uuid4
 from django.urls import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 def generateUUID():
@@ -26,14 +27,16 @@ class Common(models.Model):
 
 class Product(Common):
     uuid = models.UUIDField(unique=True, editable=False, default=generateUUID)
-    images = models.ImageField(upload_to='media', blank=True, null=True, default=None, )
+    images = models.ImageField(upload_to='', blank=True, null=True, default=None, )
     location = models.ForeignKey('Location', on_delete=models.CASCADE, verbose_name='localization', related_name='LOCASION')
     quantity = models.PositiveIntegerField(
                                     verbose_name='quantityy', help_text="insert quntity",
-                                    default=0)
+                                    default=0,
+                                    validators=[MinValueValidator(0)])
     price = models.PositiveIntegerField( 
                                     verbose_name='pricee', help_text="insert price",
-                                    default=0)
+                                    default=0,
+                                    validators=[MinValueValidator(0)])
     
     description = models.TextField(max_length=400, help_text="Description of product", 
                                 verbose_name="descriptionn")
@@ -63,7 +66,9 @@ class Location(Common):
     
     total_supply = models.PositiveIntegerField( 
                                     verbose_name='supplies', help_text="insert total supply",
-                                    default=0)
+                                    default=0,
+                                    validators=[MinValueValidator(0)])
+    rating = models.FloatField(verbose_name="rating", default=0.0, validators=[MinValueValidator(0.0), MaxValueValidator(10.0)],)
 
     def __str__(self):
         return f" Name:  {self.name}"

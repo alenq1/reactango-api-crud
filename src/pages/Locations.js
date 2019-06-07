@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react'
 import Header from '../layout/Header'
 import Footer from '../layout/Footer'
 import SideBar from '../components/SideBar'
+import { ModalLoc } from '../components/ModalLoc'
 import Queryservice from '../services/QueryService'
-import { Card, CardColumns, CardDeck, CardGroup, Spinner, Row, Button } from 'react-bootstrap'
+import Open from '../ApiKeys'
+import { Card, CardColumns, CardDeck, CardGroup, Spinner, Row, Button, Modal, OverlayTrigger } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
+import Rating from 'react-rating'
+import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti'
+import axios from 'axios'
+import { openWeatherApi } from '../ApiKeys'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
@@ -13,10 +18,39 @@ const queryservice = new Queryservice()
 const MySwal = withReactContent(Swal)
 
 
+const renderTooltip = (images, name) => (
+    
+  <div
+    
+    style={{
+      backgroundColor: 'rgba(0, 0, 0, 0.85)',
+      padding: '10px 10px',
+      color: 'white',
+      borderRadius: 5
+    
+    }}>
+    <img
+      src={images === null ?
+        'weather'
+      :
+        images
+      }
+        width='360'
+        height='240'
+    />
+    {console.log(images, 'RUTA DEIMAGENM')}
+    {name}
+      {images}
+  </div>
+);
+
+
 const Locations = (props) => {
 
     const [locationList, getLocs] = useState([])
     const [loading, isLoading] = useState(false)
+    const[modalshow, handleHide] = useState(false)
+    const[weather, showWeather] = useState({})
         const { validated } = 'false';
         const style = {
         height: '100px',
@@ -39,7 +73,29 @@ const Locations = (props) => {
             getLocs([error.message])
             isLoading(false)    
           })
-  
+          
+          async function fetchData(name) {
+            
+            await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${openWeatherApi}`)
+            .then( result  => {
+              console.log(result.data, 'RESULTADO DE WEATHER')
+              showWeather({...weather,
+                 result
+              })
+      
+            })
+            .catch(error => {
+              console.log(error.request, 'RESULTADO DE ERROR')
+              showWeather({...weather,
+                error
+             })
+      
+            })
+            
+            }
+            // locationList.map(xxx => fetchData(xxx.name),
+            // console.log(xxx.name, 'no hace')
+            // )
                    
     }
         //console.log('It got rendered')
@@ -48,6 +104,9 @@ const Locations = (props) => {
         // add empty array avoid infinite loop
         []
         )
+    const Showed = (event) => {
+        handleHide(!modalshow)
+        }
 
     
     return (
@@ -65,10 +124,15 @@ const Locations = (props) => {
             
             <li className="breadcrumb-item active">List</li>
           </ol>
+          <ModalLoc
+          
+          showed={modalshow}
+          hide={Showed}
+          />
           <Row className="justify-content-center m-4">
       <h1> </h1>
         <Button  
-        onClick='' variant="success" className="ml-4">
+        onClick={Showed} variant="success" className="ml-4">
         Add New
         </Button>
       </Row>
@@ -95,7 +159,13 @@ const Locations = (props) => {
            <Card key={locations.id} style={{flex: 1}}>
            
            <Card.Body className="h-100  ">
+           <OverlayTrigger
+                  placement="right-end"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={renderTooltip('data', locations.name)}
+              >
            <Card.Img variant="top" src={'static/media/no-image-available-icon-6.jpg'} />
+           </OverlayTrigger>
              <Card.Title>{locations.name}</Card.Title>
              <Card.Text>
              
@@ -105,7 +175,15 @@ const Locations = (props) => {
              </Card.Text>
            </Card.Body>
            <Card.Footer>
-             <small className="text-muted">Last updated 3 mins ago</small>
+             <small className="text-muted">
+               <Rating 
+               stop={10}
+               step={2}
+               initialRating={locations.rating}
+               emptySymbol={<h3><TiStarOutline/></h3>}
+               fullSymbol={<h3><TiStarFullOutline/></h3>}
+               />
+               </small>
            </Card.Footer>
          </Card> 
          

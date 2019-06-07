@@ -72,12 +72,9 @@ axios.interceptors.response.use(function (response) {
   
 
 })
-
-
 export default class QueryService {
 
   constructor() {}
-
 
   static axiosInstance = axios.create({
     timeout: 5000,
@@ -104,9 +101,6 @@ export default class QueryService {
   }
 
 
-
-
-
   async getProducts() {
     const url = `${apiurl}${item}/`;
     return await axios({
@@ -121,24 +115,12 @@ export default class QueryService {
   }
 
 
-  async getProductsByURL(link) {
-    const url = `${apiurl}${link}`;
-    return await axios
-      .get(url)
-      .then(response => response.data)
-      .catch(err => console.log(err));
-  }
-  async getProduct(pk) {
-    const url = `${apiurl}${item}/${pk}/`;
-    return await axios
-      .get(url)
-
-  }
   async deleteProduct(product) {
     const url = `${apiurl}${item}/${product}/`;
     return await axios
       .delete(url)
   }
+
   async createProduct(product) {
     const url = `${apiurl}${item}/`;
     console.log(product.get('name'), 'ASI ME LLEGO el NAME')
@@ -149,10 +131,10 @@ export default class QueryService {
         'Content-type': 'multipart/form-data'
         }
       
-      
       })
 
   }
+
   async updateProduct(product, id) {
     const url = `${apiurl}${item}/${id}/`;
     console.log(product, 'ESTE ES EL DATO QUE sE MANDa A modificarrrr  SERVER')
@@ -169,31 +151,90 @@ export default class QueryService {
 
   }
 
-  async login(user, passwd) {
-    console.log(user, passwd, 'PASA LOGIN DATOS')
-    return await axios({
-        method: 'get',
-        url: 'api-token-auth/',
-        data: {
-          'username': user,
-          'password': passwd
-        }
-      })
-      .then(result => {
+  
 
-        console.log(result, 'RESULT LOGIN AXIOS')
-        //this.setState({ logged: true})
-        sessionStorage.setItem("tkaccess", result.data.access)
-        sessionStorage.setItem("tkrefresh", result.data.refresh)
-      })
-      .catch(err => console.log(err, 'LOOIGn FALLIDO'));
-
-  }
-
-  async getoken(user, token) {
+  async deleteLocation(location) {
+    const url = `${apiurl}${item}/${location}/`;
     return await axios
-      .post(retokenurl, token)
+      .delete(url)
+  }
+
+  async createLocation(location) {
+    const url = `${apiurl}${item}/`;
+    console.log(location.get('name'), 'ASI ME LLEGO el NAME')
+    
+    return await axios
+      .post(url, location, {
+      headers: {
+        'Content-type': 'multipart/form-data'
+        }
+      
+      
+      })
+
+  }
+  
+  async updateLocation(location, id) {
+    const url = `${apiurl}${item}/${id}/`;
+    console.log(location, 'ESTE ES EL DATO QUE sE MANDa A modificarrrr  SERVER')
+    console.log(id, 'NUMERO DE ID')
+    //console.log(location.get('name'), 'ASI ME LLEGO el NAME')
+    return await axios
+      .put(url, location, {
+        headers: {
+          'Content-type': 'multipart/form-data'
+          }
+        
+        
+        })
 
   }
 
+// TEMPORARRY DISABLED
+
+  // async getProductsByURL(link) {
+  //   const url = `${apiurl}${link}`;
+  //   return await axios
+  //     .get(url)
+  //     .then(response => response.data)
+  //     .catch(err => console.log(err));
+  // }
+  // async getProduct(pk) {
+  //   const url = `${apiurl}${item}/${pk}/`;
+  //   return await axios
+  //     .get(url)
+
+  // }
+
+  // async login(user, passwd) {
+  //   console.log(user, passwd, 'PASA LOGIN DATOS')
+  //   return await axios({
+  //       method: 'get',
+  //       url: 'api-token-auth/',
+  //       data: {
+  //         'username': user,
+  //         'password': passwd
+  //       }
+  //     })
+  //     .then(result => {
+
+  //       console.log(result, 'RESULT LOGIN AXIOS')
+  //       //this.setState({ logged: true})
+  //       sessionStorage.setItem("tkaccess", result.data.access)
+  //       sessionStorage.setItem("tkrefresh", result.data.refresh)
+  //     })
+  //     .catch(err => console.log(err, 'LOOIGn FALLIDO'));
+
+  // }
+
+  // async getoken(user, token) {
+  //   return await axios
+  //     .post(retokenurl, token)
+
+  // }
+  // async getWeather(data){
+  //   //return await axios
+  //   //.get(`https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${API_KEY}&units=imperial`)
+
+  // }
 }

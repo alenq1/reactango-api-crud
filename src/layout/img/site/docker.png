@@ -1,0 +1,11 @@
+--2019-06-04 19:50:52--  https://www.beeva.com/wp-content/uploads/2018/05/beeva-usos-docker-1200x565.jpg
+Resolviendo www.beeva.com (www.beeva.com)... 99.84.104.91, 99.84.104.49, 99.84.104.20, ...
+Conectando con www.beeva.com (www.beeva.com)[99.84.104.91]:443... conectado.
+Petición HTTP enviada, esperando respuesta... 200 OK
+Longitud: 32631 (32K) [image/jpeg]
+Guardando como: “beeva-usos-docker-1200x565.jpg”
+
+     0K .......... .......... .......... .                    100%  239K=0,1s
+
+2019-06-04 19:50:54 (239 KB/s) - “beeva-usos-docker-1200x565.jpg” guardado [32631/32631]
+

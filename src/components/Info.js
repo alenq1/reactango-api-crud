@@ -7,8 +7,8 @@ import axios from 'axios'
 const Info = (props) => {
     
     
-    const[coord, getMapLoc] = useState({lat: props.lat, 
-                                        long: props.long, 
+    const[coord, getMapLoc] = useState({lat: '', 
+                                        long: '', 
                                         zoom: props.zoom});
     const { validated } = 'false';
     const style = {
@@ -30,6 +30,10 @@ const Info = (props) => {
       })
       .catch(error => {
         console.log(error, 'RESULTADO DE ERROR')
+        getMapLoc({...coord,
+          lat: props.lat,
+           long: props.long,
+       })
 
       })
       }
