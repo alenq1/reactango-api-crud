@@ -1,7 +1,24 @@
 import React from 'react'
 import { Table, Button, OverlayTrigger, Spinner } from 'react-bootstrap'
+import {  FaRegEdit, FaEdit, FaTrashAlt, FaTrash, FaRegTrashAlt} from 'react-icons/fa'
+
+
+
 
 const Tables = (props) => {
+
+  const style = { 
+   
+    textAlign: 'center',
+    background: '#360033',  
+    background: '-webkit-linear-gradient(to right, #0b8793, #360033)',  /* Chrome 10-25, Safari 5.1-6 */
+    background: 'linear-gradient(to right, #0b8793, #360033)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: 'whitesmoke',
+    textShadow: '#282c34',
+    padding: '10px',
+    margin: '10px 0' 
+    
+        }
 
   const defaultImage = require('../layout/img/site/no-image-available-icon-6.jpg')
 
@@ -35,8 +52,8 @@ const Tables = (props) => {
   
   
   return (
-    <Table className="table-borderless table-hover table-striped text-center" style={props.style}>
-        <thead>
+    <Table className="table-borderless table-hover table-striped text-center mr-4 mt-4" style={style}>
+        <thead className="bg-dark">
         
             <tr>
               <th>Preview</th>
@@ -87,12 +104,17 @@ const Tables = (props) => {
               <td>{product.description}
               </td>            
               <td>
-              <Button className="mr-2 " variant="warning" onClick={() => props.handleData(product)}>edit</Button>
+              <Button className="mr-2 " variant="warning" onClick={() => props.handleData(product)}>
+                <FaEdit/>
+                
+                   </Button>
               <Button variant="danger" onClick={() => 
                 
                 props.handleDelete(product.id)}>
                   
-                  delete
+                  
+                  <FaTrashAlt/>
+                  
                 
               </Button>
               </td>

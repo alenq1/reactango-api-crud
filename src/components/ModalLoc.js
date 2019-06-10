@@ -39,6 +39,21 @@ const ModalLoc = (props) => {
       })
       console.log(fieldloc, "cambios en LOOOOOOOOOOOOOOO")
     }
+    const NewLocation = (data) => {
+    queryservice.createLocation(data)
+        .then( result => {
+          console.log(result, 'CREADO LOCATION')
+           setMessage(...message, 'success')
+           props.hide()
+           //console.log(this.state.locations, 'Locations state con axios')
+           
+         })
+         .catch( error  => {
+          console.log(error.message, 'ERORR CREATE LOCATION')
+          setMessage(...message, error.message)
+         })
+
+        }
 
 
     useEffect(() => {
@@ -49,16 +64,7 @@ const ModalLoc = (props) => {
       
       
         console.log("PISADDOOOO")
-        queryservice.createLocation(data)
-        .then( result => {
-          // console.log(result, 'result con axios')
-           setMessage(...message, 'success')
-           //console.log(this.state.locations, 'Locations state con axios')
-           
-         })
-         .catch( error  => {
-          setMessage(...message, error.message)
-         })
+        
   
   
       
@@ -86,7 +92,7 @@ const ModalLoc = (props) => {
         
         </Modal.Body>
         <Modal.Footer style={style}>
-        <Button variant="success" onClick={console.log('sd')}>Add</Button>
+        <Button variant="success" onClick={() => NewLocation(fieldloc)}>Add</Button>
         <Button variant="info" onClick={props.hide}>Back</Button>
         </Modal.Footer>
 

@@ -266,10 +266,10 @@ export default class Dashboard extends Component {
   }
 
   handleSideBarToggle(){
-    /* this.setState({ 
-        
+     this.setState({ 
+       sidebar: !this.state.sidebar
     
-    }) */
+    }) 
 
   }
 
@@ -325,7 +325,7 @@ export default class Dashboard extends Component {
   render() {
     
     const { list, average, totQuanty, hotLocation } = this.state
-    console.log(list, list.length,'ESTA ES LA LISTA')
+    //console.log(list, list.length,'ESTA ES LA LISTA')
     
 
     return (
@@ -336,7 +336,7 @@ export default class Dashboard extends Component {
       <Header brand={nameapp} alerts={MySwal}/>
       
       <div id="content-wrapper">
-      <SideBar onClick={this.handleSideBarToggle()}/>
+      <SideBar onClick={() => this.handleSideBarToggle()}/>
         <div className="container-fluid mt-2" style={
           this.state.sidebar ?
           {paddingLeft: '240px'}

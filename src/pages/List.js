@@ -22,19 +22,6 @@ const footermsg = 'Footer'
 const page = 'List'
 const MySwal = withReactContent(Swal)
 
-const style = { 
-   
-  textAlign: 'center',
-  background: '#360033',  
-  background: '-webkit-linear-gradient(to right, #0b8793, #360033)',  /* Chrome 10-25, Safari 5.1-6 */
-  background: 'linear-gradient(to right, #0b8793, #360033)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  color: 'whitesmoke',
-  textShadow: '#282c34',
-  padding: '10px',
-  margin: '10px 0' 
-  
-      }
-
 
 export default class Login extends Component {
   constructor(props) {
@@ -358,7 +345,6 @@ export default class Login extends Component {
 
       <Tables
       list={this.state.list}
-      style={style}
       handleUpdate={this.handleUpdate}
       handleDelete={this.handleDelete}
       handleOnClick={this.handleOnClick}

@@ -6,6 +6,9 @@ import { Container, Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import { FaPen } from "react-icons/fa"
 import Swal from 'sweetalert2'
+import { FaKey, FaLock, FaUser, FaWrench } from 'react-icons/fa'
+import { IoIosSpeedometer, IoMdAnalytics, IoIosJournal, IoIosAnalytics, IoIosInformationCircleOutline } from 'react-icons/io'
+import { MdLibraryAdd, MdModeEdit, MdViewList, MdDeleteForever } from 'react-icons/md'
 import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
@@ -25,6 +28,46 @@ const footerstyle = {
   
       }
 
+const cardcontent = [
+  {
+"image": require('../layout/img/site/react.png'),
+"title": 'React app',
+"text": 'SPA made in react as Front-End, Using libaries like, axios, react-boostrap, leaflet, echart,setc '
+},
+{
+"image": require('../layout/img/site/drf.png'),
+"title": 'Django Rest Framework',
+"text": 'DRF as backend API with modelviewsets, serializers, routes.'
+},
+{
+ "image": require('../layout/img/site/docker.png'),
+ "title": 'Docker',
+ "text": 'For deploying both enviroments, and fast start'
+ },
+ {
+  "image": require('../layout/img/site/no-image-available-icon-6.jpg'),
+  "title": 'Other',
+  "text": 'Lorem ipsum'
+  },
+]
+
+const dividercontent = [
+  {"image": require('../layout/img/site/no-image-available-icon-6.jpg'),
+  "title": 'Login/Register actions.',
+  "title1":'Using JWT.',
+  "text": 'Using JWT on the backend with access token, and refresh token for enforcing security'},
+
+  {"image": require('../layout/img/site/no-image-available-icon-6.jpg'),
+  "title": 'Dashboard and Graphics',
+  "title1":'And visual stuffs',
+  "text": 'Using bootstrap and other libaries for User Interface more friendly'},
+
+  {"image": require('../layout/img/site/no-image-available-icon-6.jpg'),
+  "title": 'Crud Operations <span className="text-muted">',
+  "title1":'All in one Single Page without Reloading',
+  "text": 'Allow the most common actions for data manipulation (CRUD) in only onepage'}
+
+]
 
 
 const Home = (props) => {
@@ -39,121 +82,84 @@ const Home = (props) => {
         </Link>      
         </CarouselHome>
         
-        <div class="container-fluid">
+        <div className="container-fluid">
           { /* IMPORTANT CLASS DEFINITION FOR FIT PAGE -------> CONTAINER FLUID */}
 
   
-  <h1 class="my-6">Top Features
+  <h1 className="my-6">Top Features
     <small></small>
   </h1>
 
-  <div class="row">
-    <div class="col-lg-3 col-sm-6 mb-3">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src={require('../layout/img/site/react.png')} alt=""/></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">React app </a>
+  <div className="row">
+    { cardcontent.map( (content, index) =>
+    <div className="col-lg-3 col-sm-6 mb-3" key={index}>
+      <div className="card h-100">
+        <a href="#"><img className="card-img-top" src={content.image} alt=""/></a>
+        <div className="card-body">
+          <h4 className="card-title">
+            <a href="#">{content.title}</a>
           </h4>
-          <p class="card-text">SPA made in react as Front-End, Using libaries like, axios, react-boostrap, leaflet, echart,setc </p>
+          <p className="card-text">{content.text}</p>
         </div>
       </div>
     </div>
-    <div class="col-lg-3 col-sm-6 mb-3">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src={require('../layout/img/site/drf.png')} alt=""/></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">Django Rest Framework</a>
-          </h4>
-          <p class="card-text">DRF as backend API with modelviewsets, serializers, routes.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-sm-6 mb-3">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src={require('../layout/img/site/docker.png')} alt=""/></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">Docker </a>
-          </h4>
-          <p class="card-text">For deploying both enviroments, and fast start</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-sm-6 mb-3">
-      <div class="card h-100">
-        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""/></a>
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="#">Other </a>
-          </h4>
-          <p class="card-text">For deploying both enviroments, and fast start</p>
-        </div>
-      </div>
-    </div>
+    )}
     
     
   </div>
   
-  
-  
-  
-  <hr class="featurette-divider"/>
+  <hr className="featurette-divider"/>
 
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">Login/Register actions. <span class="text-muted">Using JWT.</span></h2>
-        <p class="lead">Using JWT on the backend with access token, and refresh token for enforcing security</p>
+    <div className="row featurette">
+      <div className="col-md-7">
+        <h2 className="featurette-heading">{dividercontent[0].title} <span className="text-muted">{dividercontent[0].title1}</span></h2>
+        <p className="lead">{dividercontent[0].text}</p>
       </div>
-      <div class="col-md-5">
-      <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" 
-        width="500" height="250" xmlns="http://www.w3.org/2000/svg" 
-        preserveAspectRatio="xMidYMid slice" focusable="false" role="img" 
-        aria-label="Placeholder: 500x500">
-          <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#eee"></rect>
-          <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-      </div>
-    </div>
 
-    <hr class="featurette-divider"/>
-
-    <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">Dashboard and Graphics <span class="text-muted">And visual stuffs</span></h2>
-        <p class="lead">Using bootstrap and other libaries for User Interface more friendly</p>
+      <div className="container justifiy-content-right">
+      <div className="row">
+        <h1>{<FaKey/>}</h1>
+        <h1>{<FaLock/>}</h1>
+     </div>
+     <div className="row">
+        <h1>{<FaUser/>}</h1>
+        <h1>{<FaWrench/>}</h1>
       </div>
-      <div class="col-md-5 order-md-1">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" 
-        width="500" height="250" xmlns="http://www.w3.org/2000/svg" 
-        preserveAspectRatio="xMidYMid slice" focusable="false" role="img" 
-        aria-label="Placeholder: 500x500">
-          <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#eee"></rect>
-          <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
       </div>
     </div>
 
-    <hr class="featurette-divider"/>
+    <hr className="featurette-divider"/>
 
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">Crud Operations <span class="text-muted">All in one app</span></h2>
-        <p class="lead">Allow the most common actions for data manipulation (CRUD) in only onepage</p>
+    <div className="row featurette">
+      <div className="col-md-7 order-md-2">
+        <h2 className="featurette-heading">{dividercontent[1].title}<span className="text-muted">{dividercontent[1].title1}</span></h2>
+        <p className="lead">{dividercontent[1].text}</p>
       </div>
-      <div class="col-md-5">
-      <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" 
-        width="500" height="250" xmlns="http://www.w3.org/2000/svg" 
-        preserveAspectRatio="xMidYMid slice" focusable="false" role="img" 
-        aria-label="Placeholder: 500x500">
-          <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#eee"></rect>
-          <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+      <div className="col-md-5 order-md-1">
+      <h1>{<IoIosInformationCircleOutline/>}</h1>
+        <h1>{<IoIosJournal/>}</h1>
+        <h1>{<IoIosSpeedometer/>}</h1>
+        <h1>{<IoMdAnalytics/>}</h1>
       </div>
     </div>
 
-    <hr class="featurette-divider"/>
+    <hr className="featurette-divider"/>
+
+    <div className="row featurette">
+      <div className="col-md-7">
+      <h2 className="featurette-heading">{dividercontent[2].title}<span className="text-muted">{dividercontent[2].title1}</span></h2>
+        <p className="lead">{dividercontent[2].text}</p>
+      </div>
+      <div className="col-md-5">
+      <h1>{<MdLibraryAdd/>}</h1>
+        <h1>{<MdViewList/>}</h1>
+        <h1>{<MdModeEdit/>}</h1>
+        <h1>{<MdDeleteForever/>}</h1>
+      
+      </div>
+    </div>
+
+    <hr className="featurette-divider"/>
 
     
     <div className="row">
@@ -162,10 +168,6 @@ const Home = (props) => {
 
     </div>
     
-  
-
-  
-  
 </div>
         
       <Footer message={footermsg}/>

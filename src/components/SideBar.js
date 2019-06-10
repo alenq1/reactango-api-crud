@@ -39,7 +39,7 @@ const SideBar = (props) => {
 >           
     <SideNav.Toggle />
     
-    <SideNav.Nav defaultSelected="dashboard">
+    <SideNav.Nav >
     
         <NavItem eventKey="dashboard">
             <NavIcon>
@@ -51,23 +51,14 @@ const SideBar = (props) => {
         </NavItem>
 
 
-        <NavItem eventKey="product">
+        <NavItem eventKey="list">
             <NavIcon>
             <IoMdPricetags size='2em'/>
             </NavIcon>
             <NavText>
                 Products
             </NavText>
-            <NavItem eventKey="list">
-                <NavText>
-                    Product List
-                </NavText>
-            </NavItem>
-            <NavItem eventKey="other">
-                <NavText>
-                    Other
-                </NavText>
-            </NavItem>
+            
         </NavItem>
 
         <NavItem eventKey="locations">

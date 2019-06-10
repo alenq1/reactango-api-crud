@@ -160,13 +160,13 @@ export default class QueryService {
   }
 
   async createLocation(location) {
-    const url = `${apiurl}${item}/`;
-    console.log(location.get('name'), 'ASI ME LLEGO el NAME')
+    const url = `${apiurl}location/`;
+    console.log(location, 'ASI ME LLEGO LOCATION PARA GUARDAR')
     
     return await axios
       .post(url, location, {
       headers: {
-        'Content-type': 'multipart/form-data'
+        'Content-Type': 'application/json'
         }
       
       
