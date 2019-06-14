@@ -5,12 +5,19 @@ import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 const Maps = (props) => {
   
     const position = [props.lat, props.long]
+    const mapstyle = { 
+        height: props.height, 
+        width: props.width,
+        display: 'table-cell'
+    }
+    
     return (
+    
       <Map 
-      style={{ height: "250px", width: "450px"}}
-      center={position} 
-      zoom={props.zoom}
-      attributionControl={true}
+        style={mapstyle}
+        center={position} 
+        zoom={props.zoom}
+        attributionControl={true}
         zoomControl={true}
         doubleClickZoom={true}
         scrollWheelZoom={true}
@@ -19,12 +26,12 @@ const Maps = (props) => {
         easeLinearity={0.35}
       >
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         />
         <Marker position={position}>
           <Popup>
-           Right Here!! <br /> Is Located
+            Right Here!! <br /> Is Located
           </Popup>
         </Marker>
       </Map>

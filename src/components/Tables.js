@@ -8,15 +8,10 @@ import {  FaRegEdit, FaEdit, FaTrashAlt, FaTrash, FaRegTrashAlt} from 'react-ico
 const Tables = (props) => {
 
   const style = { 
-   
-    textAlign: 'center',
-    background: '#360033',  
-    background: '-webkit-linear-gradient(to right, #0b8793, #360033)',  /* Chrome 10-25, Safari 5.1-6 */
-    background: 'linear-gradient(to right, #0b8793, #360033)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: 'whitesmoke',
-    textShadow: '#282c34',
-    padding: '10px',
-    margin: '10px 0' 
+    padding: "0 2em",
+    textRendering: "optimizeLegibility",
+    color: "#444",
+    background: "#eee"
     
         }
 
@@ -49,74 +44,79 @@ const Tables = (props) => {
   );
   
   
-  
+  const imagelll = require('../layout/img/site/code-coder-coding-270348.jpg')
   
   return (
-    <Table className="table-borderless table-hover table-striped text-center mr-4 mt-4" style={style}>
-        <thead className="bg-dark">
-        
-            <tr>
-              <th>Preview</th>
-              <th>Name</th>
-              <th>Quantity</th>
-              <th>Price</th>              
-              <th>Description</th>            
-              <th>
-              Actions
-              </th>
-            </tr>
-            
+    <Table className="table-borderless table-hover table-striped text-center mr-4 mt-1" style={style}>
+        <thead 
+          style={{
+            background: `linear-gradient(61deg, #010000 0%, rgba(0, 0, 0, .6) 70%),url(${imagelll})`,
+            backgroundSize: `cover`,
+            backgroundPosition: `center`,}}
+        >
+          <tr>
+            <th>Preview</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>              
+            <th>Description</th>            
+            <th>Actions</th>
+          </tr>
         </thead>
-        <tbody>
-          {  props.list.length  === 0 ?
+        <tbody style={{
+          color: "whitesmoke",
+          background: "#0F2027",  /* fallback for old browsers */
+          background: "-webkit-linear-gradient(to bottom, #2C5364, #203A43, #0F2027)",  /* Chrome 10-25, Safari 5.1-6 */
+          background: "linear-gradient(to bottom, #2C5364, #203A43, #0F2027)" /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-            <tr >
-              
-              <td>There is no Products yet</td>
-              
-            </tr>  
+        }}>
+          {  props.list.length  === 0 ?
+          <tr >    
+            <td>There is no Products yet</td>
+          </tr>  
             
-            :
+          :
             
-            props.list.map(product =>
-            
-            <tr key={product.id}>
-              <OverlayTrigger
-                  placement="right-end"
-                  delay={{ show: 250, hide: 400 }}
-                  overlay={renderTooltip(product.images, product.name)}
-              >
+          props.list.map(product =>
+          <tr key={product.id}>
+            <OverlayTrigger
+                placement="right-end"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderTooltip(product.images, product.name)}
+            >
               <td>
                 <img
-                    src={product.images === null ?
-                    defaultImage
-                  :
-                    product.images
-                    }
+                    src={
+                      product.images === null ?
+                        defaultImage
+                      :
+                        product.images
+                      }
                     width='60'
                     height='40'
                 />
-                </td>
-              </OverlayTrigger>
+              </td>
+            </OverlayTrigger>
               <td onClick={() => props.handleOnClick(product)}>{product.name}</td>
               <td>{product.quantity}</td>
               <td>{product.price}</td>
               <td>{product.description}
               </td>            
               <td>
-              <Button className="mr-2 " variant="warning" onClick={() => props.handleData(product)}>
-                <FaEdit/>
-                
-                   </Button>
-              <Button variant="danger" onClick={() => 
+                <Button className="mr-2 " variant="warning" onClick={() => 
+                    
+                      props.handleData(product)}>
+
+                  <FaEdit/>
+    
+                </Button>
+                <Button variant="danger" onClick={() => 
                 
                 props.handleDelete(product.id)}>
-                  
-                  
+  
                   <FaTrashAlt/>
                   
-                
-              </Button>
+                </Button>
               </td>
             </tr>
             )}

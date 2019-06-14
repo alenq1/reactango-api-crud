@@ -11,67 +11,62 @@ import { IoIosSpeedometer, IoMdPricetags, IoMdPin } from 'react-icons/io'
 const SideBar = (props) => {
     return (
         <SideNav
-    onSelect={(selected) => {
+            onSelect={(selected) => {
 
         // Add your code here
-        props.history.push(`/${selected}`)
+                props.history.push(`/${selected}`)
 
-    }}
-    onToggle={(expanded) => {
-        let toggled = true
-        
-
-    }}    
-    style={{
-            top: '64px',
-            position: 'fixed',
-            background: 'black',
-            height: '100%',
-            minwidth: '0',
-            zIndex: '1',
-            left: '0',
-            background: 'linear-gradient(to right, #0b8793, #360033)',
-            overflowX: 'hidden',
-            transition: '0.5s',
+            }}
+            onToggle={(expanded) => {
+                let toggled = true
+            }}    
             
-            
-    }}
->           
-    <SideNav.Toggle />
-    
-    <SideNav.Nav >
-    
-        <NavItem eventKey="dashboard">
-            <NavIcon>
-                <IoIosSpeedometer size='2em'/>
-            </NavIcon>
-            <NavText>
-                Dashboard
-            </NavText>
-        </NavItem>
+            style={{
+                top: '64px',
+                position: 'fixed',
+                background: 'black',
+                height: '100%',
+                minwidth: '0',
+                zIndex: '1',
+                left: '0',
+                background: 'linear-gradient(to right, #0b8793, #360033)',
+                overflowX: 'hidden',
+                transition: '0.5s',
+            }}
+        >           
+            <SideNav.Toggle />
+            <SideNav.Nav >
+                <NavItem eventKey="dashboard">
+                    <NavIcon>
+                        <IoIosSpeedometer size='2em'/>
+                    </NavIcon>
+                    <NavText>
+                        Dashboard
+                    </NavText>
+                </NavItem>
 
 
-        <NavItem eventKey="list">
-            <NavIcon>
-            <IoMdPricetags size='2em'/>
-            </NavIcon>
-            <NavText>
-                Products
-            </NavText>
-            
-        </NavItem>
+                <NavItem eventKey="list">
+                    <NavIcon>
+                        <IoMdPricetags size='2em'/>
+                    </NavIcon>
+                    <NavText>
+                        Products
+                    </NavText>
+                
+                </NavItem>
 
-        <NavItem eventKey="locations">
-            <NavIcon>
-                <IoMdPin size='2em'/>
-            </NavIcon>
-            <NavText>
-                Locations
-            </NavText>
-        </NavItem>
+                <NavItem eventKey="locations">
+                    <NavIcon>
+                        <IoMdPin size='2em'/>
+                    </NavIcon>
+                    <NavText>
+                        Locations
+                    </NavText>
+                </NavItem>
 
-    </SideNav.Nav>
-</SideNav>
+            </SideNav.Nav>
+        </SideNav>
     )
 
 }

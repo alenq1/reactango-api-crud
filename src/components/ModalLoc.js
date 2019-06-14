@@ -63,7 +63,7 @@ const ModalLoc = (props) => {
       }
       
       
-        console.log("PISADDOOOO")
+        //console.log("PISADDOOOO")
         
   
   

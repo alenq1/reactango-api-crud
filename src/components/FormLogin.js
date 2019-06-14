@@ -2,7 +2,6 @@ import React from 'react'
 import { Form, Col, InputGroup, Button } from 'react-bootstrap';
 
 
-
 const FormLogin = (props) => {
   return (
     
@@ -28,13 +27,13 @@ const FormLogin = (props) => {
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
             <Form.Control 
-            name={props.namepassword}
-            type="password" 
-            placeholder="Password" 
-            value={props.password}
-            onChange={props.handleChange}
-            required
-          />
+              name={props.namepassword}
+              type="password" 
+              placeholder="Password" 
+              value={props.password}
+              onChange={props.handleChange}
+              required
+            />
         </Form.Group>
   
         <Button 

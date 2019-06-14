@@ -10,8 +10,6 @@ import  { fab }from '@fortawesome/free-brands-svg-icons';
 import QueryService from '../services/QueryService';
 import axios from 'axios';
 
-
-
 //const queryservice = new QueryService();
 const loginurl = 'api-token-auth/'
 const registerurl = 'api-register/'
@@ -33,6 +31,13 @@ const style = {
    
     
         }
+
+const stylelogin = {
+  
+
+
+
+}
 
 
 class Content extends Component {
@@ -72,37 +77,38 @@ class Content extends Component {
         'username': username,
         'password': password
       }
-      })
+    })
     
-      .then( result  => {
+    .then( result  => {
 
        // console.log(result, 'LOGIN EXITOSO RECIBE TOKEN')
         //this.setState({ logged: true})
-        sessionStorage.setItem("tkaccess", result.data.access)
-        sessionStorage.setItem("tkrefresh", result.data.refresh)
-        sessionStorage.setItem("user", username)
-        this.props.history.push("/dashboard")
-        })
+      sessionStorage.setItem("tkaccess", result.data.access)
+      sessionStorage.setItem("tkrefresh", result.data.refresh)
+      sessionStorage.setItem("user", username)
+      this.props.history.push("/dashboard")
+    })
         
-      .catch(error => {
+    .catch(error => {
         //console.log(error, error.request.response, 'Login Error')
-            let  displaymsg;
-            if(error.response){
+        let  displaymsg;
+        if(error.response){
               //console.log(error, error.request.response, 'error respuesta')
-              displaymsg = <Alert variant='danger'>Login Failed</Alert>  
-            }
-            else if (error.request){
+          displaymsg = <Alert variant='danger'>Login Failed</Alert>  
+        }
+        
+        else if (error.request){
               //console.log(error, error.request.response, 'error peticion')
-              displaymsg = <Alert variant='danger'>{error.message}</Alert>  
-            }
-            else{
+          displaymsg = <Alert variant='danger'>{error.message}</Alert>  
+        }
+        
+        else{
               //console.log(error, error.request.response, 'error otros')
-              displaymsg = <Alert variant='danger'>{error.message}</Alert>  
+          displaymsg = <Alert variant='danger'>{error.message}</Alert>  
             }
-            this.props.history.push("/login")
-              
-            this.setState({ message: displaymsg })
-          });
+        this.props.history.push("/login")
+        this.setState({ message: displaymsg })
+     });
       
     }
 
@@ -112,7 +118,7 @@ class Content extends Component {
       const { username, password, message} = this.state
       
       if(!(username && password)){
-        const displaymsg = <Alert variant='warning'>Rellene los campos</Alert>
+        const displaymsg = <Alert variant='warning'>Please fill all fields</Alert>
         this.setState({ message: displaymsg })
          //console.log('inavlidoregresa')
          return;
@@ -127,38 +133,40 @@ class Content extends Component {
           'username': username,
           'password': password
         }
-        })
+      })
       
-        .then( result  => {
+      .then( result  => {
   
           //console.log(result, 'REGISTRO SUCCESS')
           //this.setState({ logged: true})
-          const displaymsg = <Alert variant='success'>Register Success!!</Alert>
-          this.setState({ message: displaymsg })
+        const displaymsg = <Alert variant='success'>Register Success!!</Alert>
+        this.setState({ message: displaymsg })
           
-          })
+      })
           
-        .catch(error => {
+      .catch(error => {
             //console.log(error, error.request.response, 'Register Failed')
-            let  displaymsg;
-            if(error.response){
+        let  displaymsg;
+        if(error.response){
               //console.log(error, error.request.response, 'error respuesta')
-              displaymsg = <Alert variant='danger'>{error.message}</Alert>  
-            }
-            else if (error.request){
-              //console.log(error, error.request.response, 'error peticion')
-              displaymsg = <Alert variant='danger'>{error.message}</Alert>  
-            }
-            else{
-              //console.log(error, error.request.response, 'error otros')
-              displaymsg = <Alert variant='danger'>{error.message}</Alert>  
-            }
-            this.props.history.push("/login")
-              
-            this.setState({ message: displaymsg })
-          });
+          displaymsg = <Alert variant='danger'>{error.message}</Alert>  
+        }
         
-      }
+        else if (error.request){
+              //console.log(error, error.request.response, 'error peticion')
+          displaymsg = <Alert variant='danger'>{error.message}</Alert>  
+        }
+        
+        else{
+              //console.log(error, error.request.response, 'error otros')
+          displaymsg = <Alert variant='danger'>{error.message}</Alert>  
+        }
+        
+        this.props.history.push("/login")
+        this.setState({ message: displaymsg })
+      });
+        
+    }
 
 
   handleChange(event){
@@ -166,7 +174,8 @@ class Content extends Component {
     this.setState({
 
         [name]: value
-    })
+    
+      })
     //console.log(this.state)
 
   }
@@ -176,78 +185,70 @@ class Content extends Component {
     return (
       
         <div className="row border-info text-center justify-content-sm-center">
-         <Card bg="transparent" text="white" style={style} className="justify-content">
-         
-           <Card.Body>
-         <CardImg variant="top"
-        src={require('./img/site/logo_transparent.png')}
-        width="250"
-        height="300"
-        
-        alt="React Bootstrap logo"
-      />
-      </Card.Body>
-      
-         </Card>
-        <Card bg="dark" text="white" style={style} className="justify-content ">
+          <Card bg="transparent" text="white" style={style} className="justify-content">
+            <Card.Body>
+              <CardImg variant="top"
+                src={require('./img/site/logo_transparent.png')}
+                width="250"
+                height="300"
+                alt="React Bootstrap logo"
+              />
+            </Card.Body>
+          </Card>
+          <Card bg="dark" text="white" style={style} className="justify-content ">
             <Card.Header>
-           
-                
                 {message}
             </Card.Header>
             <Card.Body>
-                <Tab.Container id="controlled-tab-example"
-                    activeKey={this.state.tab}
-                    onSelect={tab => this.setState({ tab })}>
-                 <Row style={{margin: '5px',
-                              
-                              color: 'white',
-                              
-                              backgroundColor: 'blue',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                              cursor: 'pointer',
-                              transition: 'background 0.3s'
-                }}>
-                <Nav.Item style={{width: '50%'}}>
-                <Nav.Link eventKey="login" title="Login" active="true">Login</Nav.Link>
-                </Nav.Item>
-                <Nav.Item style={{width: '50%'}}>
-                <Nav.Link eventKey="register" title="Register" >Register</Nav.Link>
-                </Nav.Item>
-                </Row>
+              <Tab.Container id="controlled-tab-example"
+                  activeKey={this.state.tab}
+                  onSelect={tab => this.setState({ tab })}>
+                 <Row style={{
+                    margin: '5px',
+                    color: 'white',
+                    backgroundColor: 'blue',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    transition: 'background 0.3s'
+                  }}>
+                    <Nav.Item style={{width: '50%'}}>
+                      <Nav.Link eventKey="login" title="Login" active="true">Login</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item style={{width: '50%'}}>
+                      <Nav.Link eventKey="register" title="Register" >Register</Nav.Link>
+                    </Nav.Item>
+                  </Row>
                   <Tab.Content>
                     <Tab.Pane eventKey="login">
-                  <FormLogin
-                  validated={validated}
-                  name={'username'}
-                  username={this.state.username}
-                  password={this.state.password}
-                  namepassword={'password'}
-                  handleChange={this.handleChange}
-                  handleLogin={this.handleLogin}
-                  />
-                  </Tab.Pane>
-                  
-                  <Tab.Pane eventKey="register">
-                  <FormRegister
-                  validated={validated}
-                  name={'username'}
-                  username={this.state.username}
-                  password={this.state.password}
-                  namepassword={'password'}
-                  handleChange={this.handleChange}
-                  handleRegister={this.handleRegister}
-                  />
-                  </Tab.Pane>
+                      <FormLogin
+                        validated={validated}
+                        name={'username'}
+                        username={this.state.username}
+                        password={this.state.password}
+                        namepassword={'password'}
+                        handleChange={this.handleChange}
+                        handleLogin={this.handleLogin}
+                      />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="register">
+                      <FormRegister
+                        validated={validated}
+                        name={'username'}
+                        username={this.state.username}
+                        password={this.state.password}
+                        namepassword={'password'}
+                        handleChange={this.handleChange}
+                        handleRegister={this.handleRegister}
+                      />
+                    </Tab.Pane>
                   </Tab.Content>
                   
-                  </Tab.Container>
-            </Card.Body>
-        </Card>
-        
-        </div>
+                </Tab.Container>
+              </Card.Body>
+            </Card>
+          </div>
     
     )
   }

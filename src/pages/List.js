@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
 import  Header  from '../layout/Header'
-import  Content  from '../layout/Content';
 import  Footer  from '../layout/Footer'
-import { Redirect, withRouter, Link } from 'react-router-dom'
 import { Modal, Alert, Button, Row, Fade, Spinner } from  'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { far } from '@fortawesome/free-regular-svg-icons';
-import  { fab }from '@fortawesome/free-brands-svg-icons';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Tables from '../components/Tables';
 import Modalcont from '../components/Modalcont'
 import QueryService from '../services/QueryService';
 import SideBar from '../components/SideBar';
+import '../bread.css'
+import { FaRegPlusSquare, FaTags } from 'react-icons/fa'
 //import Spinner from '../components/Spinner';
 
 const queryservice = new QueryService()
@@ -23,7 +19,7 @@ const page = 'List'
 const MySwal = withReactContent(Swal)
 
 
-export default class Login extends Component {
+export default class List extends Component {
   constructor(props) {
     super(props)
   
@@ -53,24 +49,25 @@ export default class Login extends Component {
     this.setState({loading: true})
 
     await queryservice.getProducts()
-    .then( result => {
-          //console.log(result, 'result con axios')
-          this.setState({list: result.data,
-                         loading: false })
+      .then( result => {
+        //console.log(result, 'result con axios')
+        this.setState({
+            list: result.data,
+            loading: false 
+        })
           //console.log(this.state.products, 'prduct state con axios')          
-        })
-        .catch(error => {
+      })
+      .catch(error => {
         //  console.log(error, 'estructura del error')
-          this.setState({ error: error,
-                          loading: false });
-        })
+        this.setState({ 
+          error: error,
+          loading: false 
+        });
+      })
 
-        this.setState({loading: false});
+      this.setState({loading: false});
     
-    
-}
-
-
+  }
 
   handleData(data){
 
@@ -104,47 +101,47 @@ export default class Login extends Component {
   
   async handleCreate(data, images){
 
-    
     console.log(data, 'DATA DEL FORM para AGREG')
     console.log(images, 'DATA DE IMAGENS para AGREG')
     let fieldsData = new FormData()
     fieldsData.append('name', data.name)
-    
     fieldsData.append('location', data.location)
     fieldsData.append('price', data.price)
     fieldsData.append('quantity', data.quantity)
     fieldsData.append('description', data.description)
     if(images[1] !== undefined){
-    fieldsData.set('images', '')
-    fieldsData.append('images', images[1], images[1].name)
+
+      fieldsData.set('images', '')
+      fieldsData.append('images', images[1], images[1].name)
+
     }
     console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
     await queryservice.createProduct(fieldsData)
-    .then( result => {
+      .then( result => {
       //console.log(result, 'result con axios')
-      this.setState({
+        this.setState({
       
-      message: <Alert className="mt-4" dismissible variant="info">Creado {data.name}</Alert>,
-      show: false
-      })
-      MySwal.fire(
+          message: <Alert className="mt-4" dismissible variant="info">Creado {data.name}</Alert>,
+          show: false
+        })
+
+        MySwal.fire(
         'Create Sucessfull!',
         'OK',
         'success'
-      )
+        )
       //console.log(this.state.products, 'prduct state con axios')
       //fieldsData.reset()      
-    })
-    .catch(error => {
+       })
+      .catch(error => {
       //console.log(error, 'estructura del error')
-      this.setState({ error: error });
-      MySwal.fire(
-        'Error!',
-        error.message,
-        'error'
-      )
-    })
-
+        this.setState({ error: error });
+        MySwal.fire(
+          'Error!',
+          error.message,
+          'error'
+        )
+      })
   }
 
   async handleUpdate(data, images){
@@ -153,53 +150,50 @@ export default class Login extends Component {
     console.log(data, 'DATA DEL FORM para modif')
     console.log(images[1], 'DATA DE IMAGENS UNO para MODIF')
     let fieldsData = new FormData()
-    fieldsData.append('name', data.name)
-    
+    fieldsData.append('name', data.name)  
     fieldsData.append('location', data.location)
     fieldsData.append('price', data.price)
     fieldsData.append('quantity', data.quantity)
     fieldsData.append('description', data.description)
     if(images[1] !== undefined){
+
       fieldsData.set('images', '')  
-    fieldsData.append('images', images[1], images[1].name)
+      fieldsData.append('images', images[1], images[1].name)
+    
     }
     console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
     console.log(fieldsData.get('images'), 'ESTE ES FIELDS IMAGES COVERTIDO')
     console.log(data.id, 'ESTE ES ID PARA URL')
     await queryservice.updateProduct(fieldsData, data.id)
-    .then( result => {
+      .then( result => {
       //console.log(result, 'result con axios')
-      this.setState({
+        this.setState({
        ////// list: result.data
-       fields: {},
-       message: 
-       
-       
-       <Alert className="mt-4" dismissible variant="info">
-       
-       Modified {data.name}
-       
-       </Alert>,
+          fields: {},
+          message: 
+            <Alert className="mt-4" dismissible variant="info">
+              Modified {data.name}
+            </Alert>,
 
-       show: false
-      })
-      MySwal.fire(
-        'Modified SucessFully!',
-        'OK',
-        'success'
-      )
+          show: false
+        })
+        MySwal.fire(
+          'Modified SucessFully!',
+          'OK',
+          'success'
+        )
       //console.log(this.state.products, 'prduct state con axios')
       
-    })
-    .catch(error => {
+      })
+      .catch(error => {
       //console.log(error, 'estructura del error')
-      this.setState({ error: error });
-      MySwal.fire(
-        'Error!',
-        error.message,
-        'error'
-      )
-    })
+        this.setState({ error: error });
+        MySwal.fire(
+          'Error!',
+          error.message,
+          'error'
+        )
+      })
     
 
   }
@@ -216,7 +210,7 @@ export default class Login extends Component {
       })
       //console.log(this.state.fields, 'CAMBIOS DE FIELDS moddificados')
 
-    }
+  }
   
 
   async handleDelete(pk){
@@ -231,33 +225,33 @@ export default class Login extends Component {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
-    }).then(async(result) => {
+    })
+    .then(async(result) => {
       if (result.value) {
         
         await queryservice.deleteProduct(pk)
-        .then( result => {
+          .then( result => {
         //  console.log(result, 'result con axios')
-          this.setState({
-            list: list.filter(product=> product.id !== pk)
-          })
-          MySwal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          )
+            this.setState({
+              list: list.filter(product=> product.id !== pk)
+            })
+            MySwal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
        //   console.log(this.state.list, 'prduct state con axios')
           
-        })
-        .catch( error => {
+          })
+          .catch( error => {
+            MySwal.fire(
+              'Error!',
+              error.message,
+              'error'
+            )
 
-          MySwal.fire(
-            'Error!',
-            error.message,
-            'error'
-          )
-
-          this.setState({ error: error.message });
-        })
+            this.setState({ error: error.message });
+          })
         
         
       }
@@ -293,73 +287,72 @@ export default class Login extends Component {
       <div id="content-wrapper">
         <SideBar/>
         <div className="container-fluid mt-2" style={{paddingLeft: '80px'}}>
-      <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-            
-              <a href="">Products</a>
-            
-              </li>
-            
-            <li className="breadcrumb-item active">List</li>
-          </ol>
-      <Row className="justify-content-center mt-4">
-      <h1></h1>
-        <Button  
-        onClick={() => this.handleData()} variant="success" className="ml-4">
-        Add New
-        </Button>
-      </Row>
+          <Row className="container mt-3">
+            <div class="cont_breadcrumbs_3">
+              <ul>  
+                <li>
+                  <a href="#">Products</a>
+                </li>
+                <li>
+                  <a href="#" className="breadcrumb-item active">List</a>
+                </li>
+              </ul>
+            </div>
+            <div >
+              <Button  
+                onClick={() => this.handleData()} variant="success" className="m-5">
+                <FaRegPlusSquare size="2em"/> Add New
+              </Button>
+              
+            </div>
+          </Row>
+          {this.state.message}
       
-      {this.state.message}
-      
-      <Modalcont
-      show={this.state.show}
-      modaltitle={this.state.modaltitle}
-      handleHide={this.handleHide}
-      handleUpdate={this.handleUpdate}
-      handleCreate={this.handleCreate}
-      handleChange={this.handleChange}
-      handleOnClick={this.handleOnClick}
-      fields={this.state.fields}
-      alerts={MySwal}
-      />
+          <Modalcont
+            show={this.state.show}
+            modaltitle={this.state.modaltitle}
+            handleHide={this.handleHide}
+            handleUpdate={this.handleUpdate}
+            handleCreate={this.handleCreate}
+            handleChange={this.handleChange}
+            handleOnClick={this.handleOnClick}
+            fields={this.state.fields}
+            alerts={MySwal}
+          />
 
-      {this.state.loading ? 
+          {this.state.loading ? 
 
-      <div style={{textAlign: 'center',
-                    margin: 'auto',
-                    padding: '200px'
+          <div style={{
+            textAlign: 'center',
+            margin: 'auto',
+            padding: '200px'
 
-                    }}>
+          }}>
         
-        <Spinner animation="grow" variant="light" role="status" />
-        <Spinner animation="grow" variant="light" role="status" />
-        <Spinner animation="grow" variant="light" role="status" />
+            <Spinner animation="grow" variant="light" role="status" />
+            <Spinner animation="grow" variant="light" role="status" />
+            <Spinner animation="grow" variant="light" role="status" />
         
-      </div>
+          </div>
 
+          :      
 
-
-      :
+          <Tables
+            list={this.state.list}
+            handleUpdate={this.handleUpdate}
+            handleDelete={this.handleDelete}
+            handleOnClick={this.handleOnClick}
+            handleData={this.handleData}
+            alerts={MySwal}
+            loading={this.state.loading}
+          >
       
-
-      <Tables
-      list={this.state.list}
-      handleUpdate={this.handleUpdate}
-      handleDelete={this.handleDelete}
-      handleOnClick={this.handleOnClick}
-      handleData={this.handleData}
-      alerts={MySwal}
-      loading={this.state.loading}
-      >
-      
-      </Tables>
-       }
-      
-      </div>
+          </Tables>
+          }
+        </div>
       </div>
       <Footer message={footermsg}/>
-      </>
+    </>
     )
   }
 }

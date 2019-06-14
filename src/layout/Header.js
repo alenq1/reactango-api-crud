@@ -51,7 +51,7 @@ const Header = (props) => {
           
           props.alerts.fire({
             title: 'Are you sure?',
-            text: "Want logout??",
+            text: "You Want logout??",
             type: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
