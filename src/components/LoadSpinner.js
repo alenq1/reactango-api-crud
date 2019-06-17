@@ -1,10 +1,13 @@
 import React from 'react';
+import { Spinner } from 'react-bootstrap'
 
 const LoadSpinner = () => {
   return (
-    <div className="ui active dimmer">
-      <div className="ui big text loader">Loading...</div>
-    </div>
+    <>
+    <Spinner animation="grow" variant="light" role="status" />
+    <Spinner animation="grow" variant="light" role="status" />
+    <Spinner animation="grow" variant="light" role="status" />
+  </>
   );
 };
 

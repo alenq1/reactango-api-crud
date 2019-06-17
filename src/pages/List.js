@@ -288,7 +288,7 @@ export default class List extends Component {
         <SideBar/>
         <div className="container-fluid mt-2" style={{paddingLeft: '80px'}}>
           <Row className="container mt-3">
-            <div class="cont_breadcrumbs_3">
+            <div className="cont_breadcrumbs_3">
               <ul>  
                 <li>
                   <a href="#">Products</a>

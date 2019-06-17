@@ -18,34 +18,7 @@ const Info = (props) => {
 
     }
     
-    useEffect(() => {
-      console.log(props.fields.location) 
-      const fetchData = async () => {
-        await axios.post(`https://nominatim.openstreetmap.org/search?format=json&q=${props.fields.location}`)
-          .then( result  => {
-            console.log(result.data[0].lat, 'RESULTADO DE COORDENADA')
-            getMapLoc({...coord,
-              lat: result.data[0].lat,
-              long: result.data[0].lon,
-              })
-
-          })
-          
-          .catch(error => {
-            console.log(error, 'RESULTADO DE ERROR')
-            getMapLoc({...coord,
-              lat: props.lat,
-              long: props.long,
-            })
-
-          })
-      }
-      //console.log('It got rendered')
-      fetchData();
-    },
-    // add empty array avoid infinite loop
-    []
-    )
+    
   
      
     return (
@@ -56,35 +29,36 @@ const Info = (props) => {
           borderSpacing: "5px",
          }} 
             >
+        <tbody>
         <tr >
-            <td className="bg-dark text-white">Name</td>
+            <th className="bg-dark text-white">Name</th>
             <td className="bg-white text-dark">{props.fields.name}</td>
         
         </tr>
         <tr>
-           <td className="text-white">Description</td>            
+           <th className="text-white">Description</th>
            <td className="">{props.fields.description}</td>  
         </tr>
          
         <tr>
-          <td className="text-white">Price</td>              
+          <th className="text-white">Price</th>  
           <td className="">{props.fields.price}</td>
         </tr>
         <tr>
-          <td className="bg-dark text-white"> Location</td>
+          <th className="bg-dark text-white"> Location</th>
           <td className="bg-white text-dark">{props.fields.location}</td>
         </tr>
         <tr>
             <td  colSpan="2">
             <Maps
-            lat={coord.lat}
-            long={coord.long}
+            position={[props.fields.location]}
             zoom={props.zoom}
             height={"250px"}
             width={"450px"}
             />
             </td>
         </tr>
+        </tbody>
 
     </Table>
       

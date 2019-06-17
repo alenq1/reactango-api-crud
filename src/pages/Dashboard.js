@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import  Header  from '../layout/Header'
 import  Footer  from '../layout/Footer'
 import '../bread.css'
+import axios from 'axios'
 import Maps from '../components/Maps'
 import { Modal, Alert, Button, Row, Fade, Spinner, Table } from  'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FaPoll, FaFileInvoiceDollar, FaFire, FaTasks } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Tables from '../components/Tables';
@@ -45,6 +46,7 @@ export default class Dashboard extends Component {
        average: 0,
        totQuanty: 0,
        hotLocation: undefined,
+       coord: '',
        rating: 0,
        show: false,
        error: '',
@@ -54,13 +56,19 @@ export default class Dashboard extends Component {
        loading: false
     }
     
+    
     this.findAvg = this.findAvg.bind(this)
+    
     this.handleSideBarToggle = this.handleSideBarToggle.bind(this)
     
   }
+
+  
   
   async componentDidMount() {
 
+    const {coord, hotLocation} = this.state
+    console.log("CARGANDO")
     this.setState({ loading: true })
     await queryservice.getProducts()
       .then( result => {
@@ -72,12 +80,15 @@ export default class Dashboard extends Component {
         console.log(error, 'estructura del error')
         this.setState({ error: error });
       })
-    this.setState({ loading: false })
+    
 
   //      this.setState({loading: false});
     const {list} = this.state
     this.findAvg(list)
-    
+      
+      console.log("LISTO")
+      console.log(coord, "COORDENADAS")
+
 }
 
   
@@ -101,7 +112,7 @@ export default class Dashboard extends Component {
   findAvg(arr){
     this.setState({ loading: true })
     //let value;
-    //console.log(arr, 'ARREGLO dENTRADA PARa PRoMEDIO')
+    //console.log(arr, 'ARREGLO dE  NTRADA PARa PRoMEDIO')
     let acum = 0;
     let quanty = 0;
     let most = []
@@ -126,9 +137,9 @@ export default class Dashboard extends Component {
   //console.log(mostFrequent, 'MAS FREQUENTE');
   //console.log(prom, 'promedio')
     this.setState({
-      average: prom,
-      totQuanty: quanty,
       hotLocation: mostFrequent,
+      average: prom,
+      totQuanty: quanty,      
       loading: false 
     })
  
@@ -137,8 +148,10 @@ export default class Dashboard extends Component {
 
   render() {
     
-    const { list, average, totQuanty, hotLocation, loading } = this.state
+    const { hotLocation, list, average, totQuanty,  loading, coord } = this.state
     //console.log(list, list.length,'ESTA ES LA LISTA')
+    console.log(hotLocation, "HHHHHHHHH")
+    console.log(coord, "PARAMA MOSTRAR COORDS")
     
 
     return (
@@ -161,19 +174,25 @@ export default class Dashboard extends Component {
           
               <div className="row m-3">
 
-                <div class="cont_breadcrumbs_3">
+                <div className="cont_breadcrumbs_3">
                   <ul>  
                     <li><a href="#">Dashboard</a></li>
                     <li><a href="#" className="breadcrumb-item active">Overview</a></li>
                   </ul>
-            
+                  
                 </div>
           
                 <div className="col-xl-2 col-sm-3 mb-2 mt-3">
-                  <div className="card text-white bg-success o-hidden h-100">
+                  <div className="card text-white o-hidden h-100" style={{
+
+                              background: '#000000',  /* fallback for old browsers */
+                              background: '-webkit-linear-gradient(to top, #0f9b0f, #000000)',  /* Chrome 10-25, Safari 5.1-6 */
+                              background: 'linear-gradient(to top, #0f9b0f, #000000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+                  }}>
                     <div className="card-body">
-                      <div className="card-body-icon">
-                        <i className="fas fa-fw fa-dollar-sign"></i>
+                      <div className="card-body-icon ">
+                          
                       </div>
                   
                       <h3 className="display-6">{list.length === 0 ? 
@@ -185,6 +204,7 @@ export default class Dashboard extends Component {
                         :
                           list.length
                       }
+                      <FaPoll size="2em"/>
                       </h3>
                       <p className="lead">Total Products</p>
                     </div>
@@ -193,7 +213,15 @@ export default class Dashboard extends Component {
                 </div>
             
                 <div className="col-xl-2 col-sm-3 mb-2 mt-3">
-                  <div className="card text-white bg-warning o-hidden h-100">
+                  <div className="card text-white o-hidden h-100" style={{
+
+background: '#FFE000',  /* fallback for old browsers */
+background: '-webkit-linear-gradient(to top, #799F0C, #FFE000)',  /* Chrome 10-25, Safari 5.1-6 */
+background: 'linear-gradient(to top, #799F0C, #FFE000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+
+                  }}>
                     <div className="card-body">
                       <div className="card-body-icon">
                         <i className="fab fa-btc"></i>
@@ -208,6 +236,7 @@ export default class Dashboard extends Component {
                         :
                           average
                       }
+                      <FaFileInvoiceDollar size="2em"/>
                       </h3>
                       
                     </div>
@@ -218,7 +247,15 @@ export default class Dashboard extends Component {
                 </div>
 
                 <div className="col-xl-2 col-sm-3 mb-2 mt-3">
-                  <div className="card text-white bg-info o-hidden h-100">
+                  <div className="card text-white o-hidden h-100" style={{
+
+background: '#000046',  /* fallback for old browsers */
+background: '-webkit-linear-gradient(to top, #000046, #1cb5e0)',  /* Chrome 10-25, Safari 5.1-6 */
+background: 'linear-gradient(to top, #000046, #1cb5e0)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+
+                  }}>
                     <div className="card-body">
                       <div className="card-body-icon">
                         <i className="fas fa-fw fa-exclamation-circle"></i>
@@ -232,6 +269,7 @@ export default class Dashboard extends Component {
                         :
                           totQuanty
                       }
+                      <FaTasks size="2em"/>
                       </h3>
                       <p className="lead">Total Quantity</p>
                     </div>
@@ -240,7 +278,15 @@ export default class Dashboard extends Component {
                 </div>
 
                 <div className="col-xl-2 col-sm-3 mb-2 mt-3">
-                  <div className="card text-white bg-danger o-hidden h-100">
+                  <div className="card text-white o-hidden h-100"style={{
+
+background: '#c21500',  /* fallback for old browsers */
+background: '-webkit-linear-gradient(to top, #c21500, #ffc500)',  /* Chrome 10-25, Safari 5.1-6 */
+background: 'linear-gradient(to top, #c21500, #ffc500)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+
+                  }}>
                     <div className="card-body">
                       <div className="card-body-icon">
                         <i className="fas fa-fw fa-wallet"></i>
@@ -252,8 +298,19 @@ export default class Dashboard extends Component {
                         <Spinner animation="grow" variant="light" role="status" />
                       </>
                       :
-                        typeof (hotLocation)
+                        hotLocation === undefined ? 
+                        
+                        Error
+                        
+                        
+                        :
+
+                        hotLocation[0]
+
+
+                        
                       }
+                      <FaFire size="2em"/>
                       </h3>
                       <p className="lead">Hot Location</p>
                     </div>
@@ -339,14 +396,32 @@ export default class Dashboard extends Component {
                     Map Display
                 </div>
                 <div className="card-body">
+                  
                   <div className="row container">
+                    { !hotLocation  ?
+
+                      <>  
+                        
+                        <Spinner animation="grow" variant="light" role="status" />
+                        <Spinner animation="grow" variant="light" role="status" />
+                        <Spinner animation="grow" variant="light" role="status" />
+                        
+                      </>
+
+                      :
+                    <>
+                    
                     <Maps
-                      lat={47.4322}
-                      long={34.567}
-                      zoom={3}
+                      position={hotLocation}
+                      zoom={2}
                       height={"300px"}
-                      width={"800px"}
+                      width={"1000px"}
+                      loading={loading}
                     />
+                    
+                    </>
+                    }
+                    
                     <Table style={{overflow: 'auto', height: '20px'}}>
                       <thead>
                         <tr>

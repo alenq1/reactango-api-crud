@@ -174,7 +174,7 @@ const Locations = (props) => {
                   hide={Showed}
                 />
                 <Row className="m-3">
-                  <div class="cont_breadcrumbs_3">
+                  <div className="cont_breadcrumbs_3">
                     <ul>  
                       <li>
                         <a href="#">Locations</a>
@@ -209,9 +209,9 @@ const Locations = (props) => {
                 <CardColumns>
                 {    
                 locationList.map((locations, index) =>
-                 <> 
+                 <React.Fragment key={index}> 
            
-                <Card key={index} style={{flex: 1}}>
+                <Card  style={{flex: 1}}>
                   <Card.Body className="h-100 color-black " onClick={() =>
                     fetchData(locations.name) 
                   }>
@@ -281,7 +281,7 @@ const Locations = (props) => {
               </Card.Footer>
             </Card> 
          
-          </>
+          </React.Fragment>
             )}
         </CardColumns>
             }

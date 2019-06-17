@@ -76,8 +76,8 @@ class ProductViewset(ModelViewSet):
     
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    #authentication_classes = (jwtauth.JWTAuthentication, SessionAuthentication)
-    #permission_classes = (IsAuthenticated,)
+    authentication_classes = (jwtauth.JWTAuthentication, SessionAuthentication)
+    permission_classes = (IsAuthenticated,)
 
 
     def create(self, request): # Here is the new update comes <<<<
@@ -112,8 +112,8 @@ class LocationViewset(ModelViewSet):
     
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-    #authentication_classes = (jwtauth.JWTAuthentication, SessionAuthentication)
-    #permission_classes = (IsAuthenticated,)
+    authentication_classes = (jwtauth.JWTAuthentication, SessionAuthentication)
+    permission_classes = (IsAuthenticated,)
 
 
 class ClientViewset(ModelViewSet):

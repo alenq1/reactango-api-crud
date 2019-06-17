@@ -1,23 +1,104 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import LoadSpinner from './LoadSpinner'
+import axios from 'axios'
 //import "leaflet/dist/leaflet.css";
 
 const Maps = (props) => {
   
-    const position = [props.lat, props.long]
+    const defaultPosition = [[10.506098, -66.9146017]]
+    const [coords, setCoords] = useState(undefined)
+    const [loading, isLoading] = useState(false)
+    const [error, setError] = useState('')
+    const position = props.position
+    const topcities = 5
+    console.log(position, "ASI ME LLEGA PARA MAPEAR")
+    
     const mapstyle = { 
         height: props.height, 
         width: props.width,
         display: 'table-cell'
     }
+    const sleep = (milliseconds) => {
+      return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
     
+
+
+    useEffect( () => {
+    
+      async function fecthData(){
+      let tempcoords = []
+      console.log(tempcoords, "CORDENADAS TEMPORALES EN ECTHDATA")
+      console.log(props.position, "HOT LOCATION EN FECTCH DATA")
+      if(props.position !== undefined){
+        console.log(loading, "LOADING EN ENTRADO")
+        isLoading(true)
+        console.log(loading, "LOADING ANTES dE AXIOS")
+      for(let index = 0; index < topcities; index++){
+      
+          
+          await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${position[index]}`)
+          .then( result  => {
+            console.log(result.data[0].lat, result.data[0].lon, 'RESPUESTA COORDENADAS')
+            tempcoords.push([result.data[0].lat,  result.data[0].lon])
+          })
+        
+          .catch(error => {
+            console.log(error, 'RESULTADO DE ERROR')
+            setError(error)
+
+          })
+        
+          
+      
+      }
+      console.log(tempcoords, "temcoord antes de pasar a estado")
+      setCoords(tempcoords)
+      console.log(loading, "LOADING TERMINANDO AXIOS")
+      isLoading(false)
+      console.log(coords, "coords supuestamente pasadas por tempcoord")
+    }
+    
+  }
+    fecthData()
+
+  }      
+  // locationList.map(xxx => fetchData(xxx.name),
+  // console.log(xxx.name, 'no hace')
+  // )
+ //console.log('It got rendered')    
+   ,
+     // add empty array avoid infinite loop
+   []
+ )
+
+
+
+
+
+
+
+
+
+
+
+
     return (
     
-      <Map 
-        style={mapstyle}
-        center={position} 
-        zoom={props.zoom}
-        attributionControl={true}
+      
+      <div>
+       {!coords ?
+       
+        <LoadSpinner/>
+
+        :
+        
+             <Map 
+      style={mapstyle}
+      center={coords[0]} 
+      zoom={props.zoom}
+      attributionControl={true}
         zoomControl={true}
         doubleClickZoom={true}
         scrollWheelZoom={true}
@@ -26,15 +107,22 @@ const Maps = (props) => {
         easeLinearity={0.35}
       >
         <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         />
-        <Marker position={position}>
+        {coords.map( (latlongs, index) =>
+        <Marker key={index} position={coords[index]}>
           <Popup>
-            Right Here!! <br /> Is Located
+           Right Here!! <br /> {position[index]} Is Located
           </Popup>
         </Marker>
+            )
+          }
       </Map>
+
+        
+       }
+      </div>
     )
   
 }
