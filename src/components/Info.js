@@ -55,6 +55,7 @@ const Info = (props) => {
             zoom={props.zoom}
             height={"250px"}
             width={"450px"}
+            numcities={1}
             />
             </td>
         </tr>

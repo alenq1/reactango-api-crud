@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
-import LoadSpinner from './LoadSpinner'
+import {LoadSpinner} from './Spinners'
 import axios from 'axios'
 //import "leaflet/dist/leaflet.css";
 
@@ -11,13 +11,14 @@ const Maps = (props) => {
     const [loading, isLoading] = useState(false)
     const [error, setError] = useState('')
     const position = props.position
-    const topcities = 5
+    const topcities = props.numcities
     console.log(position, "ASI ME LLEGA PARA MAPEAR")
     
     const mapstyle = { 
         height: props.height, 
         width: props.width,
-        display: 'table-cell'
+        display: 'table-cell',
+        justifyContent: 'center',
     }
     const sleep = (milliseconds) => {
       return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -36,18 +37,21 @@ const Maps = (props) => {
         isLoading(true)
         console.log(loading, "LOADING ANTES dE AXIOS")
       for(let index = 0; index < topcities; index++){
-      
-          
-          await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${position[index]}`)
+        console.time("CONSULTA A OSM")
+        await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${position[index]}`,
+        
+          {timeout: 10000}
+        )
           .then( result  => {
             console.log(result.data[0].lat, result.data[0].lon, 'RESPUESTA COORDENADAS')
             tempcoords.push([result.data[0].lat,  result.data[0].lon])
+            console.timeEnd("CONSULTA A OSM")
           })
-        
+          
           .catch(error => {
             console.log(error, 'RESULTADO DE ERROR')
             setError(error)
-
+            console.timeEnd("CONSULTA A OSM")
           })
         
           

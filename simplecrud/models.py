@@ -19,7 +19,7 @@ class Common(models.Model):
     name = models.CharField(max_length=35, blank=False, 
                             help_text="Enter name", 
                             verbose_name="Name")
-    date_actvity = models.DateTimeField(auto_now=True, verbose_name="Activity")
+    date_activity = models.DateTimeField(auto_now=True, verbose_name="Activity")
 
     class Meta:
         abstract = True
@@ -40,7 +40,7 @@ class Product(Common):
     
     description = models.TextField(max_length=400, help_text="Description of product", 
                                 verbose_name="descriptionn")
-    date_registres = models.DateTimeField(auto_now_add=True, verbose_name="date of registry")
+    date_register = models.DateTimeField(auto_now_add=True, verbose_name="date of registry")
 
     
     #Managers

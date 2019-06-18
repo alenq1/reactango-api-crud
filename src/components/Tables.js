@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table, Button, OverlayTrigger, Spinner } from 'react-bootstrap'
-import {  FaRegEdit, FaEdit, FaTrashAlt, FaTrash, FaRegTrashAlt} from 'react-icons/fa'
+import {  FaInfoCircle, FaEdit, FaTrashAlt, FaTrash, FaRegTrashAlt} from 'react-icons/fa'
 
 
 
@@ -97,12 +97,19 @@ const Tables = (props) => {
                 />
               </td>
             </OverlayTrigger>
-              <td onClick={() => props.handleOnClick(product)}>{product.name}</td>
+              <td >{product.name}</td>
               <td>{product.quantity}</td>
               <td>{product.price}</td>
               <td>{product.description}
               </td>            
               <td>
+              <Button className="mr-2 " variant="info" onClick={() => 
+                
+                props.handleOnClick(product)}>
+                
+                <FaInfoCircle/>
+  
+              </Button>
                 <Button className="mr-2 " variant="warning" onClick={() => 
                     
                       props.handleData(product)}>

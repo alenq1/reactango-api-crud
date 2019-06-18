@@ -18,8 +18,10 @@ const LineChart = (props) => {
         series: [{
             name: 'Test',
             type: props.typechart,
-            data: props.ydata
-        }]
+            data: props.ydata,
+            smooth: true
+        }],
+        color: props.color
     };
 
     return (
@@ -262,7 +264,7 @@ const CircleChart = (props) => {
             position: 'right',
             offset: [10, 0],
             textStyle: {
-                fontSize: 16
+                fontSize: 12
             }
         }
     };
@@ -270,10 +272,7 @@ const CircleChart = (props) => {
     
     const options = {
         title: {
-            text: 'Rating Locations'
-        },
-        legend: {
-            data: ['2015']
+            text: props.textchart
         },
         tooltip: {
             trigger: 'axis',
@@ -283,7 +282,7 @@ const CircleChart = (props) => {
         },
         grid: {
             containLabel: true,
-            left: 20
+            left: 15
         },
         yAxis: {
             data: props.ydata,
@@ -291,15 +290,15 @@ const CircleChart = (props) => {
             axisLine: {show: false},
             axisTick: {show: false},
             axisLabel: {
-                margin: 30,
+                margin: 20,
                 textStyle: {
-                    fontSize: 14
+                    fontSize: 10
                 }
             },
             axisPointer: {
                 label: {
                     show: true,
-                    margin: 30
+                    margin: 20
                 }
             }
         },
@@ -310,29 +309,15 @@ const CircleChart = (props) => {
             axisLine: {show: false}
         },
         series: [{
-            name: '2015',
+            name: 'Quantity',
             type: 'pictorialBar',
             label: labelSetting,
             symbolRepeat: true,
             symbolSize: ['80%', '60%'],
             barCategoryGap: '40%',
-            data: [{
-                value: 157,
-                symbol: pathSymbols.reindeer
-            }, {
-                value: 21,
-                symbol: pathSymbols.ship
-            }, {
-                value: 66,
-                symbol: pathSymbols.plane
-            }, {
-                value: 78,
-                symbol: pathSymbols.train
-            }, {
-                value: 123,
-                symbol: pathSymbols.car
-            }]
-        }, ]
+            data: props.xdata
+        }, ],
+        color: props.color
     };
   
       

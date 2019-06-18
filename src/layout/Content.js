@@ -64,7 +64,7 @@ class Content extends Component {
     const { username, password, message} = this.state
     
     if(!(username && password)){
-      const displaymsg = <Alert variant='warning'>Rellene los campos</Alert>
+      const displaymsg = <Alert variant='warning'>Please fill in all fields</Alert>
       this.setState({ message: displaymsg })
        //console.log('inavlidoregresa')
        return;
@@ -118,7 +118,7 @@ class Content extends Component {
       const { username, password, message} = this.state
       
       if(!(username && password)){
-        const displaymsg = <Alert variant='warning'>Please fill all fields</Alert>
+        const displaymsg = <Alert variant='warning'>Please fill in all fields</Alert>
         this.setState({ message: displaymsg })
          //console.log('inavlidoregresa')
          return;
