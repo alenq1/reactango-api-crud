@@ -92,7 +92,7 @@ const Locations = (props) => {
 
     async function fetchData(name) {
       
-      await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${openWeatherApi}&units=metric`)
+      await axios.post(`http://localhost:8000/weather_api/`, {location: name})
         .then( result  => {
           showWeather(result.data)
           console.log(result.data, 'RESULTADO DE WEATHER AS STATE')
@@ -116,7 +116,7 @@ const Locations = (props) => {
             const vamosabusca = result.data
               console.log(vamosabusca[0], "VMAOABUSCANAME")
               for   (let nameimage of vamosabusca){
-                await axios.get(`https://pixabay.com/api/?key=${pixabayApi}&q=${nameimage.name}`)
+                await axios.post(`http://localhost:8000/images_api/`, {location: nameimage.name})
                 //await axios.get(``)
                   .then( result  => {
             

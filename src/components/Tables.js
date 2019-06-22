@@ -36,6 +36,7 @@ const Tables = (props) => {
         }
           width='360'
           height='240'
+          alt=''
       />
       {console.log(images, 'RUTA DEIMAGENM')}
       {name}
@@ -72,7 +73,7 @@ const Tables = (props) => {
         }}>
           {  props.list.length  === 0 ?
           <tr >    
-            <td>There is no Products yet</td>
+            <td colSpan="6">There is no Products yet</td>
           </tr>  
             
           :
@@ -94,6 +95,7 @@ const Tables = (props) => {
                       }
                     width='60'
                     height='40'
+                    alt=''
                 />
               </td>
             </OverlayTrigger>

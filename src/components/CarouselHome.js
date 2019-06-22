@@ -3,10 +3,7 @@ import { Carousel } from 'react-bootstrap';
 
 const style = {
 
-  
-
-
-}
+  }
 
 const CarouselHome = (props) => {
   return (
@@ -17,7 +14,7 @@ const CarouselHome = (props) => {
             {
               props.content.map( items =>
   
-              <Carousel.Item  style={props.stylo}>
+              <Carousel.Item  style={props.stylecarousel}>
 
                 {
                 items.image ?

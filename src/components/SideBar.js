@@ -1,5 +1,5 @@
 import React from 'react'
-import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav'
+import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav'
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { withRouter } from 'react-router'
 import { IoIosSpeedometer, IoMdPricetags, IoMdPin } from 'react-icons/io'
@@ -24,7 +24,6 @@ const SideBar = (props) => {
             style={{
                 top: '64px',
                 position: 'fixed',
-                background: 'black',
                 height: '100%',
                 minwidth: '0',
                 zIndex: '1',

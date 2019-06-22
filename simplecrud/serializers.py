@@ -63,3 +63,11 @@ class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Client
         fields = ('id', 'name', 'email')
+
+
+class WeatherApiSerializer(serializers.Serializer):
+    temp = serializers.IntegerField()
+    weather_status = serializers.CharField()
+
+class ImageApiSerializer(serializers.Serializer):
+    image_url = serializers.URLField()

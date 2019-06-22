@@ -20,7 +20,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from fastcrud.api import router
-from simplecrud.views import RegistrationAPI
+from simplecrud.views import RegistrationAPI, WeatherApi, ImagesApi
 from rest_framework_simplejwt.views import (
 
     TokenObtainPairView,
@@ -28,8 +28,7 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    #url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    #url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    
     path('admin/', admin.site.urls),
     #path('', TemplateView.as_view(template_name="home.html"), name="home"),
     path('app/', include(('simplecrud.urls', 'simplecrud'), namespace='app')),
@@ -38,6 +37,8 @@ urlpatterns = [
     path('api-token-auth/', TokenObtainPairView.as_view(), name='api_token_auth'),
     path('api-token-refresh/', TokenRefreshView.as_view(), name='api_token_refresh'),
     path('api-register/', RegistrationAPI.as_view(), name="api-user-register"),
+    path('weather_api/', WeatherApi.as_view(), name="weather_api"),
+    path('images_api/', ImagesApi.as_view(), name="images_api"),
     re_path('.*', TemplateView.as_view(template_name="index.html"), name="home")
 ]
 

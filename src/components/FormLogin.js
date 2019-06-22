@@ -9,7 +9,7 @@ const FormLogin = (props) => {
         validated={props.validated}
         style ={props.style}
       >
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="formUsername">
           <Form.Label>Username</Form.Label>
             <Form.Control 
               type="text"

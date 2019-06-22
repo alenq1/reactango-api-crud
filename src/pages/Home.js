@@ -157,7 +157,7 @@ const Home = (props) => {
         
         <CarouselHome 
         content={carouselContent}
-        stylo={{
+        stylecarousel={{
           height: '80vh',
           minHeight: '350px',
           background: 'no-repeat center center scroll',
@@ -257,7 +257,7 @@ const Home = (props) => {
       <div className="col-md-5 mt-5">
       <CarouselHome
       content={minicarousel}
-      stylo={{
+      stylecarousel={{
 
         height: '250px'
 

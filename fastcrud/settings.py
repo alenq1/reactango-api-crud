@@ -32,8 +32,7 @@ ALLOWED_HOSTS = ['reactango-api-crud.herokuapp.com', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     ##plugin admin gui 
-    #'jet.dashboard',
-    #'jet',
+    
     ##django defaults
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,7 +50,7 @@ INSTALLED_APPS = [
     #Style libaries
     'bootstrap4',
     'crispy_forms',
-    #realtime
+    #websocket
     ####'channels'  ## Muste bo in ASGI setting
 ]
 

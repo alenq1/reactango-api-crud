@@ -103,6 +103,7 @@ export default class List extends Component {
 
     console.log(data, 'DATA DEL FORM para AGREG')
     console.log(images, 'DATA DE IMAGENS para AGREG')
+    let templist = this.state.list
     let fieldsData = new FormData()
     fieldsData.append('name', data.name)
     fieldsData.append('location', data.location)
@@ -119,8 +120,9 @@ export default class List extends Component {
     await queryservice.createProduct(fieldsData)
       .then( result => {
       //console.log(result, 'result con axios')
+        templist.push(data)
         this.setState({
-      
+          list: templist,
           message: <Alert className="mt-4" dismissible variant="info">Creado {data.name}</Alert>,
           show: false
         })

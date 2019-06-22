@@ -1,33 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Form, Col, InputGroup, Button, Table } from 'react-bootstrap';
 import Maps from './Maps';
-import axios from 'axios'
 
 
 const Info = (props) => {
     
     
-    const[coord, getMapLoc] = useState({lat: '', 
-                                        long: '', 
-                                        zoom: props.zoom});
-    const { validated } = 'false';
-    
     const style = {
-      height: '100px',
-      width: '200px'
-
+      cell: "2px",
+      borderSpacing: "10px 3rem",
+      padding: "10 2em 2em 0",
+      border: "1px solid orange",
+      outline: "thin solid transparent"
+      
     }
-    
-    
-  
      
     return (
 
-      <Table className="table-borderless table-hover table-striped text-center p-3" 
-         style={{
-          cell: "2px",
-          borderSpacing: "5px",
-         }} 
+      <Table className="table-striped" 
+         style={{style}} 
             >
         <tbody>
         <tr >
@@ -36,13 +27,13 @@ const Info = (props) => {
         
         </tr>
         <tr>
-           <th className="text-white">Description</th>
-           <td className="">{props.fields.description}</td>  
+           <th className="bg-dark text-white">Description</th>
+           <td className="bg-white text-dark">{props.fields.description}</td>  
         </tr>
          
         <tr>
-          <th className="text-white">Price</th>  
-          <td className="">{props.fields.price}</td>
+          <th className="bg-dark text-white">Price</th>  
+          <td className="bg-white text-dark">{props.fields.price}</td>
         </tr>
         <tr>
           <th className="bg-dark text-white"> Location</th>
