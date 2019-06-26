@@ -135,7 +135,7 @@ class ClientViewset(ModelViewSet):
     authentication_classes = (jwtauth.JWTAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated,)
 
-MAX_RETRIES = 5
+MAX_RETRIES = 2
 
 class WeatherApi(APIView):
     
@@ -162,14 +162,18 @@ class WeatherApi(APIView):
             print(request.data['location'], "ESTA ES REQUEST DATA")
             attempt_num = 0  # keep track of how many times we've retried
             while attempt_num < MAX_RETRIES:
-                r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={request.data['location']}&appid={weather_api_key}&units=metric", timeout=10)
-                if r.status_code == 200:
-                    data = r.json()
-                    return Response(data, status=status.HTTP_200_OK)
-                else:
-                    attempt_num += 1
+                try:
+                    r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={request.data['location']}&appid={weather_api_key}&units=metric", timeout=5)
+                    if r.status_code == 200:
+                        data = r.json()
+                        return Response(data, status=status.HTTP_200_OK)
+                    else:
+                        attempt_num += 1
+                except requests.exceptions.ConnectionError as error:
+                        return Response({"error": "Timeout Request"}, status=status.HTTP_408_REQUEST_TIMEOUT)
+
                 # You can probably use a logger to log the error here
-                    time.sleep(5)  # Wait for 5 seconds before re-trying
+                time.sleep(3)  # Wait for 5 seconds before re-trying
             return Response({"error": "Request failed"}, status=r.status_code)
         else:
             return Response({"error": "Method not allowed"}, 
@@ -201,14 +205,17 @@ class ImagesApi(APIView):
             print(request.data['location'], "ESTA ES REQUEST DATA")
             attempt_num = 0  # keep track of how many times we've retried
             while attempt_num < MAX_RETRIES:
-                r = requests.get(f"https://pixabay.com/api/?key={images_api_key}&q={request.data['location']}", timeout=10)
-                if r.status_code == 200:
-                    data = r.json()
-                    return Response(data, status=status.HTTP_200_OK)
-                else:
-                    attempt_num += 1
+                try:
+                    r = requests.get(f"https://pixabay.com/api/?key={images_api_key}&q={request.data['location']}", timeout=5)
+                    if r.status_code == 200:
+                        data = r.json()
+                        return Response(data, status=status.HTTP_200_OK)
+                    else:
+                        attempt_num += 1
+                except requests.exceptions.ConnectionError as error:
+                        return Response({"error": "Timeout Request"}, status=status.HTTP_408_REQUEST_TIMEOUT)
                 # You can probably use a logger to log the error here
-                    time.sleep(5)  # Wait for 5 seconds before re-trying
+                time.sleep(5)  # Wait for 5 seconds before re-trying
             return Response({"error": "Request failed"}, status=r.status_code)
         else:
             return Response({"error": "Method not allowed"}, 

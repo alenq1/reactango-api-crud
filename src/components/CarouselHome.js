@@ -12,9 +12,9 @@ const CarouselHome = (props) => {
           <Carousel >
 
             {
-              props.content.map( items =>
+              props.content.map( (items, key) =>
   
-              <Carousel.Item  style={props.stylecarousel}>
+              <Carousel.Item  key={key} style={props.stylecarousel}>
 
                 {
                 items.image ?

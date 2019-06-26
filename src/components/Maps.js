@@ -37,21 +37,21 @@ const Maps = (props) => {
         isLoading(true)
         console.log(loading, "LOADING ANTES dE AXIOS")
       for(let index = 0; index < topcities; index++){
-        console.time("CONSULTA A OSM")
+        //console.time("CONSULTA A OSM")
         await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${position[index]}`,
         
-          {timeout: 10000}
+          {timeout: 5000}
         )
           .then( result  => {
             console.log(result.data[0].lat, result.data[0].lon, 'RESPUESTA COORDENADAS')
             tempcoords.push([result.data[0].lat,  result.data[0].lon])
-            console.timeEnd("CONSULTA A OSM")
+            //console.timeEnd("CONSULTA A OSM")
           })
           
           .catch(error => {
             console.log(error, 'RESULTADO DE ERROR')
             setError(error)
-            console.timeEnd("CONSULTA A OSM")
+            //console.timeEnd("CONSULTA A OSM")
           })
         
           
@@ -61,7 +61,7 @@ const Maps = (props) => {
       setCoords(tempcoords)
       console.log(loading, "LOADING TERMINANDO AXIOS")
       isLoading(false)
-      console.log(coords, "coords supuestamente pasadas por tempcoord")
+      console.log(tempcoords, "coords supuestamente pasadas por tempcoord")
     }
     
   }
@@ -71,20 +71,11 @@ const Maps = (props) => {
   // locationList.map(xxx => fetchData(xxx.name),
   // console.log(xxx.name, 'no hace')
   // )
- //console.log('It got rendered')    
+      
    ,
      // add empty array avoid infinite loop
    []
  )
-
-
-
-
-
-
-
-
-
 
 
 
@@ -94,22 +85,22 @@ const Maps = (props) => {
       <div>
        {!coords ?
        
-        <LoadSpinner/>
+        <center><LoadSpinner spinColor={props.spinColor}/></center>
 
         :
         
-             <Map 
-      style={mapstyle}
-      center={coords[0]} 
-      zoom={props.zoom}
-      attributionControl={true}
-        zoomControl={true}
-        doubleClickZoom={true}
-        scrollWheelZoom={true}
-        dragging={true}
-        animate={true}
-        easeLinearity={0.35}
-      >
+        <Map 
+          style={mapstyle}
+          center={coords[0]} 
+          zoom={props.zoom}
+          attributionControl={true}
+          zoomControl={true}
+          doubleClickZoom={true}
+          scrollWheelZoom={true}
+          dragging={true}
+          animate={true}
+          easeLinearity={0.35}
+        >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -126,8 +117,9 @@ const Maps = (props) => {
 
         
        }
-      </div>
+    </div>
     )
   
 }
+
 export default Maps;

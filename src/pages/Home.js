@@ -2,30 +2,60 @@ import React from 'react'
 import  Header  from '../layout/Header'
 import  Footer  from '../layout/Footer'
 import  CarouselHome  from '../components/CarouselHome';
-import { Container, Button, Card } from 'react-bootstrap';
+import {  Card } from 'react-bootstrap';
 import Swal from 'sweetalert2'
 import { PieChart, BarChart } from '../components/LineChart'
-import { FaKey, FaLock, FaUser, FaWrench } from 'react-icons/fa'
-import { IoIosSpeedometer, IoMdAnalytics, IoIosJournal, IoIosAnalytics, IoIosInformationCircleOutline } from 'react-icons/io'
+import { FaKey, FaLock, FaUser, FaWrench, FaGithub } from 'react-icons/fa'
 import { MdLibraryAdd, MdModeEdit, MdViewList, MdDeleteForever } from 'react-icons/md'
 import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
 
 const nameapp = 'Header'
-const footermsg = 'Footer'
+const footermsg =   <div className="text-center">
+                    <FaGithub size="2em"/>
+                    <a href="https://github.com/alenq1/reactango-api-crud"> 
+                    <p className="lead">GitHub Repo</p>
+                    </a>
+                    </div>
 const style = { 
    
   textAlign: 'center',
-  
-  
-  
+    
       }
 
-const footerstyle = { 
+ const footerstyle = { 
    
+
+  }
+
+const styleTextCarousel = {
+  textShadow: '2px 2px #000000'
+}
+const carouselContent = [
+
+  {
+    "title": <p style={{...styleTextCarousel}}>Reusable Components</p>,
+    "subtitle":"Helps you to write less code",
+    "image": require('../layout/img/site/work-864960_1920.jpg'),
+    "position": "up"
+  },
   
-      }
+  {
+    "title": <p style={{...styleTextCarousel}}>App templates for basic projects</p>,
+    "subtitle":"Basic task for common web apps",
+    "image": require('../layout/img/site/office-dark.jpg'),
+    "position": "down"
+  },
+  
+  {
+    "title": <p style={{...styleTextCarousel}}>Backend Interaction</p>,
+    "subtitle":"Handle data for backend to control how to ",
+    "image": require('../layout/img/site/coding-924920_1920.jpg'),
+    "position": "down"
+  },
+
+]
 
 const cardcontent = [
   {
@@ -44,9 +74,9 @@ const cardcontent = [
  "text": 'For deploying both enviroments, and fast start'
  },
  {
-  "image": require('../layout/img/site/no-image-available-icon-6.jpg'),
-  "title": 'Other',
-  "text": 'Lorem ipsum'
+  "image": require('../layout/img/site/desk-2906792_1280.png'),
+  "title": 'Customizable',
+  "text": 'Build your own components to expand functionality'
   },
 ]
 
@@ -54,46 +84,17 @@ const dividercontent = [
   {"image": require('../layout/img/site/no-image-available-icon-6.jpg'),
   "title": 'Login/Register actions.',
   "title1":'Using JWT.',
-  "text": 'Using JWT on the backend with access token, and refresh token for enforcing security'},
+  "text": 'Using JWT on the backend with access token, and refresh token adding a simple security layer'},
 
   {"image": require('../layout/img/site/no-image-available-icon-6.jpg'),
   "title": 'Dashboard and Graphics',
   "title1":'And visual stuffs',
-  "text": 'Using bootstrap and other libaries for User Interface more friendly'},
+  "text": 'Using bootstrap and other libaries for User Interface'},
 
   {"image": require('../layout/img/site/no-image-available-icon-6.jpg'),
   "title": 'Crud Operations',
   "title1":'All in one Single Page without Reloading',
-  "text": 'Allow the most common actions for data manipulation (CRUD) in only onepage'}
-
-]
-
-
-const carouselContent = [
-
-  {
-    "title":"First slide label",
-    "subtitle":"Nulla vitae elit libero, a pharetra augue mollis interdum.",
-    "image": require('../layout/img/site/black-and-white-electronics-notebook-257937.jpg')
-  },
-
-  {
-    "title":"First slide label",
-    "subtitle":"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "image": require('../layout/img/site/codes-coding-communication-360591.jpg')
-  },
-  
-  {
-    "title":"First slide label",
-    "subtitle":"Nulla vitae elit libero, a pharetra augue mollis interdum.",
-    "image": require('../layout/img/site/charts-data-document-669613.jpg')
-  },
-  
-  {
-    "title":"First slide label",
-    "subtitle":"Praesent commodo cursus magna, vel scelerisque nisl consectetur.",
-    "image": require('../layout/img/site/code-coder-coding-270348.jpg')
-  },
+  "text": 'Allow the most common actions for data manipulation (CRUD) in only one page'}
 
 ]
 
@@ -124,12 +125,14 @@ const minicarousel = [
 
 ]
 
-const imagelll = require('../layout/img/site/code-coder-coding-270348.jpg')
-const imagelll2 = require('../layout/img/site/codes-coding-communication-360591.jpg')
+const imagecode1 = require('../layout/img/site/code-coder-coding-270348.jpg')
+const imagecode2 = require('../layout/img/site/codes-coding-communication-360591.jpg')
+
+
 const stylesubs = {
   
   background: `linear-gradient(61deg, #000000 0%, rgba(0, 0, 
-    0, .6) 70%),url(${imagelll})`,
+    0, .6) 70%),url(${imagecode1})`,
     backgroundSize: `cover`,
     backgroundPosition: `center`,
     height: "420px"
@@ -140,7 +143,7 @@ const stylesubs = {
 const stylesubs2 = {
   
   background: `linear-gradient(61deg, #000000 0%, rgba(0, 0, 
-    0, .6) 70%),url(${imagelll2})`,
+    0, .6) 70%),url(${imagecode2})`,
     backgroundSize: `cover`,
     backgroundPosition: `center`,
     height: "350px"
@@ -204,31 +207,34 @@ const Home = (props) => {
       </div>
 
       
-      <div className="col-md-4 col-sm-4 mt-5 ">
+      <div className="col-md-4 col-sm-6 mt-5 ">
+      
         <Card className="bg-transparent border-0">
-        <div className="m-4 ">
+        <div className="m-4 text-center">
+         
         <h1>{<FaKey/>}</h1>
-        <p className="lead">Text Security key</p>
+        <p className="lead">Signed key in the backend</p>
+        
         </div>
         </Card>
         <Card className="bg-transparent border-0">
-        <div className="m-4">
+        <div className="m-4 text-center">
         <h1>{<FaLock/>}</h1>
-        <p className="lead">Text Locked Option</p>
+        <p className="lead">Restrict access to anonymous user</p>
         </div>
         </Card>
      </div>
-     <div className="col-md-4 col-sm-4 mt-5 flex-end">
+     <div className="col-md-4 col-sm-6 mt-5 flex-end">
      <Card className="bg-transparent border-0">  
-     <div className="m-4">
+     <div className="m-4 text-center">
         <h1>{<FaUser/>}</h1>
-        <p className="lead">Text User Values</p>
+        <p className="lead">Basic & Simple login/logout process</p>
       </div>
       </Card>
       <Card className="bg-transparent  border-0">
-      <div className="m-4">
+      <div className="m-4 text-center">
         <h1>{<FaWrench/>}</h1>
-        <p className="lead">Text Options and Permissions</p>
+        <p className="lead">Custom Additional options for auth process</p>
       </div>  
       </Card>
       </div>
@@ -239,7 +245,7 @@ const Home = (props) => {
 
     <div className="row featurette m-5">
       <div className="col-md-7 order-md-2">
-        <h2 className="featurette-heading">{dividercontent[1].title}<span className="text-muted">{dividercontent[1].title1}</span></h2>
+        <h2 className="featurette-heading mt-5">{dividercontent[1].title}<span className="text-muted">{dividercontent[1].title1}</span></h2>
         <p className="lead">{dividercontent[1].text}</p>
       </div>
       <div className="col-md-5 order-md-1">
@@ -249,12 +255,13 @@ const Home = (props) => {
 
   
 
-    <div className="row featurette" style={stylesubs2}>
+    <div className="row featurette md-3" style={stylesubs2}>
       <div className="col-md-7">
       <h2 className="featurette-heading mt-5">{dividercontent[2].title}<span className="text-muted">{dividercontent[2].title1}</span></h2>
         <p className="lead">{dividercontent[2].text}</p>
       </div>
       <div className="col-md-5 mt-5">
+      
       <CarouselHome
       content={minicarousel}
       stylecarousel={{
@@ -267,14 +274,6 @@ const Home = (props) => {
       </div>
     </div>
 
-
-
-    
-    <div className="row">
-
-
-
-    </div>
     
 </div>
         

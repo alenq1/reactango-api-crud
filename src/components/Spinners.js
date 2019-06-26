@@ -4,9 +4,9 @@ import { Spinner } from 'react-bootstrap'
 const LoadSpinner = (props) => {
   return (
     <>
-    <Spinner animation="grow" variant="light" role="status" />
-    <Spinner animation="grow" variant="light" role="status" />
-    <Spinner animation="grow" variant="light" role="status" />
+    <Spinner animation="grow" variant={props.spinColor} role="status" />
+    <Spinner animation="grow" variant={props.spinColor} role="status" />
+    <Spinner animation="grow" variant={props.spinColor} role="status" />
   </>
   );
 };

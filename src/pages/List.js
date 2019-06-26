@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import  Header  from '../layout/Header'
-import  Footer  from '../layout/Footer'
 import { Modal, Alert, Button, Row, Fade, Spinner } from  'react-bootstrap';
+import CustomBreadCumb from '../components/CustomBreadCumb'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Tables from '../components/Tables';
 import Modalcont from '../components/Modalcont'
 import QueryService from '../services/QueryService';
 import SideBar from '../components/SideBar';
-import '../bread.css'
 import { FaRegPlusSquare, FaTags } from 'react-icons/fa'
 //import Spinner from '../components/Spinner';
 
@@ -17,6 +16,10 @@ const nameapp = 'Header'
 const footermsg = 'Footer'
 const page = 'List'
 const MySwal = withReactContent(Swal)
+const pageStyle = {
+
+
+}
 
 
 export default class List extends Component {
@@ -24,14 +27,14 @@ export default class List extends Component {
     super(props)
   
     this.state = {
-       tablenames: [],
        list: [],
        fields: {},
        show: false,
        error: '',
        message: '',
        modaltitle: '',
-       loading: false
+       loading: false,
+       sidebar: false
     }
     this.handleHide = this.handleHide.bind(this)
     this.handleData = this.handleData.bind(this)
@@ -40,6 +43,7 @@ export default class List extends Component {
     this.handleCreate = this.handleCreate.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
     this.handleOnClick = this.handleOnClick.bind(this)
+    this.handleSideBarToggle = this.handleSideBarToggle.bind(this)
     
   }
   
@@ -53,7 +57,6 @@ export default class List extends Component {
         //console.log(result, 'result con axios')
         this.setState({
             list: result.data,
-            loading: false 
         })
           //console.log(this.state.products, 'prduct state con axios')          
       })
@@ -61,7 +64,6 @@ export default class List extends Component {
         //  console.log(error, 'estructura del error')
         this.setState({ 
           error: error,
-          loading: false 
         });
       })
 
@@ -69,6 +71,16 @@ export default class List extends Component {
     
   }
 
+  handleSideBarToggle(){
+    this.setState({ 
+      sidebar: !this.state.sidebar
+   
+   }) 
+     console.log(this.state.sidebar, "Toggled")
+
+ }
+  
+  
   handleData(data){
 
     const {show, modaltitle, list, fields } = this.state
@@ -101,8 +113,8 @@ export default class List extends Component {
   
   async handleCreate(data, images){
 
-    console.log(data, 'DATA DEL FORM para AGREG')
-    console.log(images, 'DATA DE IMAGENS para AGREG')
+    //console.log(data, 'DATA DEL FORM para AGREG')
+    //console.log(images, 'DATA DE IMAGENS para AGREG')
     let templist = this.state.list
     let fieldsData = new FormData()
     fieldsData.append('name', data.name)
@@ -116,7 +128,7 @@ export default class List extends Component {
       fieldsData.append('images', images[1], images[1].name)
 
     }
-    console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
+    //console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
     await queryservice.createProduct(fieldsData)
       .then( result => {
       //console.log(result, 'result con axios')
@@ -149,8 +161,8 @@ export default class List extends Component {
   async handleUpdate(data, images){
 
 
-    console.log(data, 'DATA DEL FORM para modif')
-    console.log(images[1], 'DATA DE IMAGENS UNO para MODIF')
+    //console.log(data, 'DATA DEL FORM para modif')
+    //console.log(images[1], 'DATA DE IMAGENS UNO para MODIF')
     let fieldsData = new FormData()
     fieldsData.append('name', data.name)  
     fieldsData.append('location', data.location)
@@ -163,9 +175,9 @@ export default class List extends Component {
       fieldsData.append('images', images[1], images[1].name)
     
     }
-    console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
-    console.log(fieldsData.get('images'), 'ESTE ES FIELDS IMAGES COVERTIDO')
-    console.log(data.id, 'ESTE ES ID PARA URL')
+    //console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
+    //console.log(fieldsData.get('images'), 'ESTE ES FIELDS IMAGES COVERTIDO')
+    //console.log(data.id, 'ESTE ES ID PARA URL')
     await queryservice.updateProduct(fieldsData, data.id)
       .then( result => {
       //console.log(result, 'result con axios')
@@ -284,77 +296,88 @@ export default class List extends Component {
 
   render() {
     return (
-      <>
-      <Header brand={nameapp} alerts={MySwal}/>
-      <div id="content-wrapper">
-        <SideBar/>
-        <div className="container-fluid mt-2" style={{paddingLeft: '80px'}}>
-          <Row className="container mt-3">
-            <div className="cont_breadcrumbs_3">
-              <ul>  
-                <li>
-                  <a href="#">Products</a>
-                </li>
-                <li>
-                  <a href="#" className="breadcrumb-item active">List</a>
-                </li>
-              </ul>
-            </div>
-            <div >
-              <Button  
-                onClick={() => this.handleData()} variant="success" className="m-5">
-                <FaRegPlusSquare size="2em"/> Add New
-              </Button>
+      <div style={{...pageStyle, 
+                    background: this.state.sidebar ?  'rgba(0, 0, 0, .6)' : 'inherit',
+                    transition: 'background-color .35s cubic-bezier(.4, 0, .2, 1)'         
+
+      }}>
+        <Header brand={nameapp} alerts={MySwal}/>
+        <div id="content-wrapper"  >
+            <SideBar handleSideBarToggle={this.handleSideBarToggle}/>
+              <div className="container-fluid mt-2" 
+                   style={
+                      this.state.sidebar ?
+                      {/*paddingLeft: '250px',   If MAIN DIV WANT TO RESIZE */
+                       paddingLeft: '250px'
+                  
+                      }
+                      
+                      :
+                      
+                      {paddingLeft: '80px'}
+                    }
+               >
+                <Row className="container mt-1">
+            
+                  <CustomBreadCumb
+                    breadpage={"Product"}
+                    title={"List"}
+                  />
+            
+                <div>
+                  <Button  
+                    onClick={() => this.handleData()} variant="success" className="m-5">
+                  <FaRegPlusSquare size="2em"/> Add New
+                  </Button>
               
+                </div>
+                </Row>
+            {this.state.message}
+      
+                <Modalcont
+                  show={this.state.show}
+                  modaltitle={this.state.modaltitle}
+                  handleHide={this.handleHide}
+                  handleUpdate={this.handleUpdate}
+                  handleCreate={this.handleCreate}
+                  handleChange={this.handleChange}
+                  handleOnClick={this.handleOnClick}
+                  fields={this.state.fields}
+                  alerts={MySwal}
+                />
+
+                {this.state.loading ? 
+
+                <div style={{
+                  textAlign: 'center',
+                  margin: 'auto',
+                  padding: '200px'
+
+                }}>
+        
+                  <Spinner animation="grow" variant="light" role="status" />
+                  <Spinner animation="grow" variant="light" role="status" />
+                  <Spinner animation="grow" variant="light" role="status" />
+        
+                </div>
+
+                :      
+
+                  <Tables
+                    list={this.state.list}
+                    handleUpdate={this.handleUpdate}
+                    handleDelete={this.handleDelete}
+                    handleOnClick={this.handleOnClick}
+                    handleData={this.handleData}
+                    alerts={MySwal}
+                    loading={this.state.loading}
+                  >
+              
+                  </Tables>
+                }
             </div>
-          </Row>
-          {this.state.message}
-      
-          <Modalcont
-            show={this.state.show}
-            modaltitle={this.state.modaltitle}
-            handleHide={this.handleHide}
-            handleUpdate={this.handleUpdate}
-            handleCreate={this.handleCreate}
-            handleChange={this.handleChange}
-            handleOnClick={this.handleOnClick}
-            fields={this.state.fields}
-            alerts={MySwal}
-          />
-
-          {this.state.loading ? 
-
-          <div style={{
-            textAlign: 'center',
-            margin: 'auto',
-            padding: '200px'
-
-          }}>
-        
-            <Spinner animation="grow" variant="light" role="status" />
-            <Spinner animation="grow" variant="light" role="status" />
-            <Spinner animation="grow" variant="light" role="status" />
-        
           </div>
-
-          :      
-
-          <Tables
-            list={this.state.list}
-            handleUpdate={this.handleUpdate}
-            handleDelete={this.handleDelete}
-            handleOnClick={this.handleOnClick}
-            handleData={this.handleData}
-            alerts={MySwal}
-            loading={this.state.loading}
-          >
-      
-          </Tables>
-          }
         </div>
-      </div>
-      <Footer message={footermsg}/>
-    </>
     )
   }
 }

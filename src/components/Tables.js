@@ -38,7 +38,7 @@ const Tables = (props) => {
           height='240'
           alt=''
       />
-      {console.log(images, 'RUTA DEIMAGENM')}
+      
       {name}
         {images}
     </div>
@@ -48,7 +48,7 @@ const Tables = (props) => {
   const imagelll = require('../layout/img/site/code-coder-coding-270348.jpg')
   
   return (
-    <Table className="table-borderless table-hover table-striped text-center mr-4 mt-1" style={style}>
+    <Table className="table-borderless table-hover table-striped text-center mr-4" style={style}>
         <thead 
           style={{
             background: `linear-gradient(61deg, #010000 0%, rgba(0, 0, 0, .6) 70%),url(${imagelll})`,
@@ -78,8 +78,8 @@ const Tables = (props) => {
             
           :
             
-          props.list.map(product =>
-          <tr key={product.id}>
+          props.list.map( (product, key) =>
+          <tr key={key}>
             <OverlayTrigger
                 placement="right-end"
                 delay={{ show: 250, hide: 400 }}

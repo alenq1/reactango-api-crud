@@ -17,7 +17,7 @@ const Header = (props) => {
   return (
     
     <Navbar style={{paddingLeft: '50px'}} collapseOnSelect expand="lg"  variant="dark" className="mr-3 ml-3">
-    <Navbar.Brand  href="#home">
+    <Navbar.Brand  href="#home" className="ml-2">
     <img
         src={require('./img/site/logo_transparent.png')}
         width="35"
@@ -26,9 +26,9 @@ const Header = (props) => {
         alt="React Bootstrap logo"
       />
     </Navbar.Brand>
-    <Nav className="mr-auto">
+    <Nav className="ml-2 mr-auto">
       <Link to="/">
-      <Nav.Link href="/">Home</Nav.Link>
+       <h6 style={{color: 'white'}}>Home</h6>
       </Link>
       
     </Nav>

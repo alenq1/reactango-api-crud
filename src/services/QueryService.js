@@ -8,6 +8,8 @@ const item = 'product'
 let tkaccess = sessionStorage.getItem('tkaccess')
 let tkrefresh = sessionStorage.getItem('tkrefresh')
 
+let maxRetries = 3
+
 //console.log(tkaccess, 'token de acceso a mandar')
 
 axios.interceptors.response.use(function (response) {
@@ -19,7 +21,7 @@ axios.interceptors.response.use(function (response) {
     //console.log(error, 'ERROR PRIAMRIO AL PRINCIPIO')
       return Promise.reject(error)
     }
-    if (error.response.status === 401 && sessionStorage.getItem('tkrefresh')) {
+    if (error.response.status === 401 && sessionStorage.getItem('tkrefresh').length > 0) {
     // Hace la solicitud de refresco de tokens
       originalRequest._retry = true;
     //console.log(error.response.data, 'tipo de  error 401')
@@ -51,28 +53,32 @@ axios.interceptors.response.use(function (response) {
 
         });
   }
-  
-  if (error.response.status === 500) {
+  else if (error.response.status === 401) {
     //console.log(error, 'ERROR 500 de Serrvidor')
     return Promise.reject(error)
   }
-  if (error.response.status === 404) {
+  
+  else if (error.response.status === 500) {
+    //console.log(error, 'ERROR 500 de Serrvidor')
+    return Promise.reject(error)
+  }
+  else if (error.response.status === 404) {
     //console.log(error, 'ERROR 404 No se encontro')
     return Promise.reject(error)
   }
-  if (error.response.status === 400) {
+  else if (error.response.status === 400) {
     console.log(error.response.data, 'ERROR 400 Mal request')
     return Promise.reject(error)
   }
-
-  //console.log(tkrefresh, tkaccess, 'tokens DEVUELTOS EN ULTIMA PARTE')
+  else {
+  //consol e.log(tkrefresh, tkaccess, 'tokens DEVUELTOS EN ULTIMA PARTE')
   //console.log(error, 'ERROR DE PARA DEVOLVER')
   sessionStorage.removeItem("tkaccess")
   sessionStorage.removeItem("tkrefresh")
   sessionStorage.removeItem("user")
   hist.push("/login")
   return Promise.reject(error)
-  
+  }
 
 })
 export default class QueryService {

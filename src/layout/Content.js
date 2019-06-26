@@ -1,24 +1,16 @@
 import React, { Component } from 'react'
 import FormLogin from '../components/FormLogin';
-import FormRegister from '../components/FormRegister';
 import { Redirect, withRouter } from 'react-router-dom'
-import { Card, Alert, Tab, Tabs, CardImg, Nav, Row } from  'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { far } from '@fortawesome/free-regular-svg-icons';
-import  { fab }from '@fortawesome/free-brands-svg-icons';
-import QueryService from '../services/QueryService';
+import { Card, Alert, Tab, Button, CardImg, Nav, Row } from  'react-bootstrap';
 import axios from 'axios';
-
+import {FaKey, FaUserPlus} from 'react-icons/fa'
 //const queryservice = new QueryService();
+
 const loginurl = 'api-token-auth/'
 const registerurl = 'api-register/'
-
-
-library.add(far, fab)
-
 const title = 'Login'
-const style = { 
+
+const stylepage = { 
         
     padding: '10px',
     margin: '80px 0',
@@ -28,13 +20,13 @@ const style = {
     maxWidth: '350px',
     border: '0'
     
-   
-    
-        }
+}
 
-const stylelogin = {
-  
-
+const stylebutton = {
+  marginTop: '10px',
+  background: 'linear-gradient(to left,#000000, #434343)',   
+  width: '50%',
+  alignItems: 'center'
 
 
 }
@@ -53,18 +45,27 @@ class Content extends Component {
        tab: 'login'
 
     }
-    this.handleLogin = this.handleLogin.bind(this)
+    this.handleLoginReg = this.handleLoginReg.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleRegister = this.handleRegister.bind(this)
+    
 
   }
   
-  async handleLogin(event){
+  async handleLoginReg(event){
+
     
-    const { username, password, message} = this.state
+    const { username, password, message, tab} = this.state
+    let currenturl = ''
+    if(tab === "login"){
+        currenturl = loginurl
+    }
+    if(tab === "register"){
+        currenturl = registerurl
+
+    }
     
     if(!(username && password)){
-      const displaymsg = <Alert variant='warning'>Please fill in all fields</Alert>
+      const displaymsg = <Alert variant='warning'>Please fill all fields</Alert>
       this.setState({ message: displaymsg })
        //console.log('inavlidoregresa')
        return;
@@ -72,7 +73,7 @@ class Content extends Component {
     //console.log('pasa ahora')
     await axios({
       method: 'post',
-      url: loginurl,
+      url: currenturl,
       data: {
         'username': username,
         'password': password
@@ -83,18 +84,35 @@ class Content extends Component {
 
        // console.log(result, 'LOGIN EXITOSO RECIBE TOKEN')
         //this.setState({ logged: true})
-      sessionStorage.setItem("tkaccess", result.data.access)
-      sessionStorage.setItem("tkrefresh", result.data.refresh)
-      sessionStorage.setItem("user", username)
-      this.props.history.push("/dashboard")
+      
+      if(tab === "login"){
+        sessionStorage.setItem("tkaccess", result.data.access)
+        sessionStorage.setItem("tkrefresh", result.data.refresh)
+        sessionStorage.setItem("user", username)
+        this.props.history.push("/dashboard")
+      }
+
+      if(tab === "register"){
+        const displaymsg = <Alert variant='success'>Register Success!!</Alert>
+        this.setState({ message: displaymsg })
+      }
+
     })
         
     .catch(error => {
         //console.log(error, error.request.response, 'Login Error')
         let  displaymsg;
+        
         if(error.response){
               //console.log(error, error.request.response, 'error respuesta')
-          displaymsg = <Alert variant='danger'>Login Failed</Alert>  
+          if(tab === "login"){
+            displaymsg = <Alert variant='danger'>Login Failed</Alert>  
+          }
+
+          if(tab === "register"){
+            displaymsg = <Alert variant='danger'>{error.message}</Alert>  
+          }
+
         }
         
         else if (error.request){
@@ -106,70 +124,15 @@ class Content extends Component {
               //console.log(error, error.request.response, 'error otros')
           displaymsg = <Alert variant='danger'>{error.message}</Alert>  
             }
+
         this.props.history.push("/login")
         this.setState({ message: displaymsg })
      });
       
     }
 
-
-    async handleRegister(event){
-    
-      const { username, password, message} = this.state
-      
-      if(!(username && password)){
-        const displaymsg = <Alert variant='warning'>Please fill in all fields</Alert>
-        this.setState({ message: displaymsg })
-         //console.log('inavlidoregresa')
-         return;
-      }
-
-
-      //console.log('pasa ahora')
-      await axios({
-        method: 'post',
-        url: registerurl,
-        data: {
-          'username': username,
-          'password': password
-        }
-      })
-      
-      .then( result  => {
-  
-          //console.log(result, 'REGISTRO SUCCESS')
-          //this.setState({ logged: true})
-        const displaymsg = <Alert variant='success'>Register Success!!</Alert>
-        this.setState({ message: displaymsg })
-          
-      })
-          
-      .catch(error => {
-            //console.log(error, error.request.response, 'Register Failed')
-        let  displaymsg;
-        if(error.response){
-              //console.log(error, error.request.response, 'error respuesta')
-          displaymsg = <Alert variant='danger'>{error.message}</Alert>  
-        }
-        
-        else if (error.request){
-              //console.log(error, error.request.response, 'error peticion')
-          displaymsg = <Alert variant='danger'>{error.message}</Alert>  
-        }
-        
-        else{
-              //console.log(error, error.request.response, 'error otros')
-          displaymsg = <Alert variant='danger'>{error.message}</Alert>  
-        }
-        
-        this.props.history.push("/login")
-        this.setState({ message: displaymsg })
-      });
-        
-    }
-
-
   handleChange(event){
+    
     let {name, value} = event.target
     this.setState({
 
@@ -185,7 +148,7 @@ class Content extends Component {
     return (
       
         <div className="row border-info text-center justify-content-sm-center">
-          <Card bg="transparent" text="white" style={style} className="justify-content">
+          <Card bg="transparent" text="white" style={stylepage} className="justify-content">
             <Card.Body>
               <CardImg variant="top"
                 src={require('./img/site/logo_transparent.png')}
@@ -195,7 +158,11 @@ class Content extends Component {
               />
             </Card.Body>
           </Card>
-          <Card bg="dark" text="white" style={style} className="justify-content ">
+          <Card text="white" 
+                style={{...stylepage, 
+                        background: 'linear-gradient(to left,#000000, #434343)',
+                      }} 
+                className="justify-content ">
             <Card.Header>
                 {message}
             </Card.Header>
@@ -206,42 +173,65 @@ class Content extends Component {
                  <Row style={{
                     margin: '5px',
                     color: 'white',
-                    backgroundColor: 'blue',
+                    background: 'linear-gradient(to top, #4b6cb7, #182848)',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     cursor: 'pointer',
-                    transition: 'background 0.3s'
+                    transition: 'background 0.5s'
                   }}>
                     <Nav.Item style={{width: '50%'}}>
                       <Nav.Link eventKey="login" title="Login" active="true">Login</Nav.Link>
+                      
                     </Nav.Item>
                     <Nav.Item style={{width: '50%'}}>
                       <Nav.Link eventKey="register" title="Register" >Register</Nav.Link>
                     </Nav.Item>
                   </Row>
                   <Tab.Content>
-                    <Tab.Pane eventKey="login">
+                    <Tab.Pane eventKey="login" className="md-4 mt-4">
                       <FormLogin
+                        controlId={"LoginPassword"}
                         validated={validated}
                         name={'username'}
                         username={this.state.username}
                         password={this.state.password}
                         namepassword={'password'}
                         handleChange={this.handleChange}
-                        handleLogin={this.handleLogin}
+                        
                       />
+                      <Button 
+                          style={stylebutton}  
+                          onClick={this.handleLoginReg} 
+                        
+                        >
+                        
+                        <FaKey size="2em" className="mr-3"/>
+                        Login
+                      </Button>
+
+
                     </Tab.Pane>
-                    <Tab.Pane eventKey="register">
-                      <FormRegister
+                    <Tab.Pane eventKey="register" className="md-4 mt-4">
+                      <FormLogin
+                        controlId={"registerUser"}
                         validated={validated}
                         name={'username'}
                         username={this.state.username}
                         password={this.state.password}
-                        namepassword={'password'}
+                        namepassword={'password'}                        
                         handleChange={this.handleChange}
-                        handleRegister={this.handleRegister}
+                        
                       />
+                      <Button 
+                        style={stylebutton}
+                        onClick={this.handleLoginReg} 
+                        
+                        >
+                        <FaUserPlus size="2em" className="mr-3"/>
+                        Register
+        
+                      </Button>
                     </Tab.Pane>
                   </Tab.Content>
                   
@@ -254,4 +244,3 @@ class Content extends Component {
   }
 }
 export default withRouter(Content);
- 

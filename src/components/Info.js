@@ -47,6 +47,7 @@ const Info = (props) => {
             height={"250px"}
             width={"450px"}
             numcities={1}
+            spinColor={"light"}
             />
             </td>
         </tr>

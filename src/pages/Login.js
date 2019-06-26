@@ -3,11 +3,17 @@ import  Header  from '../layout/Header'
 import  Content  from '../layout/Content';
 import  Footer  from '../layout/Footer'
 import FormLogin from '../components/FormLogin';
+import {FaGithub} from 'react-icons/fa'
 import { Container } from 'react-bootstrap';
 
 
 const nameapp = 'nameapp'
-const footermsg = 'footer'
+const footermsg =   <div className="text-center">
+                    <FaGithub size="2em"/>
+                    <a href="https://github.com/alenq1/reactango-api-crud"> 
+                    <p className="lead">GitHub Repo</p>
+                    </a>
+                    </div>
 const page = 'Login'
 const style ={
 
@@ -17,7 +23,7 @@ const style ={
   padding: '100px',
   
    */
-  margin: '100'
+  
 
 }
 

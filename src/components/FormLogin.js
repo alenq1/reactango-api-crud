@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Col, InputGroup, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 
 const FormLogin = (props) => {
@@ -9,9 +9,10 @@ const FormLogin = (props) => {
         validated={props.validated}
         style ={props.style}
       >
-        <Form.Group controlId="formUsername">
-          <Form.Label>Username</Form.Label>
+        <Form.Group controlId={props.controlId} className="mb-4">
+          
             <Form.Control 
+
               type="text"
               name={props.name} 
               placeholder="Enter Username" 
@@ -24,9 +25,10 @@ const FormLogin = (props) => {
           </Form.Text>
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+        <Form.Group controlId="LoginPassword" className="mt-4">
+          
             <Form.Control 
+
               name={props.namepassword}
               type="password" 
               placeholder="Password" 
@@ -36,13 +38,7 @@ const FormLogin = (props) => {
             />
         </Form.Group>
   
-        <Button 
-          variant="primary" 
-          onClick={props.handleLogin} 
-          className="col text-center">
-
-          Login
-        </Button>
+        
 
       </Form>
     

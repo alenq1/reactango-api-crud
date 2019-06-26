@@ -5,10 +5,12 @@ import {Container, Row} from 'react-bootstrap'
 const style={
  
   color: '#fff',
-  background: '#00003E',
-  background: '-webkit-linear-gradient(to right, #31BDE6, #00003E)',
-  background: 'linear-gradient(to right, #31BDE6, #00003E)',
-  textAlign: 'center'
+  widht: '100%',
+  background: '#0F2027',  /* fallback for old browsers */
+  background: '-webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027)',  /* Chrome 10-25, Safari 5.1-6 */
+  background: 'linear-gradient(to right, #2C5364, #203A43, #0F2027)' /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  
 
 }
 
@@ -16,7 +18,7 @@ const style={
 const footer = (props) => {
   return (
 
-      <div  className="py-4 bg-dark text-center">
+      <div  className="py-5 text-center" style={style}>
       {props.message}
       </div>
     

@@ -1,71 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../layout/Header'
-import Footer from '../layout/Footer'
 import SideBar from '../components/SideBar'
 import { ModalLoc } from '../components/ModalLoc'
 import Queryservice from '../services/QueryService'
-import '../bread.css'
-import { Card, CardColumns, CardDeck, CardGroup, Spinner, Row, Button, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import Rating from 'react-rating'
 import axios from 'axios'
-import { openWeatherApi, pixabayApi } from '../ApiKeys'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { TiStarFullOutline, TiStarOutline,
-    TiWeatherCloudy,
-    TiWeatherSunny,
-    TiWeatherDownpour,
-    TiWeatherNight,
-    TiWeatherPartlySunny,
-    TiWeatherShower,
-    TiWeatherSnow,
-    TiWeatherStormy,
-    TiWeatherWindyCloudy,
-    TiWeatherWindy
-
-} from 'react-icons/ti'
+import CustomBreadCumb from '../components/CustomBreadCumb'
+import {LoadSpinner, BorderSpinner} from '../components/Spinners'
 import { FaRegPlusSquare } from 'react-icons/fa'
+import { 
+          Card, CardColumns, CardDeck, CardGroup, 
+          Spinner, Row, Button, Modal, OverlayTrigger, Tooltip 
+        
+        } from 'react-bootstrap'
+import { 
+        TiStarFullOutline, TiStarOutline, TiWeatherCloudy, TiWeatherSunny,
+        TiWeatherDownpour, TiWeatherNight, TiWeatherPartlySunny, TiWeatherShower,
+        TiWeatherSnow, TiWeatherStormy, TiWeatherWindyCloudy, TiWeatherWindy
+
+      } from 'react-icons/ti'
 
 
 const queryservice = new Queryservice()
 const MySwal = withReactContent(Swal)
-
-
-const renderTooltip = ({main:{temp} , weather:[{main}]}) => (
-// destructuring input for better render format
-  
-  <div
-    
-    style={{
-      backgroundColor: 'rgba(0, 0, 0, 0.85)',
-      padding: '10px 10px',
-      color: 'white',
-      borderRadius: 5
-    
-    }}>
-      
-    {main ?
-    <>
-      <h1>{main}</h1>
-      <h1>{temp}</h1>
-    </>
-    :
-    <>
-      <Spinner animation="grow" variant="light" role="status" />
-      <Spinner animation="grow" variant="light" role="status" />
-      <Spinner animation="grow" variant="light" role="status" />
-    </>
-    
-  }
-    
-     
-    
-    {console.log(temp, 'TEMPERATURA')}
-    {console.log(main, 'TIEMPO')}
-      
-  </div>
-);
 
 const style = {
 
@@ -95,7 +54,7 @@ const Locations = (props) => {
       await axios.post(`http://localhost:8000/weather_api/`, {location: name})
         .then( result  => {
           showWeather(result.data)
-          console.log(result.data, 'RESULTADO DE WEATHER AS STATE')
+         // console.log(result.data, 'RESULTADO DE WEATHER AS STATE')
         })
         .catch(error => {
           console.log(error.message, 'RESULTADO DE ERROR')
@@ -110,12 +69,12 @@ const Locations = (props) => {
         //console.log(props.fields.location) 
       queryservice.getLocations()
          .then( async result => {
-            console.log(result.data, 'result de LOCATIIONS')
+            //console.log(result.data, 'result de LOCATIIONS')
             getLocs(result.data)
-            console.log(locationList, 'LOCATIONS AS STATE')
-            const vamosabusca = result.data
-              console.log(vamosabusca[0], "VMAOABUSCANAME")
-              for   (let nameimage of vamosabusca){
+            //console.log(locationList, 'LOCATIONS AS STATE')
+            const templocationlist = result.data
+             // console.log(templocationlist, "lista temporal")
+              for   (let nameimage of templocationlist){
                 await axios.post(`http://localhost:8000/images_api/`, {location: nameimage.name})
                 //await axios.get(``)
                   .then( result  => {
@@ -163,7 +122,7 @@ const Locations = (props) => {
 
     return (
         <>
-        {console.log(imagesList, "AQUI ESTAN LISTAS PARA MOSTRAR")}
+        {/*console.log(imagesList, "AQUI ESTAN LISTAS PARA MOSTRAR")*/}
           <Header brand={props.nameapp} alerts={MySwal}/>
             <div id="content-wrapper">
               <SideBar/>
@@ -173,91 +132,85 @@ const Locations = (props) => {
                   showed={modalshow}
                   hide={Showed}
                 />
-                <Row className="m-3">
-                  <div className="cont_breadcrumbs_3">
-                    <ul>  
-                      <li>
-                        <a href="#">Locations</a>
-                      </li>
-                      <li>
-                        <a href="#" className="breadcrumb-item active">Rating & Weather</a>
-                      </li>
-                    </ul>
-            
-                  </div>
+                <Row className="m-1">
+                  <CustomBreadCumb
+                    breadpage={"Locations"}
+                    title={"Weather & Rating"}
+                  />
+
                   <Button  
                   onClick={Showed} variant="success" className="m-5">
                    <FaRegPlusSquare size="2em"/>   Add New
                   </Button>
                 </Row>
           
-                {loading ?
-
-                <div style={{
-                  textAlign: 'center',
-                  margin: 'auto',
-                  padding: '200px'
-                }}>
-
-                  <Spinner animation="grow" variant="light" role="status" />
-                  <Spinner animation="grow" variant="light" role="status" />
-                  <Spinner animation="grow" variant="light" role="status" />
-
-                </div>
-                        
-                :
+                
                 <CardColumns>
                 {    
                 locationList.map((locations, index) =>
                  <React.Fragment key={index}> 
            
-                <Card  style={{flex: 1}}>
-                  <Card.Body className="h-100 color-black " onClick={() =>
-                    fetchData(locations.name) 
-                  }>
-                  <OverlayTrigger
-                    placement="right-end"
-                    delay={{ show: 250, hide: 400 }}
-                    overlay={ 
-                  
-                      <Tooltip id={index}>
-                        {
-                          weather.isEmpty ?
+                  <Card  style={{flex: 1}}>
+                    <Card.Body 
+                      className="h-100 color-black " 
+                      onClick={() =>
+                        fetchData(locations.name) 
+                              }
+                      onMouseOut={() => 
+                        showWeather({main:{} , weather:[{}]})
+                                    }
+                    >
+                      <OverlayTrigger
+                        placement="right-end"
+                        delay={{ show: 250, hide: 400 }}
+                        overlay={ 
+                      
+                          <Tooltip id={index}>
+                            {
+                              !weather.weather[0].main ?
 
-                          <h1>No Data</h1>
+                              <h3>Click To Check Weather</h3>
 
-                        :
-                        <>
-                          <h1>Temp {weather.main.temp} C</h1>
-                          <h1>Weather {weather.weather[0].main === "Clouds" ? 
-                            <TiWeatherCloudy/>
-                            : weather.weather[0].main === "Thunderstorm" ?
-                            <TiWeatherStormy/>
-                            : weather.weather[0].main === "Drizzle" ?
-                            <TiWeatherShower/>
-                            : weather.weather[0].main === "Rain" ?
-                            <TiWeatherDownpour/>
-                            : weather.weather[0].main === "Snow" ?
-                            <TiWeatherSnow/>
-                            : weather.weather[0].main === "Clear" ?
-                            <TiWeatherSunny/>
                             :
-                            <p>NO DATA</p>
-                          }
-                          </h1>
-                        </>
-                        }  
-                    
-                      </Tooltip>
-                    }
-                  >
+                            <>
+                              <h3>Temp {weather.main.temp} C</h3>
+                              <h3>Weather {weather.weather[0].main === "Clouds" ? 
+                                <TiWeatherCloudy size="2.5em"/>
+                                : weather.weather[0].main === "Thunderstorm" ?
+                                <TiWeatherStormy size="2.5em"/>
+                                : weather.weather[0].main === "Drizzle" ?
+                                <TiWeatherShower size="2.5em"/>
+                                : weather.weather[0].main === "Rain" ?
+                                <TiWeatherDownpour size="2.5em"/>
+                                : weather.weather[0].main === "Snow" ?
+                                <TiWeatherSnow size="2.5em"/>
+                                : weather.weather[0].main === "Clear" ?
+                                <TiWeatherSunny size="2.5em"/>
+                                :
+                                <p>NO DATA</p>
+                              }
+                              </h3>
+                            </>
+                            }  
+                        
+                          </Tooltip>
+                        }
+                      >
             
+                    { loading ?
+                      <center><h3><BorderSpinner/></h3></center>
+                    :
                     <Card.Img variant="top" 
-                    src={ 
+                    
+                      src={                          
                           imagesList.length > 0 ? 
                           imagesList[index] 
-                          : require('../layout/img/site/no-image-available-icon-6.jpg')} 
+                          : require('../layout/img/site/no-image-available-icon-6.jpg')
+                          }
+
+                    
                     />
+                    }
 
                   </OverlayTrigger>
                   <Card.Title className="text-dark"  >{locations.name}</Card.Title>
@@ -268,28 +221,26 @@ const Locations = (props) => {
                         content.{' '}
                   </Card.Text>
                 </Card.Body>
-              <Card.Footer>
-                <small className="text-muted">
-                  <Rating 
-                    stop={10}
-                    step={2}
-                    initialRating={locations.rating}
-                    emptySymbol={<h3><TiStarOutline/></h3>}
-                    fullSymbol={<h3><TiStarFullOutline/></h3>}
-                  />
-               </small>
-              </Card.Footer>
+                <Card.Footer>
+                  <small className="text-muted">
+                    <Rating 
+                      stop={10}
+                      step={2}
+                      initialRating={locations.rating}
+                      emptySymbol={<h3><TiStarOutline/></h3>}
+                      fullSymbol={<h3><TiStarFullOutline/></h3>}
+                    />
+                </small>
+                </Card.Footer>
             </Card> 
          
           </React.Fragment>
             )}
         </CardColumns>
-            }
-            
-           
+                       
       </div>
     </div>
-    <Footer/>
+    
        </>
     )
 }
