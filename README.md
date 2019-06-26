@@ -31,7 +31,7 @@ This app can make simple things like:
 
 - React router with PrivateRoute for authenticated users
 
-##Back-End:
+## Back-End:
   
 - Django API REST with Django Rest Framework Package
 
@@ -46,7 +46,7 @@ This app can make simple things like:
 
 PD: This app was made for learning purposes still have some styling and functional errors, feel free to make your reviews
 
-ToDo:
+## ToDo:
 
 * [ ] Modify to better style
 * [ ] Improve login token security
