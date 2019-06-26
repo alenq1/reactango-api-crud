@@ -51,7 +51,7 @@ const Maps = (props) => {
           .catch(error => {
             console.log(error, 'RESULTADO DE ERROR')
             setError(error)
-            //console.timeEnd("CONSULTA A OSM")
+            ///console.timeEnd("CONSULTA A OSM")
           })
         
           
