@@ -25,6 +25,8 @@ import {
 
 const queryservice = new Queryservice()
 const MySwal = withReactContent(Swal)
+const imageApiUrl = 'images_api/'
+const weatherApiUrl = 'weather_api/'
 
 const style = {
 
@@ -51,7 +53,7 @@ const Locations = (props) => {
 
     async function fetchData(name) {
       
-      await axios.post(`http://localhost:8000/weather_api/`, {location: name},
+      await axios.post(weatherApiUrl, {location: name},
       {
         headers: {
           'Authorization': `Bearer ${sessionStorage.getItem('tkaccess')}`,
@@ -82,7 +84,7 @@ const Locations = (props) => {
             const templocationlist = result.data
              // console.log(templocationlist, "lista temporal")
               for   (let nameimage of templocationlist){
-                await axios.post(`http://localhost:8000/images_api/`, {location: nameimage.name}, 
+                await axios.post(imageApiUrl, {location: nameimage.name}, 
                   { headers: {
                             'Authorization': `Bearer ${sessionStorage.getItem('tkaccess')}`,
                             'Content-Type': 'application/json'
