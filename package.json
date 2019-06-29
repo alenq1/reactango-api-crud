@@ -38,8 +38,8 @@
     "eject": "react-scripts eject",
     "postinstall": "npm run build"
   },
-  "proxy": "https://reactango-api-crud.herokuapp.com/",
-  "_comment": "http://localhost:8000/",
+  "_comment": "https://reactango-api-crud.herokuapp.com/",
+  "proxy": "http://localhost:8000/",
   "engines": {
     "node": "11.10.0",
     "npm": "6.9.0"
