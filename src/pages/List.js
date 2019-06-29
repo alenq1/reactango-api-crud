@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import  Header  from '../layout/Header'
 import { Modal, Alert, Button, Row, Fade, Spinner } from  'react-bootstrap';
 import CustomBreadCumb from '../components/CustomBreadCumb'
@@ -22,7 +22,7 @@ const pageStyle = {
 }
 
 
-export default class List extends Component {
+export default class List extends PureComponent {
   constructor(props) {
     super(props)
   
@@ -54,14 +54,14 @@ export default class List extends Component {
 
     await queryservice.getProducts()
       .then( result => {
-        //console.log(result, 'result con axios')
+        ////console.log(result, 'result con axios')
         this.setState({
             list: result.data,
         })
-          //console.log(this.state.products, 'prduct state con axios')          
+          ////console.log(this.state.products, 'prduct state con axios')          
       })
       .catch(error => {
-        //  console.log(error, 'estructura del error')
+        //  //console.log(error, 'estructura del error')
         this.setState({ 
           error: error,
         });
@@ -76,7 +76,7 @@ export default class List extends Component {
       sidebar: !this.state.sidebar
    
    }) 
-     console.log(this.state.sidebar, "Toggled")
+     //console.log(this.state.sidebar, "Toggled")
 
  }
   
@@ -93,7 +93,7 @@ export default class List extends Component {
         modaltitle: 'Create'
       
       })
-    //console.log(data, 'DATA DEL FORM limpio')
+    ////console.log(data, 'DATA DEL FORM limpio')
 
     }
     
@@ -113,10 +113,11 @@ export default class List extends Component {
   
   async handleCreate(data, images){
 
-    //console.log(data, 'DATA DEL FORM para AGREG')
-    //console.log(images, 'DATA DE IMAGENS para AGREG')
+    ////console.log(data, 'DATA DEL FORM para AGREG')
+    ////console.log(images, 'DATA DE IMAGENS para AGREG')
     let templist = this.state.list
     let fieldsData = new FormData()
+    
     fieldsData.append('name', data.name)
     fieldsData.append('location', data.location)
     fieldsData.append('price', data.price)
@@ -128,14 +129,14 @@ export default class List extends Component {
       fieldsData.append('images', images[1], images[1].name)
 
     }
-    //console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
+    ////console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
     await queryservice.createProduct(fieldsData)
       .then( result => {
-      //console.log(result, 'result con axios')
-        templist.push(data)
+      //console.log(result, 'result CREATED')
+        //templist.concat(data)
         this.setState({
-          list: templist,
-          message: <Alert className="mt-4" dismissible variant="info">Creado {data.name}</Alert>,
+          list: [...templist, result.data],
+          message: <Alert className="mt-4" dismissible variant="info"> {result.data.name} Created</Alert>,
           show: false
         })
 
@@ -144,15 +145,16 @@ export default class List extends Component {
         'OK',
         'success'
         )
-      //console.log(this.state.products, 'prduct state con axios')
+
+      ////console.log(this.state.list, 'prduct state con axios')
       //fieldsData.reset()      
        })
       .catch(error => {
-      //console.log(error, 'estructura del error')
-        this.setState({ error: error });
+      ////console.log(error.response, 'estructura del error en CREAR')
+        this.setState({ error: error.response.statusText });
         MySwal.fire(
           'Error!',
-          error.message,
+          error.response.statusText,
           'error'
         )
       })
@@ -162,7 +164,7 @@ export default class List extends Component {
 
 
     //console.log(data, 'DATA DEL FORM para modif')
-    //console.log(images[1], 'DATA DE IMAGENS UNO para MODIF')
+    ////console.log(images[1], 'DATA DE IMAGENS UNO para MODIF')
     let fieldsData = new FormData()
     fieldsData.append('name', data.name)  
     fieldsData.append('location', data.location)
@@ -175,12 +177,12 @@ export default class List extends Component {
       fieldsData.append('images', images[1], images[1].name)
     
     }
-    //console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
-    //console.log(fieldsData.get('images'), 'ESTE ES FIELDS IMAGES COVERTIDO')
+    ////console.log(fieldsData.get('name'), 'ESTE ES FIELDS DATA COVERTIDO')
+    ////console.log(fieldsData.get('images'), 'ESTE ES FIELDS IMAGES COVERTIDO')
     //console.log(data.id, 'ESTE ES ID PARA URL')
     await queryservice.updateProduct(fieldsData, data.id)
       .then( result => {
-      //console.log(result, 'result con axios')
+      ////console.log(result, 'result con axios')
         this.setState({
        ////// list: result.data
           fields: {},
@@ -196,11 +198,11 @@ export default class List extends Component {
           'OK',
           'success'
         )
-      //console.log(this.state.products, 'prduct state con axios')
+      ////console.log(this.state.products, 'prduct state con axios')
       
       })
       .catch(error => {
-      //console.log(error, 'estructura del error')
+      ////console.log(error, 'estructura del error')
         this.setState({ error: error });
         MySwal.fire(
           'Error!',
@@ -222,7 +224,7 @@ export default class List extends Component {
       this.setState({
         fields: actualfield
       })
-      //console.log(this.state.fields, 'CAMBIOS DE FIELDS moddificados')
+      ////console.log(this.state.fields, 'CAMBIOS DE FIELDS moddificados')
 
   }
   
@@ -245,7 +247,7 @@ export default class List extends Component {
         
         await queryservice.deleteProduct(pk)
           .then( result => {
-        //  console.log(result, 'result con axios')
+        //  //console.log(result, 'result con axios')
             this.setState({
               list: list.filter(product=> product.id !== pk)
             })
@@ -254,7 +256,7 @@ export default class List extends Component {
               'Your file has been deleted.',
               'success'
             )
-       //   console.log(this.state.list, 'prduct state con axios')
+       //   //console.log(this.state.list, 'prduct state con axios')
           
           })
           .catch( error => {

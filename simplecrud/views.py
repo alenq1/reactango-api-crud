@@ -26,7 +26,9 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 weather_api_key = '88bf74f6ac2d0e7a281ab4aa28e64f57'
 images_api_key = '12729179-5d5cbd96245c61e2ec0a81dde'
-
+googleRecaptcha = { 'server': '6LfxLqcUAAAAAI8h8EgbMpL2M4HN_BchGGvphKvM',
+                    'client': '6LfxLqcUAAAAANc9uTe_k8tQbMVfWv7kQEY30vvV'    
+                  }
 
 class ProductList(LoginRequiredMixin, ListView):
     model = Product
@@ -88,13 +90,13 @@ class ProductViewset(ModelViewSet):
     
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    authentication_classes = (jwtauth.JWTAuthentication, SessionAuthentication)
+    authentication_classes = (jwtauth.JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
 
 
     def create(self, request): # Here is the new update comes <<<<
         post_data = request.data
-        #print(request.data, "ESTA es la data enviada")
+        print(request.data, "ESTA es la data enviada")
         # do something with post data
         #return HttpResponse(post_data, "return data")
 
@@ -104,6 +106,7 @@ class ProductViewset(ModelViewSet):
             return Response(product_serializer.data, status=status.HTTP_201_CREATED)
         else:
         #    print('error', product_serializer.errors)
+            print(product_serializer.errors, "ERRORES AL CREAR PRDUCT")
             return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, *args, **kwargs):
@@ -124,7 +127,7 @@ class LocationViewset(ModelViewSet):
     
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-    authentication_classes = (jwtauth.JWTAuthentication, SessionAuthentication)
+    authentication_classes = (jwtauth.JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
 
 
@@ -132,13 +135,14 @@ class ClientViewset(ModelViewSet):
     
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
-    authentication_classes = (jwtauth.JWTAuthentication, SessionAuthentication)
+    authentication_classes = (jwtauth.JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
 
 MAX_RETRIES = 2
 
 class WeatherApi(APIView):
     
+    permission_classes = (IsAuthenticated,)
     # def get(self, request):
     #     if request:
     #         print(request.data, "ESTA ES REQUEST DATA")
@@ -181,6 +185,8 @@ class WeatherApi(APIView):
 
 class ImagesApi(APIView):
     
+    
+    permission_classes = (IsAuthenticated,)
     # def get(self, request):
     #     if request:
     #         print(request.data['data'], "ESTA ES REQUEST DATA")

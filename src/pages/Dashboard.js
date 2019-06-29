@@ -93,6 +93,11 @@ export default class Dashboard extends Component {
 
 
   findAvg(arr){
+    if(arr.length === 0){
+      this.setState({ loading: false })
+      return
+      
+    }
     this.setState({ loading: true })
     //let value;
     //console.log(arr, 'ARREGLO dE  NTRADA PARa PRoMEDIO')
@@ -186,8 +191,11 @@ export default class Dashboard extends Component {
                       
                       <h4 className="display-6">
                           
-                          {list.length === 0 ? 
+                          { loading ?
                             <LoadSpinner/>
+                            :
+                            list.length === 0 ? 
+                            <p>No Data</p>
                             :
                             list.length
                           }
@@ -214,9 +222,14 @@ export default class Dashboard extends Component {
                       
                       <h4 className="display-6">
                         
-                        {!average ? 
+                        {loading ?
                         
-                          <LoadSpinner/>
+                        <LoadSpinner/>
+                        :
+                          
+                          average === 0 ? 
+                        
+                          <p>No data</p>
                         :
                             average
                         }
@@ -244,8 +257,14 @@ export default class Dashboard extends Component {
                       
                       <h4 className="display-6">
                         
-                        {!totQuanty ? 
-                          <LoadSpinner/>
+                        { loading ?
+                            <LoadSpinner/>
+                          :
+                          
+                          !totQuanty ? 
+                          
+                          <p>No data</p>
+                          
                           :
                             totQuanty
                         }
@@ -277,7 +296,7 @@ export default class Dashboard extends Component {
                         :
                           hotLocation === undefined ? 
                         
-                          Error
+                          <p>No data</p>
                         :
                           hotLocation[0]
                         }
@@ -302,7 +321,15 @@ export default class Dashboard extends Component {
                 </div>
                 <div className="card-body">
                   <div >
-              
+                  { loading ?
+                            <BorderSpinner/>
+                            :
+                            list.length === 0 ? 
+                            <p>No Data</p>
+                            :
+                            
+                          
+                    
                     <LineChart
                       textchart={'Quantity Bar Graph'}
                       typechart={'bar'}
@@ -314,7 +341,7 @@ export default class Dashboard extends Component {
                             )}
                       color={'#2f4554'}
                     />
-
+                      }
                   </div>
                   
                 </div>
@@ -323,14 +350,22 @@ export default class Dashboard extends Component {
                 </div>
               </div>
 
-              <div className="card w-15 col-sm-3 ml-1 mr-1">
-                <div className="card-header text-dark">
+              <div className="card w-15 col-sm-3 ml-1 mr-1 text-dark">
+                <div className="card-header ">
                   <FaChartPie/>
                       Circle Graph
                 </div>
                 <div className="card-body">
                   <div >
-              
+                  
+                  { loading ?
+                            <BorderSpinner/>
+                            :
+                            list.length === 0 ? 
+                            <p>No Data</p>
+                            :
+                  
+                      
                     <CircleChart
                       data={list.map(datarr => {
                             let newarr ={value: '', name:''}
@@ -342,6 +377,7 @@ export default class Dashboard extends Component {
 
                       textchart={"Quantity Circle Chart "}
                     />
+                          }
                   </div>
                 </div>
                 <div className="card-footer small text-muted">
@@ -349,14 +385,20 @@ export default class Dashboard extends Component {
                 </div>
               </div>
 
-              <div className="card w-15 col-sm-3 ml-1 mr-1">
-                <div className="card-header text-dark">
+              <div className="card w-15 col-sm-3 ml-1 mr-1 text-dark">
+                <div className="card-header ">
                   <FaChartLine/>
                     Other graph
                 </div>
                 <div className="card-body">
                   <div >
-              
+                  { loading ?
+                            <BorderSpinner/>
+                            :
+                            list.length === 0 ? 
+                            <p>No Data</p>
+                            :
+                  
                     <RatingChart
                       ydata={list.map(datarr =>
                              datarr.location
@@ -371,6 +413,7 @@ export default class Dashboard extends Component {
                       color={'#749f83'}
                       textchart={'IconBar Chart'}
                     />
+                          }
                   </div>
                 </div>
                 <div className="card-footer small text-muted">
@@ -388,10 +431,16 @@ export default class Dashboard extends Component {
                 <div className="card-body">
                   
                   <div className="row container">
-                    { !hotLocation  ?
+                    { loading ?
 
-                      <center><BorderSpinner/></center>
+                      <BorderSpinner/>
 
+                      :
+                      !hotLocation  ?
+                      
+                      <h3 className="text-dark" >NO DATA</h3>
+                      
+                      
                       :
                     
                     

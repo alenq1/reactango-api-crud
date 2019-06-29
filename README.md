@@ -48,6 +48,8 @@ PD: This app was made for learning purposes still have some styling and function
 
 ## ToDo:
 
-* [ ] Modify to better style
-* [ ] Improve login token security
+* [ ] Create docker-compose files and configs
 * [ ] media images config settings on the backend 
+* [ ] Modify to better style
+* [ ] Improve location page created list
+

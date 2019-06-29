@@ -66,15 +66,16 @@ export default class Modalcont extends Component {
     //getUploadParams = ({ meta }) => { return { url: uploadapi } }
     
     // called every time a file's `status` changes
-    handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file)      
+    handleChangeStatus = ({ meta, file }, status) => { 
+      //console.log(status, meta, file)      
       this.setState({ images: [meta, file] })
-      console.log(this.state.images, 'IMAGENES METIDAS')
+      //console.log(this.state.images, 'IMAGENES METIDAS')
     
     }
     
     // receives array of files that are done uploading when submit button is clicked
     handleSubmitImg = (files, allFiles) => {
-      console.log(files.map(f => f.meta))
+      //console.log(files.map(f => f.meta))
       allFiles.forEach(f => f.remove())
     }
 

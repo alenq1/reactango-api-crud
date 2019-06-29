@@ -2,8 +2,11 @@ import React, { useState, useEffect} from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import FormLoc from '../components/FormLoc'
 import QueryService from '../services/QueryService'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 
+const MySwal = withReactContent(Swal)
 const queryservice = new QueryService()
 
 const style = {
@@ -37,20 +40,29 @@ const ModalLoc = (props) => {
         [event.target.name]: event.target.value
         
       })
-      console.log(fieldloc, "cambios en LOOOOOOOOOOOOOOO")
+      //console.log(fieldloc, "cambios en LOCS")
     }
     const NewLocation = (data) => {
     queryservice.createLocation(data)
         .then( result => {
-          console.log(result, 'CREADO LOCATION')
+          //console.log(result, 'CREADO LOCATION')
            setMessage(...message, 'success')
            props.hide()
+           MySwal.fire(
+            'Location Created Sucessfull!',
+            'Please refresh page or re-enter in the sidebar',
+            'success'
+            )
            //console.log(this.state.locations, 'Locations state con axios')
            
          })
          .catch( error  => {
           console.log(error.message, 'ERORR CREATE LOCATION')
-          setMessage(...message, error.message)
+          MySwal.fire(
+            'Error',
+            error.response.statusText,
+            'error'
+            )
          })
 
         }
@@ -63,7 +75,7 @@ const ModalLoc = (props) => {
       }
       
       
-        //console.log("PISADDOOOO")
+        //console.log("PISADo")
         
   
   

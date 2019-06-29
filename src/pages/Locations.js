@@ -51,7 +51,14 @@ const Locations = (props) => {
 
     async function fetchData(name) {
       
-      await axios.post(`http://localhost:8000/weather_api/`, {location: name})
+      await axios.post(`http://localhost:8000/weather_api/`, {location: name},
+      {
+        headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('tkaccess')}`,
+          'Content-Type': 'application/json'
+          }
+        }
+      )
         .then( result  => {
           showWeather(result.data)
          // console.log(result.data, 'RESULTADO DE WEATHER AS STATE')
@@ -75,7 +82,13 @@ const Locations = (props) => {
             const templocationlist = result.data
              // console.log(templocationlist, "lista temporal")
               for   (let nameimage of templocationlist){
-                await axios.post(`http://localhost:8000/images_api/`, {location: nameimage.name})
+                await axios.post(`http://localhost:8000/images_api/`, {location: nameimage.name}, 
+                  { headers: {
+                            'Authorization': `Bearer ${sessionStorage.getItem('tkaccess')}`,
+                            'Content-Type': 'application/json'
+                              }
+                  }
+                )
                 //await axios.get(``)
                   .then( result  => {
             
@@ -146,7 +159,21 @@ const Locations = (props) => {
           
                 
                 <CardColumns>
-                {    
+                {
+                 !loading && locationList.length === 0 ?
+                 <> 
+                 <p></p>
+                 <center>
+                  <Card>
+                    <Card.Body className="text-dark">
+                   There is not Locations yet, Please add new for start
+                   </Card.Body>
+                   </Card> 
+                   </center>
+                  </>
+                 
+                 :
+                  
                 locationList.map((locations, index) =>
                  <React.Fragment key={index}> 
            

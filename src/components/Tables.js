@@ -34,13 +34,12 @@ const Tables = (props) => {
         :
           images
         }
-          width='360'
-          height='240'
+          width='375'
+          height='250'
           alt=''
       />
       
-      {name}
-        {images}
+      
     </div>
   );
   
@@ -56,11 +55,13 @@ const Tables = (props) => {
             backgroundPosition: `center`,}}
         >
           <tr>
+            
             <th>Preview</th>
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>              
-            <th>Description</th>            
+            <th>Description</th>
+            
             <th>Actions</th>
           </tr>
         </thead>
@@ -78,8 +79,8 @@ const Tables = (props) => {
             
           :
             
-          props.list.map( (product, key) =>
-          <tr key={key}>
+          props.list.map( product =>
+          <tr key={product.id}>
             <OverlayTrigger
                 placement="right-end"
                 delay={{ show: 250, hide: 400 }}
@@ -102,8 +103,8 @@ const Tables = (props) => {
               <td >{product.name}</td>
               <td>{product.quantity}</td>
               <td>{product.price}</td>
-              <td>{product.description}
-              </td>            
+              <td>{product.description}</td>
+              
               <td>
               <Button className="mr-2 " variant="info" onClick={() => 
                 
