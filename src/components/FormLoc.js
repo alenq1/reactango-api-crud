@@ -1,5 +1,7 @@
 import React from 'react'
 import { Form, Col, InputGroup, Button } from 'react-bootstrap';
+import Rating from 'react-rating'
+import {TiStarOutline, TiStarFullOutline} from 'react-icons/ti'
 
 
 const FormLoc = (props) => {
@@ -21,8 +23,19 @@ const FormLoc = (props) => {
                 required
               />
               <Form.Text className="text-muted">
-      
+                  RATING (Temporary Disabled)
               </Form.Text>
+              
+              <Rating 
+                      stop={10}
+                      step={2}
+                      initialRating={0}
+                      emptySymbol={<h3><TiStarOutline/></h3>}
+                      fullSymbol={<h3><TiStarFullOutline/></h3>}
+                      value={props.fieldloc}
+                      
+                    />
+              
           </Form.Group>
 
         </Form>

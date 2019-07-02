@@ -20,50 +20,12 @@ from rest_framework.response import Response
 from rest_framework import status
 import time
 import requests
-########## WARNING!!!!! THIS OPTION MUST BE REPLACED SOON###################
-from django.views.decorators.csrf import csrf_exempt
+
+#from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 weather_api_key = '88bf74f6ac2d0e7a281ab4aa28e64f57'
 images_api_key = '12729179-5d5cbd96245c61e2ec0a81dde'
-googleRecaptcha = { 'server': '6LfxLqcUAAAAAI8h8EgbMpL2M4HN_BchGGvphKvM',
-                    'client': '6LfxLqcUAAAAANc9uTe_k8tQbMVfWv7kQEY30vvV'    
-                  }
-
-class ProductList(LoginRequiredMixin, ListView):
-    model = Product
-    paginate_by = 10
-
-class ProductDetail(LoginRequiredMixin, DetailView):
-    model = Product
-
-class ProductCreate(LoginRequiredMixin, CreateView):
-    login_url = 'login/'
-    model = Product
-    fields = [
-        'name',
-        'location',
-        'quantity',
-        'price',
-        'description'
-        ]
-    success_url = reverse_lazy('app:index')
-
-class ProductUpdate(LoginRequiredMixin, UpdateView):
-    model = Product
-    fields = [
-        'name',
-        'location',
-        'quantity',
-        'price',
-        'description'
-        ]
-    
-
-class ProductDelete(LoginRequiredMixin, DeleteView):
-    model = Product
-    success_url = reverse_lazy('app:index')
-
 
 
 ## API VIEWS
@@ -95,8 +57,8 @@ class ProductViewset(ModelViewSet):
 
 
     def create(self, request): # Here is the new update comes <<<<
-        post_data = request.data
-        print(request.data, "ESTA es la data enviada")
+        #post_data = request.data
+        #print(request.data, "ESTA es la data enviada")
         # do something with post data
         #return HttpResponse(post_data, "return data")
 
@@ -143,27 +105,11 @@ MAX_RETRIES = 2
 class WeatherApi(APIView):
     
     permission_classes = (IsAuthenticated,)
-    # def get(self, request):
-    #     if request:
-    #         print(request.data, "ESTA ES REQUEST DATA")
-    #         attempt_num = 0  # keep track of how many times we've retried
-    #         while attempt_num < MAX_RETRIES:
-    #             r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={request.data}&appid=88bf74f6ac2d0e7a281ab4aa28e64f57&units=metric", timeout=10)
-    #             if r.status_code == 200:
-    #                 data = r.json()
-    #                 return Response(data, status=status.HTTP_200_OK)
-    #             else:
-    #                 attempt_num += 1
-    #             # You can probably use a logger to log the error here
-    #                 time.sleep(5)  # Wait for 5 seconds before re-trying
-    #         return Response({"error": "Request failed"}, status=r.status_code)
-    #     else:
-    #         return Response({"error": "Method not allowed"}, status=status.HTTP_400_BAD_REQUEST)
     
     def post(self, request, *args, **kwargs):
     
         if request:
-            print(request.data['location'], "ESTA ES REQUEST DATA")
+            #print(request.data['location'], "ESTA ES REQUEST DATA")
             attempt_num = 0  # keep track of how many times we've retried
             while attempt_num < MAX_RETRIES:
                 try:
@@ -177,7 +123,7 @@ class WeatherApi(APIView):
                         return Response({"error": "Timeout Request"}, status=status.HTTP_408_REQUEST_TIMEOUT)
 
                 # You can probably use a logger to log the error here
-                time.sleep(3)  # Wait for 5 seconds before re-trying
+                time.sleep(3)  # Wait for 3 seconds before re-trying
             return Response({"error": "Request failed"}, status=r.status_code)
         else:
             return Response({"error": "Method not allowed"}, 
@@ -187,28 +133,11 @@ class ImagesApi(APIView):
     
     
     permission_classes = (IsAuthenticated,)
-    # def get(self, request):
-    #     if request:
-    #         print(request.data['data'], "ESTA ES REQUEST DATA")
-    #         attempt_num = 0  # keep track of how many times we've retried
-    #         while attempt_num < MAX_RETRIES:
-    #             r = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={request.data['data']}&appid=88bf74f6ac2d0e7a281ab4aa28e64f57&units=metric", timeout=10)
-    #             if r.status_code == 200:
-    #                 data = r.json()
-    #                 return Response(data, status=status.HTTP_200_OK)
-    #             else:
-    #                 attempt_num += 1
-    #             # You can probably use a logger to log the error here
-    #                 time.sleep(5)  # Wait for 5 seconds before re-trying
-    #         return Response({"error": "Request failed"}, status=r.status_code)
-    #     else:
-    #         return Response({"error": "Method not allowed"}, 
-    #         status=status.HTTP_400_BAD_REQUEST)
-    #@csrf_exempt
+    
     def post(self, request, *args, **kwargs):
     
         if request:
-            print(request.data['location'], "ESTA ES REQUEST DATA")
+            #print(request.data['location'], "ESTA ES REQUEST DATA")
             attempt_num = 0  # keep track of how many times we've retried
             while attempt_num < MAX_RETRIES:
                 try:
@@ -221,7 +150,7 @@ class ImagesApi(APIView):
                 except requests.exceptions.ConnectionError as error:
                         return Response({"error": "Timeout Request"}, status=status.HTTP_408_REQUEST_TIMEOUT)
                 # You can probably use a logger to log the error here
-                time.sleep(5)  # Wait for 5 seconds before re-trying
+                time.sleep(3)  # Wait for 3 seconds before re-trying
             return Response({"error": "Request failed"}, status=r.status_code)
         else:
             return Response({"error": "Method not allowed"}, 

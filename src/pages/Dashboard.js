@@ -3,20 +3,18 @@ import  Header  from '../layout/Header'
 import * as moment from 'moment';
 import Maps from '../components/Maps'
 import CustomBreadCumb from '../components/CustomBreadCumb'
-import { Modal, Alert, Button, Row, Fade, Spinner, Table } from  'react-bootstrap';
+import { Table } from  'react-bootstrap';
 import { FaPoll, FaFileInvoiceDollar, FaFire, FaMapMarkedAlt, 
           FaTasks, FaChartBar, FaChartPie, FaChartLine } from 'react-icons/fa'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import QueryService from '../services/QueryService';
-import LineChart, {PieChart, CircleChart, RatingChart} from "../components/LineChart";
+import LineChart, { CircleChart, RatingChart} from "../components/LineChart";
 import SideBar from '../components/SideBar';
 import {LoadSpinner, BorderSpinner} from '../components/Spinners';
 
 const queryservice = new QueryService()
 const nameapp = 'Header'
-const footermsg = 'Footer'
-const page = 'List'
 const MySwal = withReactContent(Swal)
 
 const pageStyle = { 
@@ -49,7 +47,7 @@ export default class Dashboard extends Component {
 
   async componentDidMount() {
 
-    const {coord, hotLocation} = this.state
+    //const {coord, hotLocation} = this.state
 
     //console.log("CARGANDO")
     this.setState({ loading: true })
@@ -181,8 +179,8 @@ export default class Dashboard extends Component {
                   <div className="card text-white o-hidden h-75" 
                        style={{
 
-                              background: '#000000',  /* fallback for old browsers */
-                              background: '-webkit-linear-gradient(to top, #0f9b0f, #000000)',  /* Chrome 10-25, Safari 5.1-6 */
+                              /*background: '#000000',  /* fallback for old browsers */
+                              /*background: '-webkit-linear-gradient(to top, #0f9b0f, #000000)',  /* Chrome 10-25, Safari 5.1-6 */
                               background: 'linear-gradient(to top, #0f9b0f, #000000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
                     }}>
@@ -213,8 +211,8 @@ export default class Dashboard extends Component {
                   <div className="card text-white o-hidden h-75"
                        style={{
 
-                              background: '#FFE000',  /* fallback for old browsers */
-                              background: '-webkit-linear-gradient(to top, #799F0C, #FFE000)',  /* Chrome 10-25, Safari 5.1-6 */
+                              /*background: '#FFE000',   fallback for old browsers */
+                              /*background: '-webkit-linear-gradient(to top, #799F0C, #FFE000)',   Chrome 10-25, Safari 5.1-6 */
                               background: 'linear-gradient(to top, #799F0C, #FFE000)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
                     }}>
@@ -248,8 +246,8 @@ export default class Dashboard extends Component {
                   <div className="card text-white o-hidden h-75" 
                        style={{
 
-                        background: '#000046',  /* fallback for old browsers */
-                        background: '-webkit-linear-gradient(to top, #000046, #1cb5e0)',  /* Chrome 10-25, Safari 5.1-6 */
+                        /*background: '#000046',   fallback for old browsers */
+                        /*background: '-webkit-linear-gradient(to top, #000046, #1cb5e0)',  Chrome 10-25, Safari 5.1-6 */
                         background: 'linear-gradient(to top, #000046, #1cb5e0)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
                     }}>
@@ -282,8 +280,8 @@ export default class Dashboard extends Component {
                   <div className="card text-white o-hidden h-75"
                        style={{
 
-                      background: '#c21500',  /* fallback for old browsers */
-                      background: '-webkit-linear-gradient(to top, #c21500, #ffc500)',  /* Chrome 10-25, Safari 5.1-6 */
+                      /*background: '#c21500',   fallback for old browsers */
+                      /*background: '-webkit-linear-gradient(to top, #c21500, #ffc500)',   Chrome 10-25, Safari 5.1-6 */
                       background: 'linear-gradient(to top, #c21500, #ffc500)', /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
                   }}>
@@ -346,7 +344,7 @@ export default class Dashboard extends Component {
                   
                 </div>
                 <div className="card-footer small text-muted">
-                  Updated yesterday at 11:59 PM
+                   
                 </div>
               </div>
 
@@ -381,7 +379,7 @@ export default class Dashboard extends Component {
                   </div>
                 </div>
                 <div className="card-footer small text-muted">
-                  Updated yesterday at 11:59 PM
+                   
                 </div>
               </div>
 
@@ -417,7 +415,7 @@ export default class Dashboard extends Component {
                   </div>
                 </div>
                 <div className="card-footer small text-muted">
-                  Updated yesterday at 11:59 PM
+                   
                 </div>
               </div>
             </div>
@@ -477,7 +475,7 @@ export default class Dashboard extends Component {
                   </div>
                 </div>
                 <div className="card-footer small text-muted">
-                  Updated yesterday at 11:59 PM
+                   
                 </div>
               </div>
             </div>

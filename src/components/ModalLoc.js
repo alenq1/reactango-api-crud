@@ -27,61 +27,14 @@ const stylein = {
 
 const ModalLoc = (props) => {
 
-    const[fieldloc, handlelistLoc] = useState({});
-    const[message, setMessage] = useState('')
-    const[data, sendData] = useState({})
+
 
     
 
-    const handleChange = (event) => {
-      
-      handlelistLoc({...fieldloc, 
-        
-        [event.target.name]: event.target.value
-        
-      })
-      //console.log(fieldloc, "cambios en LOCS")
-    }
-    const NewLocation = (data) => {
-    queryservice.createLocation(data)
-        .then( result => {
-          //console.log(result, 'CREADO LOCATION')
-           setMessage(...message, 'success')
-           props.hide()
-           MySwal.fire(
-            'Location Created Sucessfull!',
-            'Please refresh page or re-enter in the sidebar',
-            'success'
-            )
-           //console.log(this.state.locations, 'Locations state con axios')
-           
-         })
-         .catch( error  => {
-          console.log(error.message, 'ERORR CREATE LOCATION')
-          MySwal.fire(
-            'Error',
-            error.response.statusText,
-            'error'
-            )
-         })
-
-        }
+    
 
 
-    useEffect(() => {
-
-      if (fieldloc == null || fieldloc === '') {
-        return;
-      }
-      
-      
-        //console.log("PISADo")
-        
-  
-  
-      
-
-    }, [data])
+    
 
     
 
@@ -96,15 +49,15 @@ const ModalLoc = (props) => {
         
           
           <FormLoc 
-          fields={fieldloc}
-          handleChange={handleChange}
+          fields={props.fieldloc}
+          handleChange={props.handleChange}
           name="name"
           />
         
         
         </Modal.Body>
         <Modal.Footer style={style}>
-        <Button variant="success" onClick={() => NewLocation(fieldloc)}>Add</Button>
+        <Button variant="success" onClick={() => props.NewLocation(props.fieldloc)}>Add</Button>
         <Button variant="info" onClick={props.hide}>Back</Button>
         </Modal.Footer>
 

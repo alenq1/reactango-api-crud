@@ -8,17 +8,15 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import CustomBreadCumb from '../components/CustomBreadCumb'
-import {LoadSpinner, BorderSpinner} from '../components/Spinners'
+import { BorderSpinner} from '../components/Spinners'
 import { FaRegPlusSquare } from 'react-icons/fa'
 import { 
-          Card, CardColumns, CardDeck, CardGroup, 
-          Spinner, Row, Button, Modal, OverlayTrigger, Tooltip 
+          Card, CardColumns, Row, Button, OverlayTrigger, Tooltip 
         
         } from 'react-bootstrap'
 import { 
         TiStarFullOutline, TiStarOutline, TiWeatherCloudy, TiWeatherSunny,
-        TiWeatherDownpour, TiWeatherNight, TiWeatherPartlySunny, TiWeatherShower,
-        TiWeatherSnow, TiWeatherStormy, TiWeatherWindyCloudy, TiWeatherWindy
+        TiWeatherDownpour, TiWeatherShower, TiWeatherSnow, TiWeatherStormy, 
 
       } from 'react-icons/ti'
 
@@ -44,6 +42,9 @@ const Locations = (props) => {
     const[error, showError] = useState('')
     const images = []
     const[imagesList, setImages] = useState([])
+    const[fieldloc, handlelistLoc] = useState({});
+    const[message, setMessage] = useState('')
+    const[data, sendData] = useState({})
 
     const { validated } = 'false';
     const style = {
@@ -51,7 +52,7 @@ const Locations = (props) => {
         width: '200px'
         }
 
-    async function fetchData(name) {
+    async function fetchWeather(name) {
       
       await axios.post(weatherApiUrl, {location: name},
       {
@@ -72,7 +73,8 @@ const Locations = (props) => {
         })
           
     }
-    
+
+        
     useEffect(() => {
       isLoading(true)
         //console.log(props.fields.location) 
@@ -98,7 +100,7 @@ const Locations = (props) => {
                     //console.log(result.data.hits[0].largeImageURL, 'RESULTADO DE IMAGEN PIXABAY AS STATE')
                     
                     //choose only one from ramdom picture result array
-                    images.push(result.data.hits[Math.floor(Math.random() * 4)].largeImageURL)
+                    images.push(result.data.hits[Math.floor(Math.random() * 4)].webformatURL)
                   // console.log(images, 'IMAGEN YA GUARDADAS PARa PRESENTAR')
                   })
                   .catch(error => {
@@ -117,7 +119,7 @@ const Locations = (props) => {
         
         
       }      
-     // locationList.map(xxx => fetchData(xxx.name),
+     // locationList.map(xxx => fetchWeather(xxx.name),
      // console.log(xxx.name, 'no hace')
      // )
     //console.log('It got rendered')    
@@ -133,6 +135,46 @@ const Locations = (props) => {
         SelectedLoc(name)
     }
 
+    const handleChange = (event) => {
+      
+      handlelistLoc({...fieldloc, 
+        
+        [event.target.name]: event.target.value
+        
+      })
+      //console.log(fieldloc, "cambios en LOCS")
+    }
+    
+    
+    const NewLocation = (newdata) => {
+    queryservice.createLocation(newdata)
+        .then( result => {
+          //console.log(result, 'CREADO LOCATION')
+           setMessage(...message, 'success')
+           Showed()
+           getLocs([...locationList, result.data])
+           MySwal.fire(
+            'Location Created Sucessfull!',
+            '',
+            'success'
+            )
+           //console.log(this.state.locations, 'Locations state con axios')
+           
+         })
+         .catch( error  => {
+          console.log(error.message, 'ERORR CREATE LOCATION')
+          MySwal.fire(
+            'Error',
+            error.response.statusText,
+            'error'
+            )
+         })
+
+        }
+
+
+
+
     /////////////////////////const {main:{temp} , weather:[{main}]} = weather
 
     return (
@@ -146,6 +188,9 @@ const Locations = (props) => {
                 <ModalLoc
                   showed={modalshow}
                   hide={Showed}
+                  NewLocation={NewLocation}
+                  handleChange={handleChange}
+                  fieldloc={fieldloc}
                 />
                 <Row className="m-1">
                   <CustomBreadCumb
@@ -183,7 +228,7 @@ const Locations = (props) => {
                     <Card.Body 
                       className="h-100 color-black " 
                       onClick={() =>
-                        fetchData(locations.name) 
+                        fetchWeather(locations.name) 
                               }
                       onMouseOut={() => 
                         showWeather({main:{} , weather:[{}]})
@@ -233,8 +278,9 @@ const Locations = (props) => {
                     
                       src={                          
                           imagesList.length > 0 ? 
-                          imagesList[index] 
-                          : require('../layout/img/site/no-image-available-icon-6.jpg')
+                          imagesList[index]
+                          : 
+                          require('../layout/img/site/no-image-available-icon-6.jpg')
                           }
 
                     
